@@ -22,6 +22,9 @@
 		FB5EC8BB18C290A100AAA8AE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5EC89F18C290A100AAA8AE /* CoreData.framework */; };
 		FB5EC8C318C290A100AAA8AE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB5EC8C118C290A100AAA8AE /* InfoPlist.strings */; };
 		FB5EC8C518C290A100AAA8AE /* CanIMakeItTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5EC8C418C290A100AAA8AE /* CanIMakeItTests.m */; };
+		FB5EC8CF18C2919500AAA8AE /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB5EC8CE18C2919500AAA8AE /* main.storyboard */; };
+		FB5EC8D218C2927000AAA8AE /* TripProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5EC8D118C2927000AAA8AE /* TripProfileViewController.m */; };
+		FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5EC8D418C292FD00AAA8AE /* MyTripViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,11 @@
 		FB5EC8C018C290A100AAA8AE /* CanIMakeItTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CanIMakeItTests-Info.plist"; sourceTree = "<group>"; };
 		FB5EC8C218C290A100AAA8AE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FB5EC8C418C290A100AAA8AE /* CanIMakeItTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanIMakeItTests.m; sourceTree = "<group>"; };
+		FB5EC8CE18C2919500AAA8AE /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = main.storyboard; sourceTree = "<group>"; };
+		FB5EC8D018C2927000AAA8AE /* TripProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripProfileViewController.h; sourceTree = "<group>"; };
+		FB5EC8D118C2927000AAA8AE /* TripProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripProfileViewController.m; sourceTree = "<group>"; };
+		FB5EC8D318C292FD00AAA8AE /* MyTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTripViewController.h; sourceTree = "<group>"; };
+		FB5EC8D418C292FD00AAA8AE /* MyTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTripViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +125,11 @@
 			children = (
 				FB5EC8AA18C290A100AAA8AE /* AppDelegate.h */,
 				FB5EC8AB18C290A100AAA8AE /* AppDelegate.m */,
+				FB5EC8CE18C2919500AAA8AE /* main.storyboard */,
+				FB5EC8D318C292FD00AAA8AE /* MyTripViewController.h */,
+				FB5EC8D418C292FD00AAA8AE /* MyTripViewController.m */,
+				FB5EC8D018C2927000AAA8AE /* TripProfileViewController.h */,
+				FB5EC8D118C2927000AAA8AE /* TripProfileViewController.m */,
 				FB5EC8B018C290A100AAA8AE /* Images.xcassets */,
 				FB5EC8AD18C290A100AAA8AE /* CanIMakeIt.xcdatamodeld */,
 				FB5EC8A218C290A100AAA8AE /* Supporting Files */,
@@ -229,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB5EC8A618C290A100AAA8AE /* InfoPlist.strings in Resources */,
+				FB5EC8CF18C2919500AAA8AE /* main.storyboard in Resources */,
 				FB5EC8B118C290A100AAA8AE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +263,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB5EC8AC18C290A100AAA8AE /* AppDelegate.m in Sources */,
+				FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */,
+				FB5EC8D218C2927000AAA8AE /* TripProfileViewController.m in Sources */,
 				FB5EC8A818C290A100AAA8AE /* main.m in Sources */,
 				FB5EC8AF18C290A100AAA8AE /* CanIMakeIt.xcdatamodeld in Sources */,
 			);
