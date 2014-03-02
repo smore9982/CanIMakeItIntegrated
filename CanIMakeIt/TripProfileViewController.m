@@ -29,14 +29,14 @@
 }
 
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
+//- (id)initWithStyle:(UITableViewStyle)style
+//{
+ //   self = [super initWithStyle:style];
+  //  if (self) {
         // Custom initialization
-    }
-    return self;
-}
+  //  }
+   // return self;
+//}
 
 - (void)viewDidLoad
 {
@@ -85,7 +85,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
@@ -97,6 +97,7 @@
     return cell;
 }
 
+//#pragma mark - Navigation
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"updateTrips"])
@@ -107,28 +108,41 @@
     }
 }
 
-/*
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
+
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        //Delete object from database
+        [context deleteObject:[self.tripArray objectAtIndex:indexPath.row]];
+        
+        NSError *error = nil;
+        if(![context save:&error])
+        {
+            NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+            return;
+        }
+        
         // Delete the row from the data source
+        [self.tripArray removeObjectAtIndex:indexPath.row];
+        //Delete row from table view
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -146,16 +160,5 @@
 }
 */
 
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
 
 @end

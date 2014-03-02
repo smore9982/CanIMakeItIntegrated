@@ -13,7 +13,9 @@
 @property (strong, nonatomic) IBOutlet UITextField *fromStation;
 @property (strong, nonatomic) IBOutlet UITextField *toStation;
 @property (strong, nonatomic) IBOutlet UITextField *startTime;
+
 @property (strong, nonatomic) IBOutlet UITextField *tripTime;
+
 
 - (IBAction)SaveTripButton:(id)sender;
 
