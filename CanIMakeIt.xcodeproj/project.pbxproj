@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8BD137B318CB8D6F0089FD4D /* SplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B218CB8D6F0089FD4D /* SplashScreenViewController.m */; };
+		8BD137B618CB8FBC0089FD4D /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */; };
+		8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B818CB97CD0089FD4D /* TimerViewController.m */; };
 		FB5EC89A18C290A100AAA8AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5EC89918C290A100AAA8AE /* Foundation.framework */; };
 		FB5EC89C18C290A100AAA8AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5EC89B18C290A100AAA8AE /* CoreGraphics.framework */; };
 		FB5EC89E18C290A100AAA8AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5EC89D18C290A100AAA8AE /* UIKit.framework */; };
@@ -38,6 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8BD137B118CB8D6F0089FD4D /* SplashScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreenViewController.h; sourceTree = "<group>"; };
+		8BD137B218CB8D6F0089FD4D /* SplashScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashScreenViewController.m; sourceTree = "<group>"; };
+		8BD137B418CB8FBC0089FD4D /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		8BD137B718CB97CD0089FD4D /* TimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerViewController.h; sourceTree = "<group>"; };
+		8BD137B818CB97CD0089FD4D /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
 		FB5EC89618C290A100AAA8AE /* CanIMakeIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CanIMakeIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB5EC89918C290A100AAA8AE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FB5EC89B18C290A100AAA8AE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -126,6 +135,8 @@
 				FB5EC8AA18C290A100AAA8AE /* AppDelegate.h */,
 				FB5EC8AB18C290A100AAA8AE /* AppDelegate.m */,
 				FB5EC8CE18C2919500AAA8AE /* main.storyboard */,
+				8BD137B118CB8D6F0089FD4D /* SplashScreenViewController.h */,
+				8BD137B218CB8D6F0089FD4D /* SplashScreenViewController.m */,
 				FB5EC8D318C292FD00AAA8AE /* MyTripViewController.h */,
 				FB5EC8D418C292FD00AAA8AE /* MyTripViewController.m */,
 				FB5EC8D018C2927000AAA8AE /* TripProfileViewController.h */,
@@ -133,6 +144,10 @@
 				FB5EC8B018C290A100AAA8AE /* Images.xcassets */,
 				FB5EC8AD18C290A100AAA8AE /* CanIMakeIt.xcdatamodeld */,
 				FB5EC8A218C290A100AAA8AE /* Supporting Files */,
+				8BD137B418CB8FBC0089FD4D /* WelcomeViewController.h */,
+				8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */,
+				8BD137B718CB97CD0089FD4D /* TimerViewController.h */,
+				8BD137B818CB97CD0089FD4D /* TimerViewController.m */,
 			);
 			path = CanIMakeIt;
 			sourceTree = "<group>";
@@ -262,11 +277,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */,
 				FB5EC8AC18C290A100AAA8AE /* AppDelegate.m in Sources */,
 				FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */,
 				FB5EC8D218C2927000AAA8AE /* TripProfileViewController.m in Sources */,
 				FB5EC8A818C290A100AAA8AE /* main.m in Sources */,
 				FB5EC8AF18C290A100AAA8AE /* CanIMakeIt.xcdatamodeld in Sources */,
+				8BD137B618CB8FBC0089FD4D /* WelcomeViewController.m in Sources */,
+				8BD137B318CB8D6F0089FD4D /* SplashScreenViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +485,7 @@
 				FB5EC8CA18C290A100AAA8AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FB5EC8CB18C290A100AAA8AE /* Build configuration list for PBXNativeTarget "CanIMakeItTests" */ = {
 			isa = XCConfigurationList;
@@ -475,6 +494,7 @@
 				FB5EC8CD18C290A100AAA8AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -51,6 +51,12 @@
     [self saveContext];
 }
 
+- (void)application:(UIApplication *)application
+didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSLog(@"receive notification");
+}
+
 - (void)saveContext
 {
     NSError *error = nil;

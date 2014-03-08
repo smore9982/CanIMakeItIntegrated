@@ -16,6 +16,9 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property NSInteger counter;
+@property (strong, nonatomic) NSTimer *t;
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
