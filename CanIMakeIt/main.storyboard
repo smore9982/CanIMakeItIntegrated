@@ -14,7 +14,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="WNE-gD-1mm" detailTextLabel="TfA-9Q-wny" style="IBUITableViewCellStyleValue1" id="vUB-Gb-OcP">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vUB-Gb-OcP" id="cFk-2R-6W8">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -96,7 +96,7 @@
                                 </state>
                                 <connections>
                                     <action selector="Stop:" destination="wgn-fh-rXW" eventType="touchUpInside" id="lR0-tg-WKG"/>
-                                    <segue destination="sbG-mG-2qb" kind="modal" id="XCs-jC-XZ6"/>
+                                    <segue destination="uPO-c7-cy4" kind="modal" id="oNh-6C-rnZ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TbZ-fP-vWg">
@@ -116,7 +116,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6gb-ES-vxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2141" y="1244"/>
+            <point key="canvasLocation" x="1606" y="1496"/>
         </scene>
         <!--My Trip View Controller-->
         <scene sceneID="vCn-Gn-5Mn">
@@ -222,9 +222,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xf8-nA-enH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2149" y="63"/>
+            <point key="canvasLocation" x="2221" y="480"/>
         </scene>
-        <!--Welcome View Controller - Title-->
+        <!--Welcome View Controller - Welcome-->
         <scene sceneID="3d4-Ob-N1B">
             <objects>
                 <viewController id="WEi-zd-31J" customClass="WelcomeViewController" sceneMemberID="viewController">
@@ -236,9 +236,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Welcome" translatesAutoresizingMaskIntoConstraints="NO" id="9tN-lC-sc3">
-                                <rect key="frame" x="0.0" y="116" width="320" height="189"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Can I Make It?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVr-Lc-pDy">
+                                <rect key="frame" x="104" y="78" width="112" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Welcome to Can I Make It? This app will help you determine if you have the time to make the next departing train." translatesAutoresizingMaskIntoConstraints="NO" id="PCW-4Z-c4T">
+                                <rect key="frame" x="20" y="237" width="280" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -246,7 +253,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="sMO-4a-hVo">
+                    <navigationItem key="navigationItem" title="Welcome" id="sMO-4a-hVo">
                         <barButtonItem key="rightBarButtonItem" title="Start" id="CwA-UE-70o">
                             <connections>
                                 <segue destination="uPO-c7-cy4" kind="modal" modalTransitionStyle="coverVertical" id="8MO-vw-P09"/>
@@ -274,7 +281,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9tm-eY-qbe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1122" y="475"/>
+            <point key="canvasLocation" x="1210" y="475"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WB8-tC-ySj">
@@ -305,15 +312,6 @@
                     <view key="view" contentMode="scaleToFill" id="iav-up-dZC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="This is the splash screen." translatesAutoresizingMaskIntoConstraints="NO" id="DGZ-IU-XwF">
-                                <rect key="frame" x="0.0" y="72" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
@@ -333,8 +331,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="8MO-vw-P09"/>
         <segue reference="xtc-AN-PFk"/>
-        <segue reference="XCs-jC-XZ6"/>
-        <segue reference="QpA-BK-GbL"/>
     </inferredMetricsTieBreakers>
 </document>

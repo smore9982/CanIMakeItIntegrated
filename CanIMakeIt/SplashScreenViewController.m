@@ -37,11 +37,13 @@
 - (BOOL) isFirstLaunch
 {
     //Check UserData check if this is a first launch.
-    return false;
+    return true;
 }
 
 -(BOOL) isTimerRunning{
-    return true;
+    
+    // Check if the tmer is running or if we are after the default trip time.
+    return false;
 }
 
 @end
