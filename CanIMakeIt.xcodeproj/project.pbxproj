@@ -10,6 +10,7 @@
 		8BD137B318CB8D6F0089FD4D /* SplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B218CB8D6F0089FD4D /* SplashScreenViewController.m */; };
 		8BD137B618CB8FBC0089FD4D /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */; };
 		8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B818CB97CD0089FD4D /* TimerViewController.m */; };
+		8BD137BC18CBCEB30089FD4D /* DataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137BB18CBCEB30089FD4D /* DataHelper.m */; };
 		FB5EC89A18C290A100AAA8AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5EC89918C290A100AAA8AE /* Foundation.framework */; };
 		FB5EC89C18C290A100AAA8AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5EC89B18C290A100AAA8AE /* CoreGraphics.framework */; };
 		FB5EC89E18C290A100AAA8AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5EC89D18C290A100AAA8AE /* UIKit.framework */; };
@@ -47,6 +48,8 @@
 		8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		8BD137B718CB97CD0089FD4D /* TimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerViewController.h; sourceTree = "<group>"; };
 		8BD137B818CB97CD0089FD4D /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
+		8BD137BA18CBCEB30089FD4D /* DataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHelper.h; sourceTree = "<group>"; };
+		8BD137BB18CBCEB30089FD4D /* DataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHelper.m; sourceTree = "<group>"; };
 		FB5EC89618C290A100AAA8AE /* CanIMakeIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CanIMakeIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB5EC89918C290A100AAA8AE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FB5EC89B18C290A100AAA8AE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -148,6 +151,8 @@
 				8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */,
 				8BD137B718CB97CD0089FD4D /* TimerViewController.h */,
 				8BD137B818CB97CD0089FD4D /* TimerViewController.m */,
+				8BD137BA18CBCEB30089FD4D /* DataHelper.h */,
+				8BD137BB18CBCEB30089FD4D /* DataHelper.m */,
 			);
 			path = CanIMakeIt;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BD137BC18CBCEB30089FD4D /* DataHelper.m in Sources */,
 				8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */,
 				FB5EC8AC18C290A100AAA8AE /* AppDelegate.m in Sources */,
 				FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */,

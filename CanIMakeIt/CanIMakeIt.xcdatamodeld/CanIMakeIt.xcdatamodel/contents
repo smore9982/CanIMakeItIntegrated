@@ -6,7 +6,12 @@
         <attribute name="toStation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tripTime" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="UserData" syncable="YES">
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Trips" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Trips" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="UserData" positionX="7" positionY="162" width="128" height="75"/>
     </elements>
 </model>

@@ -7,11 +7,18 @@
 //
 
 #import "SplashScreenViewController.h"
+#import "DataHelper.h"
+
+@interface SplashScreenViewController ()
+@property DataHelper* dataHelper;
+@end
+
 @implementation SplashScreenViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.dataHelper = [[DataHelper alloc] init];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -19,7 +26,8 @@
     [super viewDidAppear:animated];
     
     
-    if([self isFirstLaunch]){
+    if([self.dataHelper isFirstLaunch]){
+        [self.dataHelper setFirstLaunch:true];
         [self performSegueWithIdentifier:@"SplashToWelcomeSegue" sender:self];
         return;
     }
@@ -34,16 +42,9 @@
     
 }
 
-- (BOOL) isFirstLaunch
-{
-    //Check UserData check if this is a first launch.
-    return true;
-}
-
 -(BOOL) isTimerRunning{
-    
-    // Check if the tmer is running or if we are after the default trip time.
     return false;
 }
+
 
 @end
