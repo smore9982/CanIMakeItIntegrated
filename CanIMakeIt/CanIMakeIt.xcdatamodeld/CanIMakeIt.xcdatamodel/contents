@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DepartureTimes" syncable="YES">
+        <attribute name="departureDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="departureStopId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="departureTimes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="destinationStopId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Trips" syncable="YES">
         <attribute name="fromStation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startTime" optional="YES" attributeType="String" syncable="YES"/>
@@ -11,7 +17,8 @@
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Trips" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="UserData" positionX="7" positionY="162" width="128" height="75"/>
+        <element name="Trips" positionX="0" positionY="0" width="128" height="103"/>
+        <element name="UserData" positionX="-2" positionY="141" width="128" height="75"/>
+        <element name="DepartureTimes" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

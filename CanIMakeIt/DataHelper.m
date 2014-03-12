@@ -87,5 +87,10 @@
     return [self saveUserData:@"isFirstLaunch" withValue:@"true"];
 }
 
+- (NSArray*) getDepartureTimes{    
+    return nil;
+}
+
+
 
 @end
