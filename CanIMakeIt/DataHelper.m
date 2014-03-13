@@ -7,6 +7,7 @@
 //
 
 #import "DataHelper.h"
+#import "Utility.h"
 
 @implementation DataHelper
 - (id) init {
@@ -63,8 +64,6 @@
     [userData setValue:value forKey:@"value"];
     
     NSError *error = nil;
-    //Save the object to persistent store
-    
     if( ![managedObjectContext save:&error] )
     {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
@@ -91,6 +90,71 @@
     return nil;
 }
 
+
+
+
+- (void) getTripDepartureTimesWithDepartureId : (NSString*) departureID DestionstionID :(NSString*) destinationId completion:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock{
+    
+    //Url of web service.
+    NSString* hostName = @"http://ec2-54-85-36-246.compute-1.amazonaws.com:8080/CanIMakeWebService/";
+    NSString* urlStr = [NSString stringWithFormat:@"%@/GetDepartureTimes?fromStationID=%@&toStationID=%@",hostName,departureID,destinationId];
+    NSURL *url= [NSURL URLWithString:urlStr];
+    
+    NSURLRequest *request=[NSURLRequest requestWithURL:url];
+
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if(connectionError != nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(@"");
+            });
+        }else{
+            NSError* error;
+            NSArray* departuresArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            //Iterate over array and parse json data
+            NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+            for(int i=0;i<[departuresArray count];i++){
+                //Each array object can be put into NSDictionary.
+                NSDictionary* departureData = [departuresArray objectAtIndex:i];
+                NSString* departureId = [departureData valueForKey:@"departureStopId"];
+                NSString* destinationId = [departureData valueForKey:@"destinationStopId"];
+                NSString* departureDateStr = [departureData valueForKey:@"departureDate"];
+                NSDate* date = [Utility stringToDateConversion:departureDateStr withFormat:@"yyyy-MM-dd"];
+                NSArray* departureTimes = [departureData valueForKey:@"departureTimes"];
+                
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"DepartureTimes"];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat: @"departureStopId = %@ AND destinationStopId = %@ AND departureDate =%@",departureId,destinationId,date];
+                [fetchRequest setPredicate:predicate];
+                NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+                
+                if(array.count > 0){
+                    NSLog(@"Found Value. Update");
+                    NSManagedObject* value = [array objectAtIndex:0];
+                    [value setValue:departureId forKey:@"departureStopId"];
+                    [value setValue:destinationId forKey:@"destinationStopId"];
+                    [value setValue:date forKey:@"departureDate"];
+                    [value setValue:departureTimes forKey:@"departureTimes"];
+
+                }else{
+                    NSLog(@"Did not find value. Insert");
+                    NSManagedObject *newDeparture = [NSEntityDescription insertNewObjectForEntityForName:@"DepartureTimes" inManagedObjectContext:managedObjectContext];
+                    [newDeparture setValue:departureId forKey:@"departureStopId"];
+                    [newDeparture setValue:destinationId forKey:@"destinationStopId"];
+                    [newDeparture setValue:date forKey:@"departureDate"];
+                    [newDeparture setValue:departureTimes forKey:@"departureTimes"];
+                }
+                
+                [managedObjectContext save:&error];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSString *responeStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                completionBlock(@"");
+            });
+        }
+    }];
+    
+
+}
 
 
 @end

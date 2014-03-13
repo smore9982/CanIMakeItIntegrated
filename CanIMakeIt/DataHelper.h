@@ -13,4 +13,5 @@
 - (BOOL) saveUserData : (NSString*) key withValue: (NSString*) value;
 - (BOOL) isFirstLaunch;
 - (BOOL) setFirstLaunch : (BOOL) isFirstLaunch;
+- (void) getTripDepartureTimesWithDepartureId : (NSString*) departureID DestionstionID :(NSString*) destinationId completion:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock;
 @end
