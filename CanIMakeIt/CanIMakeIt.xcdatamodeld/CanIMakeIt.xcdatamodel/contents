@@ -3,8 +3,15 @@
     <entity name="DepartureTimes" syncable="YES">
         <attribute name="departureDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="departureStopId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="departureTimes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="departureTimes" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="destinationStopId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Stops" syncable="YES">
+        <attribute name="stopId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stopLat" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stopLine" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stopLon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stopName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Trips" syncable="YES">
         <attribute name="fromStation" optional="YES" attributeType="String" syncable="YES"/>
@@ -17,8 +24,9 @@
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Trips" positionX="0" positionY="0" width="128" height="103"/>
-        <element name="UserData" positionX="-2" positionY="141" width="128" height="75"/>
         <element name="DepartureTimes" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Trips" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UserData" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Stops" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
