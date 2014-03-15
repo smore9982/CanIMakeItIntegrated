@@ -288,8 +288,8 @@
     
     
     //Get default trip.
-    NSUrl* url = [NSURL URLWithString:objectUrl];
-    NSManagedObjectID* tripId = [[managedObjectContext persistentStoreCoordinator]managedObjectIDForURIRepresentation:url];
+    NSURL* objectqeqerq = [NSURL URLWithString:objectUrl];
+    NSManagedObjectID* tripId = [[managedObjectContext persistentStoreCoordinator]managedObjectIDForURIRepresentation:objectqeqerq];
     NSManagedObject* tripData = [managedObjectContext objectWithID:tripId];
     if(tripData == nil){
         return nil;
