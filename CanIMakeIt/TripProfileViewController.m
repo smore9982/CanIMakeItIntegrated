@@ -8,6 +8,8 @@
 
 #import "TripProfileViewController.h"
 #import "MyTripViewController.h"
+#import "TripDetailViewController.h"
+#import "DataHelper.h"
 
 @interface TripProfileViewController ()
 
@@ -94,9 +96,43 @@
     
     [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@",[device valueForKey:@"fromStation"], [device valueForKey:@"toStation"]]];
     
+    //Trip Detail disclosure
+    cell.accessoryType = UITableViewCellAccessoryDetailButton;
+    
+    //Below code checks for the default trip id, and sets the checkmark appropriately.
+    NSManagedObjectID *tripurl = [device objectID];
+    //Gets the object ID that uniquely identifies a row in table - Trips
+    NSURL *objecturl = [tripurl URIRepresentation];
+    NSString *retrievedObjectUrlString = [objecturl absoluteString];
+    
+    DataHelper *getTripIDHelper = [[DataHelper alloc] init];
+    NSString *savedDefaultTripID = [getTripIDHelper getUserData:@"defaultTripID"];
+    
+    
+    NSLog(@"def id -%@, tripid - %@", savedDefaultTripID, retrievedObjectUrlString);
+        
+    if(![retrievedObjectUrlString compare:savedDefaultTripID])
+    {
+        NSLog(@"inside check");
+        cell.imageView.image = [UIImage imageNamed:@"right2-25.png"];
+    }
+    
     
     return cell;
 }
+
+-(void) tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    
+    TripDetailViewController *destViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"TripDetailViewController"];
+    
+    NSManagedObject *selectedDevice = [self.tripArray objectAtIndex:indexPath.row];
+    destViewController.contactdb = selectedDevice;
+    
+    
+    [self presentViewController:destViewController animated:YES completion:nil];
+}
+
 
 //#pragma mark - Navigation
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -144,6 +180,10 @@
     
 }
 
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue
+{
+    [self.tableView reloadData];
+}
 
 /*
 // Override to support rearranging the table view.
