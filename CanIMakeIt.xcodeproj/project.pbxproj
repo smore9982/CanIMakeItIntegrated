@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B7451C118D4BE62002ED7A0 /* TripProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */; };
+		8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7451C318D4CDBA002ED7A0 /* StopModel.m */; };
 		8B74541618D149E200EB308E /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B74541518D149E200EB308E /* Utility.m */; };
 		8BD137B318CB8D6F0089FD4D /* SplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B218CB8D6F0089FD4D /* SplashScreenViewController.m */; };
 		8BD137B618CB8FBC0089FD4D /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */; };
@@ -30,7 +32,6 @@
 		FB5EC8CF18C2919500AAA8AE /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB5EC8CE18C2919500AAA8AE /* main.storyboard */; };
 		FB5EC8D218C2927000AAA8AE /* TripProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5EC8D118C2927000AAA8AE /* TripProfileViewController.m */; };
 		FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5EC8D418C292FD00AAA8AE /* MyTripViewController.m */; };
-		FB6A17A518D4B657001F0E8B /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6A17A418D4B657001F0E8B /* Utility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B7451BF18D4BE62002ED7A0 /* TripProfileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripProfileModel.h; sourceTree = "<group>"; };
+		8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripProfileModel.m; sourceTree = "<group>"; };
+		8B7451C218D4CDBA002ED7A0 /* StopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopModel.h; sourceTree = "<group>"; };
+		8B7451C318D4CDBA002ED7A0 /* StopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopModel.m; sourceTree = "<group>"; };
 		8B74541418D149E100EB308E /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		8B74541518D149E200EB308E /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		8BD137B118CB8D6F0089FD4D /* SplashScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreenViewController.h; sourceTree = "<group>"; };
@@ -141,6 +146,8 @@
 		FB5EC8A118C290A100AAA8AE /* CanIMakeIt */ = {
 			isa = PBXGroup;
 			children = (
+				8B7451C218D4CDBA002ED7A0 /* StopModel.h */,
+				8B7451C318D4CDBA002ED7A0 /* StopModel.m */,
 				FB6A17A318D4B657001F0E8B /* Utility.h */,
 				FB6A17A418D4B657001F0E8B /* Utility.m */,
 				FB5EC8AA18C290A100AAA8AE /* AppDelegate.h */,
@@ -163,6 +170,8 @@
 				8BD137BB18CBCEB30089FD4D /* DataHelper.m */,
 				8B74541418D149E100EB308E /* Utility.h */,
 				8B74541518D149E200EB308E /* Utility.m */,
+				8B7451BF18D4BE62002ED7A0 /* TripProfileModel.h */,
+				8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */,
 			);
 			path = CanIMakeIt;
 			sourceTree = "<group>";
@@ -293,8 +302,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BD137BC18CBCEB30089FD4D /* DataHelper.m in Sources */,
+				8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */,
 				8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */,
 				8B74541618D149E200EB308E /* Utility.m in Sources */,
+				8B7451C118D4BE62002ED7A0 /* TripProfileModel.m in Sources */,
 				FB5EC8AC18C290A100AAA8AE /* AppDelegate.m in Sources */,
 				FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */,
 				FB5EC8D218C2927000AAA8AE /* TripProfileViewController.m in Sources */,

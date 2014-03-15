@@ -24,9 +24,9 @@
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DepartureTimes" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Stops" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Trips" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserData" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="DepartureTimes" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="Stops" positionX="-306" positionY="393" width="128" height="118"/>
+        <element name="Trips" positionX="54" positionY="405" width="164" height="103"/>
+        <element name="UserData" positionX="-378" positionY="-153" width="128" height="73"/>
     </elements>
 </model>
