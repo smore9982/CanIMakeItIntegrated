@@ -25,10 +25,15 @@
 {
     [super viewDidAppear:animated];
     
-    
     if([self.dataHelper isFirstLaunch]){
-        [self.dataHelper setFirstLaunch:true];
-        [self performSegueWithIdentifier:@"SplashToWelcomeSegue" sender:self];
+        [self.dataHelper loadStops:^(NSString* str){
+            [self.dataHelper setFirstLaunch:true];
+            [self performSegueWithIdentifier:@"SplashToWelcomeSegue" sender:self];
+            return;
+        }error:^(NSString * str) {
+            NSLog(@"Inside Completion Handler");
+            return;
+        }];
         return;
     }
     
@@ -45,6 +50,8 @@
 -(BOOL) isTimerRunning{
     return false;
 }
+
+
 
 
 @end
