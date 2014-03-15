@@ -8,22 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyTripViewController : UIViewController
+@interface MyTripViewController : UIViewController <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UITextField *fromStation;
 @property (strong, nonatomic) IBOutlet UITextField *toStation;
-@property (strong, nonatomic) IBOutlet UITextField *startTime;
-
+@property (strong, nonatomic) IBOutlet UIPickerView *startTimePicker;
 @property (strong, nonatomic) IBOutlet UITextField *tripTime;
 
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *saveTripButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 
-- (IBAction)SaveTripButton:(id)sender;
-
-
-
-- (IBAction)backButton:(id)sender;
 
 @property (strong) NSManagedObject *contactdb;
-
 
 @end

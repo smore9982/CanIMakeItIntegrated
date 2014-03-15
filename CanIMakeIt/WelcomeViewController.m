@@ -29,15 +29,15 @@
 {
     [super viewDidLoad];
     self.dataHelper = [[DataHelper alloc] init];
-    [self.dataHelper saveTripDepartureTimesWithDepartureId:@"8" DestionstionID:@"55"
-    completion:^(NSString* str){
-        [self.welcomeText setText:@"IT WOOOORRRKRKRKKRR"];
-        return;
-    }
-    error:^(NSString * str) {
-        NSLog(@"Inside Completion Handler");
-        return;
-    }];
+    //[self.dataHelper saveTripDepartureTimesWithDepartureId:@"8" DestionstionID:@"55"
+    //completion:^(NSString* str){
+      //  [self.welcomeText setText:@"IT WOOOORRRKRKRKKRR"];
+      //  return;
+    //}
+    //error:^(NSString * str) {
+       // NSLog(@"Inside Completion Handler");
+       // return;
+    //}];
     
     //NSDate* date = [Utility stringToDateConversion:@"2014-03-15" withFormat:@"yyyy-MM-dd"];
     //NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:@"8" DestinationID:@"55" onDate:date];
