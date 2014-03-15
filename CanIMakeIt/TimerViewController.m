@@ -8,6 +8,7 @@
 
 #import "TimerViewController.h"
 #import "AppDelegate.h"
+#import "DataHelper.h"
 
 @interface TimerViewController ()
 
@@ -38,10 +39,15 @@
 
 - (IBAction)Start:(id)sender {
     if (_countdowning == TRUE) {
-        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-        [f setNumberStyle:NSNumberFormatterDecimalStyle];
-        _myNumber = [f numberFromString:self.SetTime.text];
-        _counter = [_myNumber integerValue];
+        NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+        [outputFormatter setDateFormat:@"HH:mm:ss"];
+        NSDate *leavetime = [outputFormatter dateFromString:_SetTime.text];
+        NSString *hourDateString = [outputFormatter stringFromDate:leavetime];
+        [outputFormatter setDateFormat:@"mm:ss"];
+        NSString *minDateString = [outputFormatter stringFromDate:leavetime];
+        [outputFormatter setDateFormat:@"ss"];
+        NSString *secDateString = [outputFormatter stringFromDate:leavetime];
+        _counter = (20 * 60) - ([minDateString integerValue] * 60 + [secDateString integerValue]);
         _appDelegate.counter = _counter;
         self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                                target:self
