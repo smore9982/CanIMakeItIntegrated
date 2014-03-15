@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8334EABB18D4DD2C0068F151 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8334EABA18D4DD2C0068F151 /* CoreLocation.framework */; };
 		8B74541618D149E200EB308E /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B74541518D149E200EB308E /* Utility.m */; };
 		8BD137B318CB8D6F0089FD4D /* SplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B218CB8D6F0089FD4D /* SplashScreenViewController.m */; };
 		8BD137B618CB8FBC0089FD4D /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */; };
@@ -30,7 +31,6 @@
 		FB5EC8CF18C2919500AAA8AE /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB5EC8CE18C2919500AAA8AE /* main.storyboard */; };
 		FB5EC8D218C2927000AAA8AE /* TripProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5EC8D118C2927000AAA8AE /* TripProfileViewController.m */; };
 		FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5EC8D418C292FD00AAA8AE /* MyTripViewController.m */; };
-		FB6A17A518D4B657001F0E8B /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6A17A418D4B657001F0E8B /* Utility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8334EABA18D4DD2C0068F151 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8B74541418D149E100EB308E /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		8B74541518D149E200EB308E /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		8BD137B118CB8D6F0089FD4D /* SplashScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreenViewController.h; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8334EABB18D4DD2C0068F151 /* CoreLocation.framework in Frameworks */,
 				FB5EC89C18C290A100AAA8AE /* CoreGraphics.framework in Frameworks */,
 				FB5EC8A018C290A100AAA8AE /* CoreData.framework in Frameworks */,
 				FB5EC89E18C290A100AAA8AE /* UIKit.framework in Frameworks */,
@@ -129,6 +131,7 @@
 		FB5EC89818C290A100AAA8AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8334EABA18D4DD2C0068F151 /* CoreLocation.framework */,
 				FB5EC89918C290A100AAA8AE /* Foundation.framework */,
 				FB5EC89B18C290A100AAA8AE /* CoreGraphics.framework */,
 				FB5EC89D18C290A100AAA8AE /* UIKit.framework */,
