@@ -29,6 +29,7 @@
 		FB5EC8CF18C2919500AAA8AE /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB5EC8CE18C2919500AAA8AE /* main.storyboard */; };
 		FB5EC8D218C2927000AAA8AE /* TripProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5EC8D118C2927000AAA8AE /* TripProfileViewController.m */; };
 		FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5EC8D418C292FD00AAA8AE /* MyTripViewController.m */; };
+		FB6A17A518D4B657001F0E8B /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6A17A418D4B657001F0E8B /* Utility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		FB5EC8D118C2927000AAA8AE /* TripProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripProfileViewController.m; sourceTree = "<group>"; };
 		FB5EC8D318C292FD00AAA8AE /* MyTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTripViewController.h; sourceTree = "<group>"; };
 		FB5EC8D418C292FD00AAA8AE /* MyTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTripViewController.m; sourceTree = "<group>"; };
+		FB6A17A318D4B657001F0E8B /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		FB6A17A418D4B657001F0E8B /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 		FB5EC8A118C290A100AAA8AE /* CanIMakeIt */ = {
 			isa = PBXGroup;
 			children = (
+				FB6A17A318D4B657001F0E8B /* Utility.h */,
+				FB6A17A418D4B657001F0E8B /* Utility.m */,
 				FB5EC8AA18C290A100AAA8AE /* AppDelegate.h */,
 				FB5EC8AB18C290A100AAA8AE /* AppDelegate.m */,
 				FB5EC8CE18C2919500AAA8AE /* main.storyboard */,
@@ -284,6 +289,7 @@
 			files = (
 				8BD137BC18CBCEB30089FD4D /* DataHelper.m in Sources */,
 				8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */,
+				FB6A17A518D4B657001F0E8B /* Utility.m in Sources */,
 				FB5EC8AC18C290A100AAA8AE /* AppDelegate.m in Sources */,
 				FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */,
 				FB5EC8D218C2927000AAA8AE /* TripProfileViewController.m in Sources */,
