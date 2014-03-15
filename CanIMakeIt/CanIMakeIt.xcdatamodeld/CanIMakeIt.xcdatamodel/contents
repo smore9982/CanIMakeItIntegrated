@@ -7,9 +7,9 @@
         <attribute name="destinationStopId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Stops" syncable="YES">
+        <attribute name="stopAgency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stopId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stopLat" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="stopLine" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stopLon" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stopName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -25,8 +25,8 @@
     </entity>
     <elements>
         <element name="DepartureTimes" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Stops" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Trips" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserData" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Stops" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
