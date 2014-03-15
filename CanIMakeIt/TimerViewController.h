@@ -17,5 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *SetTime;
 @property NSInteger counter;
 @property UIApplication *app;
+@property (strong, nonatomic) IBOutlet UILabel *NextTrainTime;
+- (IBAction)SkipTrain:(id)sender;
 
 @end

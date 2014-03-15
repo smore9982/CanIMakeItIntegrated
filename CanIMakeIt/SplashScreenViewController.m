@@ -37,10 +37,30 @@
         return;
     }
     
-    if([self isTimerRunning]){
+    /*if([self isTimerRunning]){
+     [self performSegueWithIdentifier:@"SplashToTimerSegue" sender:self];
+     }else{
+     [self performSegueWithIdentifier:@"SplashToTripsSegue" sender:self];
+     }
+     return;*/
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    NSDate * now = [NSDate date];
+    [outputFormatter setDateFormat:@"HH:mm:ss"];
+    //This is where to set the leaving time:
+    NSDate * starttime = [outputFormatter dateFromString:@"12:22:00"];
+    NSString *StartTime = [outputFormatter stringFromDate:starttime];
+    NSString *CurrentTime = [outputFormatter stringFromDate:now];
+    NSLog(@"%@",StartTime);
+    NSLog(@"%@",CurrentTime);
+    if ([CurrentTime compare:StartTime] == NSOrderedDescending) {
         [self performSegueWithIdentifier:@"SplashToTimerSegue" sender:self];
-    }else{
+        
+    } else if ([CurrentTime compare:StartTime] == NSOrderedAscending) {
         [self performSegueWithIdentifier:@"SplashToTripsSegue" sender:self];
+        
+    } else {
+        [self performSegueWithIdentifier:@"SplashToTimerSegue" sender:self];
+        
     }
     return;
     
