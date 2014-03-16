@@ -146,6 +146,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="Abi-9y-tW2">
                                             <connections>
                                                 <action selector="backButton:" destination="vxD-9y-ndS" id="VBk-GD-dD8"/>
+                                                <segue destination="I9A-Ga-uyl" kind="unwind" unwindAction="unwindToList:" id="1QR-qK-cEI"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Edit" id="G3U-Tt-7Xh">
@@ -233,6 +234,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O9y-1a-aXP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="I9A-Ga-uyl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2221" y="-234"/>
         </scene>
@@ -258,6 +260,9 @@
                                                 <rect key="frame" x="16" y="7" width="48" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <segue destination="kXJ-Zs-Mw4" kind="unwind" unwindAction="unwindToList:" id="Bzg-NZ-kvR"/>
+                                                </connections>
                                             </button>
                                             <connections>
                                                 <segue destination="kXJ-Zs-Mw4" kind="unwind" unwindAction="unwindToList:" id="Psv-BZ-via"/>
@@ -442,8 +447,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xtc-AN-PFk"/>
         <segue reference="8MO-vw-P09"/>
-        <segue reference="tPX-Hl-ByA"/>
+        <segue reference="xtc-AN-PFk"/>
+        <segue reference="wSy-hu-SrE"/>
     </inferredMetricsTieBreakers>
 </document>
