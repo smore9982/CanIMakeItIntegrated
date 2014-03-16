@@ -94,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8334EABB18D4DD2C0068F151 /* CoreLocation.framework in Frameworks */,
 				FB5EC89C18C290A100AAA8AE /* CoreGraphics.framework in Frameworks */,
 				FB5EC8A018C290A100AAA8AE /* CoreData.framework in Frameworks */,
 				FB5EC89E18C290A100AAA8AE /* UIKit.framework in Frameworks */,
@@ -137,6 +138,7 @@
 		FB5EC89818C290A100AAA8AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8334EABA18D4DD2C0068F151 /* CoreLocation.framework */,
 				FB5EC89918C290A100AAA8AE /* Foundation.framework */,
 				FB5EC89B18C290A100AAA8AE /* CoreGraphics.framework */,
 				FB5EC89D18C290A100AAA8AE /* UIKit.framework */,
