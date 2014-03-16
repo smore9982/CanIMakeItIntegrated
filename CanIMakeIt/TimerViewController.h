@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface TimerViewController : UIViewController
+@interface TimerViewController : UIViewController <CLLocationManagerDelegate>
 - (IBAction)Start:(id)sender;
 - (IBAction)Stop:(id)sender;
 @property (strong, nonatomic) IBOutlet UILabel *WatchLabel;
@@ -19,5 +20,9 @@
 @property UIApplication *app;
 @property (strong, nonatomic) IBOutlet UILabel *NextTrainTime;
 - (IBAction)SkipTrain:(id)sender;
+@property CLLocationManager *locationManager;
+- (IBAction)GPS:(id)sender;
+@property (strong, nonatomic) IBOutlet UILabel *latlabel;
+@property (strong, nonatomic) IBOutlet UILabel *longlabel;
 
 @end

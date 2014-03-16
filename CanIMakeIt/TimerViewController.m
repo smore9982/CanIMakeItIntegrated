@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "DataHelper.h"
 #import "Utility.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface TimerViewController ()
 
@@ -55,6 +56,10 @@
     _notification = [[UILocalNotification alloc] init];
     _app = [UIApplication sharedApplication];
     _countdowning = TRUE;
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
+    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -63,6 +68,26 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    int degrees = newLocation.coordinate.latitude;
+    double decimal = fabs(newLocation.coordinate.latitude - degrees);
+    int minutes = decimal * 60;
+    double seconds = decimal * 3600 - minutes * 60;
+    NSString *lat = [NSString stringWithFormat:@"%d° %d' %1.4f\"",
+                     degrees, minutes, seconds];
+    _latlabel.text = lat;
+    degrees = newLocation.coordinate.longitude;
+    decimal = fabs(newLocation.coordinate.longitude - degrees);
+    minutes = decimal * 60;
+    seconds = decimal * 3600 - minutes * 60;
+    NSString *longt = [NSString stringWithFormat:@"%d° %d' %1.4f\"",
+                       degrees, minutes, seconds];
+    _longlabel.text = longt;
 }
 
 - (IBAction)Start:(id)sender {
@@ -134,6 +159,7 @@
     int hours = _counter / 3600;
     int minutes = (_counter - (hours * 3600)) / 60;
     int seconds = _counter - (hours * 3600) - (minutes * 60);
+    int walktime = 300;
     self.WatchLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes,seconds];
     if (_counter == 0) {
         NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
@@ -142,10 +168,10 @@
         _counter = [_myNumber integerValue];
         _appDelegate.counter = _counter;
     }
-    else if (_counter >10){
+    else if (_counter > walktime * 1.5){
         self.view.backgroundColor = [UIColor whiteColor];
     }
-    else if (_counter == 10){
+    else if (_counter == walktime * 1.5){
         if (_notification)
         {
             _notification.repeatInterval = 0;
@@ -153,10 +179,10 @@
             [_app presentLocalNotificationNow:_notification];
         }
     }
-    else if (_counter <= 10 && _counter > 5){
+    else if (_counter <= walktime * 1.5 && _counter > walktime){
         self.view.backgroundColor = [UIColor yellowColor];
     }
-    else if (_counter == 5){
+    else if (_counter == walktime){
         if (_notification)
         {
             _notification.repeatInterval = 0;
@@ -196,5 +222,10 @@
     _counter = _counter + add;
     _tripid ++;
     self.NextTrainTime.text = [NSString stringWithFormat:@"%02d:%02d:%02d",[nexttripTimehour integerValue], [nexttripTimemin integerValue],[nexttripTimesec integerValue]];
+}
+
+- (IBAction)GPS:(id)sender {
+    
+    [_locationManager startUpdatingLocation];
 }
 @end

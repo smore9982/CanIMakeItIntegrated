@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TripProfileModel.h"
+#import "StopModel.h"
 
 @interface DataHelper : NSObject
 - (NSString *) getUserData : (NSString*) key;
@@ -17,4 +19,6 @@
 - (NSArray*) getTripDepartureTimesForDepartureId:(NSString*) departureID DestinationID:(NSString*) destionationId onDate:(NSDate*) departureDate;
 - (void) loadStops:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock;
 - (NSArray*) getStopsForAgency:(NSString*) agencyName;
+- (TripProfileModel* )getDefaultProfileData;
+- (StopModel* ) getStopModelWithName: (NSString*) stopName;
 @end

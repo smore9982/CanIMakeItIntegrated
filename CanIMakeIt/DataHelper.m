@@ -238,6 +238,31 @@
     }];
 }
 
+-(StopModel* ) getStopModelWithName: (NSString*) stopName{
+    StopModel* stopModel = [[StopModel alloc]init];
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest1 = [[NSFetchRequest alloc] initWithEntityName:@"Stops"];
+    NSPredicate *predicate1 = [NSPredicate predicateWithFormat: @"stopName = %@",stopName];
+    [fetchRequest1 setPredicate:predicate1];
+    
+    NSError* error= nil;
+    NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest1 error:&error];
+    
+    if(array==nil || [array count] <=0){
+        return nil;
+    }
+    
+    NSManagedObject* stopData = [array objectAtIndex:0];
+    stopModel.stopId = [stopData valueForKey:@"stopId"];
+    stopModel.stopLat = [stopData valueForKey:@"stopLat"];
+    stopModel.stopLon = [stopData valueForKey:@"stopLon"];
+    stopModel.stopName = [stopData valueForKey:@"stopName"];
+    stopModel.stopAgency = [stopData valueForKey:@"stopAgency"];
+    return stopModel;
+}
+
+
+
 - (NSArray *) getTripDepartureTimesForDepartureId:(NSString*) departureID DestinationID:(NSString *)destionationId onDate:(NSDate*) departureDate{
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSError* error;
@@ -253,5 +278,39 @@
     return [[NSArray alloc]init];
 }
 
-
+- (TripProfileModel*) getDefaultProfileData{
+    DataHelper* dataHelper = [[DataHelper alloc]init];
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    TripProfileModel* tripModel = [[TripProfileModel alloc]init];
+    //Get default tripID.
+    
+    NSString* objectUrl = [dataHelper getUserData:@"defaultTripID"];
+    
+    
+    //Get default trip.
+    NSURL* objectqeqerq = [NSURL URLWithString:objectUrl];
+    NSManagedObjectID* tripId = [[managedObjectContext persistentStoreCoordinator]managedObjectIDForURIRepresentation:objectqeqerq];
+    NSManagedObject* tripData = [managedObjectContext objectWithID:tripId];
+    if(tripData == nil){
+        return nil;
+    }
+    
+    //Get Stop Data
+    NSString* departureName = [tripData valueForKey:@"fromStation"];
+    NSString* destinationName = [tripData valueForKey:@"toStation"];
+    StopModel* departureStop = [self getStopModelWithName:departureName];
+    StopModel* destinationStop = [self getStopModelWithName:destinationName];
+    
+    if(departureStop == nil || destinationStop == nil){
+        return nil;
+    }
+    
+    tripModel.departureId = departureStop.stopId;
+    tripModel.destinationId = destinationStop.stopId;
+    tripModel.departureTime = [tripData valueForKey:@"startTime"];
+    tripModel.approxTimeToStation =[tripData valueForKey:@"tripTime"];
+    tripModel.stopLat = destinationStop.stopLat;
+    tripModel.stopLon = destinationStop.stopLon;
+    return tripModel;
+}
 @end
