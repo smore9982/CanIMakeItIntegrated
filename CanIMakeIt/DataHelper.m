@@ -307,8 +307,8 @@
     
     tripModel.departureId = departureStop.stopId;
     tripModel.destinationId = destinationStop.stopId;
-    tripModel.departureTime = [tripData valueForKey:@"tripTime"];
-    tripModel.approxTimeToStation =[tripData valueForKey:@"startTime"];
+    tripModel.departureTime = [tripData valueForKey:@"startTime"];
+    tripModel.approxTimeToStation =[tripData valueForKey:@"tripTime"];
     tripModel.stopLat = destinationStop.stopLat;
     tripModel.stopLon = destinationStop.stopLon;
     return tripModel;

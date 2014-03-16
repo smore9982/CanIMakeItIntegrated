@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8B7451C118D4BE62002ED7A0 /* TripProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */; };
 		8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7451C318D4CDBA002ED7A0 /* StopModel.m */; };
+		8B7451C518D4E1CA002ED7A0 /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6A17A718D4BFDD001F0E8B /* TripDetailViewController.m */; };
 		8B74541618D149E200EB308E /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B74541518D149E200EB308E /* Utility.m */; };
 		8BD137B318CB8D6F0089FD4D /* SplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B218CB8D6F0089FD4D /* SplashScreenViewController.m */; };
 		8BD137B618CB8FBC0089FD4D /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */; };
@@ -86,7 +87,6 @@
 		FB6A17A418D4B657001F0E8B /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		FB6A17A618D4BFDD001F0E8B /* TripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailViewController.h; sourceTree = "<group>"; };
 		FB6A17A718D4BFDD001F0E8B /* TripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailViewController.m; sourceTree = "<group>"; };
-		FB6A17A918D4DBEA001F0E8B /* right2-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right2-25.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,7 +285,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB6A17AA18D4DBEA001F0E8B /* right2-25.png in Resources */,
 				FB5EC8A618C290A100AAA8AE /* InfoPlist.strings in Resources */,
 				FB5EC8CF18C2919500AAA8AE /* main.storyboard in Resources */,
 				FB5EC8B118C290A100AAA8AE /* Images.xcassets in Resources */,
@@ -310,6 +309,7 @@
 				8BD137BC18CBCEB30089FD4D /* DataHelper.m in Sources */,
 				8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */,
 				8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */,
+				8B7451C518D4E1CA002ED7A0 /* TripDetailViewController.m in Sources */,
 				8B74541618D149E200EB308E /* Utility.m in Sources */,
 				8B7451C118D4BE62002ED7A0 /* TripProfileModel.m in Sources */,
 				FB5EC8AC18C290A100AAA8AE /* AppDelegate.m in Sources */,
@@ -319,7 +319,6 @@
 				FB5EC8AF18C290A100AAA8AE /* CanIMakeIt.xcdatamodeld in Sources */,
 				8BD137B618CB8FBC0089FD4D /* WelcomeViewController.m in Sources */,
 				8BD137B318CB8D6F0089FD4D /* SplashScreenViewController.m in Sources */,
-				FB6A17A818D4BFDD001F0E8B /* TripDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
