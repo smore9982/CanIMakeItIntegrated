@@ -298,7 +298,9 @@
     //Get default tripID.
     
     NSString* objectUrl = [dataHelper getUserData:@"defaultTripID"];
-    
+    if(objectUrl == nil){
+        return nil;
+    }
     
     //Get default trip.
     NSURL* objectqeqerq = [NSURL URLWithString:objectUrl];
