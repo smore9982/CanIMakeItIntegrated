@@ -9,6 +9,7 @@
 #import "TripDetailViewController.h"
 #import "MyTripViewController.h"
 #import "DataHelper.h"
+#import "Utility.h"
 
 @interface TripDetailViewController ()
 
@@ -49,8 +50,14 @@
     {
         [self.fromStationLabel setText:[self.contactdb valueForKey:@"fromStation"]];
         [self.toStationLabel setText:[self.contactdb valueForKey:@"toStation"]];
-        [self.startTimeLabel setText:[self.contactdb valueForKey:@"startTime"]];
-        [self.tripTimeLabel setText:[self.contactdb valueForKey:@"tripTime"]];
+        
+        
+        NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
+        [self.tripTimeLabel setText:tripMin];
+        
+        
+        NSString *timeMerd = [Utility convertTimeto12Hour:[self.contactdb valueForKey:@"startTime"]];
+        [self.startTimeLabel setText:timeMerd];
         
     }
 }

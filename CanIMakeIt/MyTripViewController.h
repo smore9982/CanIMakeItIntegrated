@@ -12,8 +12,11 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *fromStation;
 @property (strong, nonatomic) IBOutlet UITextField *toStation;
-@property (strong, nonatomic) IBOutlet UIPickerView *startTimePicker;
 @property (strong, nonatomic) IBOutlet UITextField *tripTime;
+@property (strong, nonatomic) IBOutlet UITextField *startTime;
+@property (strong, nonatomic) IBOutlet UIPickerView *currentPicker;
+@property (strong, nonatomic) UITextField *currentTextField;
+
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveTripButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;

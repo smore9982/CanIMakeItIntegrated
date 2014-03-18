@@ -109,11 +109,11 @@
     NSString *savedDefaultTripID = [getTripIDHelper getUserData:@"defaultTripID"];
     
     
-    NSLog(@"def id -%@, tripid - %@", savedDefaultTripID, retrievedObjectUrlString);
+    //NSLog(@"def id -%@, tripid - %@", savedDefaultTripID, retrievedObjectUrlString);
         
     if(![retrievedObjectUrlString compare:savedDefaultTripID])
     {
-        NSLog(@"inside check");
+        //NSLog(@"inside check");
         cell.imageView.image = [UIImage imageNamed:@"right2-25.png"];
     }
     
