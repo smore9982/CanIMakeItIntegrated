@@ -174,7 +174,21 @@
     [fetchRequest setPredicate:predicate];
     NSError *error = nil;
     NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    return array;
+    
+    
+    NSMutableArray* stopArray = [[NSMutableArray alloc]init];
+    for(int i=0; i< [array count]; i++){
+        NSManagedObject* stopData = [array objectAtIndex:i];
+        StopModel* stopModel = [[StopModel alloc]init];
+        stopModel.stopId = [stopData valueForKey:@"stopId"];
+        stopModel.stopLat = [stopData valueForKey:@"stopLat"];
+        stopModel.stopLon = [stopData valueForKey:@"stopLon"];
+        stopModel.stopName = [stopData valueForKey:@"stopName"];
+        stopModel.stopAgency = [stopData valueForKey:@"stopAgency"];
+        [stopArray addObject:stopModel];
+    }
+    
+    return stopArray;
 }
 
 - (void) saveTripDepartureTimesWithDepartureId : (NSString*) departureID DestionstionID :(NSString*) destinationId completion:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock{
