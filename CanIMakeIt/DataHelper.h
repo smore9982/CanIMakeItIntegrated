@@ -19,7 +19,6 @@
 - (NSArray*) getTripDepartureTimesForDepartureId:(NSString*) departureID DestinationID:(NSString*) destionationId onDate:(NSDate*) departureDate;
 - (void) loadStops:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock;
 - (NSArray*) getStopsForAgency:(NSString*) agencyName;
-- (NSArray *) getStopNames:(NSString*) agencyName;
 - (TripProfileModel* )getDefaultProfileData;
 - (StopModel* ) getStopModelWithName: (NSString*) stopName;
 @end

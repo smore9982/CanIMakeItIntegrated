@@ -7,7 +7,7 @@
         <!--Trip Profile View Controller - Trip Profiles-->
         <scene sceneID="fid-4V-oGV">
             <objects>
-                <tableViewController modalTransitionStyle="crossDissolve" id="sbG-mG-2qb" customClass="TripProfileViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TripProfileViewController" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sbG-mG-2qb" customClass="TripProfileViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="IuX-iY-OgM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -294,7 +294,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Save" id="IPB-8e-sD0">
                                             <connections>
-                                                <segue destination="kXJ-Zs-Mw4" kind="unwind" unwindAction="unwindToList:" id="oTt-uh-Lq2"/>
+                                                <action selector="saveTrip:" destination="cb2-LZ-hCL" id="Up8-hv-TFz"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -375,7 +375,7 @@
                         <outlet property="cancelButton" destination="zt6-Ue-OVq" id="W4N-Zh-STV"/>
                         <outlet property="currentPicker" destination="RsM-3I-t09" id="UYe-HJ-KUH"/>
                         <outlet property="fromStation" destination="Xgn-vq-MMi" id="J9T-Yr-KUO"/>
-                        <outlet property="saveTripButton" destination="IPB-8e-sD0" id="nFA-la-e2P"/>
+                        <outlet property="saveTripButton" destination="IPB-8e-sD0" id="ptb-xc-saq"/>
                         <outlet property="startTime" destination="9kE-fm-6F2" id="Vfq-cC-6Rq"/>
                         <outlet property="toStation" destination="mEL-4A-vfx" id="EZt-28-r5S"/>
                         <outlet property="tripTime" destination="xyE-vG-3gi" id="E4n-Ia-NnZ"/>
@@ -495,6 +495,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="8MO-vw-P09"/>
         <segue reference="xtc-AN-PFk"/>
-        <segue reference="wSy-hu-SrE"/>
+        <segue reference="tPX-Hl-ByA"/>
     </inferredMetricsTieBreakers>
 </document>

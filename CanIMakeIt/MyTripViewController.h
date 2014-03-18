@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyTripViewController : UIViewController <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+@interface MyTripViewController : UIViewController <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *fromStation;
 @property (strong, nonatomic) IBOutlet UITextField *toStation;
@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UIPickerView *currentPicker;
 @property (strong, nonatomic) UITextField *currentTextField;
 
+- (IBAction)saveTrip:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveTripButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;

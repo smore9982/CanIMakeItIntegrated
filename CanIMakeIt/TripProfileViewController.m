@@ -55,6 +55,8 @@
 {
     [super viewDidAppear:animated];
     
+    
+    
     //fetch from persistent data store
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Trips"];
@@ -92,15 +94,15 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    NSManagedObject *device = [self.tripArray objectAtIndex:indexPath.row];
+     self.contactdb = [self.tripArray objectAtIndex:indexPath.row];
     
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@",[device valueForKey:@"fromStation"], [device valueForKey:@"toStation"]]];
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@",[self.contactdb valueForKey:@"fromStation"], [self.contactdb valueForKey:@"toStation"]]];
     
     //Trip Detail disclosure
     cell.accessoryType = UITableViewCellAccessoryDetailButton;
     
     //Below code checks for the default trip id, and sets the checkmark appropriately.
-    NSManagedObjectID *tripurl = [device objectID];
+    NSManagedObjectID *tripurl = [self.contactdb objectID];
     //Gets the object ID that uniquely identifies a row in table - Trips
     NSURL *objecturl = [tripurl URIRepresentation];
     NSString *retrievedObjectUrlString = [objecturl absoluteString];

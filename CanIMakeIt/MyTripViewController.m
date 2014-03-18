@@ -7,6 +7,7 @@
 //
 
 #import "MyTripViewController.h"
+#import "TripProfileViewController.h"
 #import "DataHelper.h"
 #import "Utility.h"
 
@@ -53,11 +54,13 @@
 	// Do any additional setup after loading the view.
     
     //Get Stop Names for agency - LIRR
-    //DataHelper *stopDataHelper = [[DataHelper alloc] init];
-    //NSArray *stops = [stopDataHelper getStopNames:@"LIRR"];
+    DataHelper *stopDataHelper = [[DataHelper alloc] init];
     
     
-    self.stopNames = @[@"Atlantic Terminal", @"Forest Hills", @"Penn Station", @"Long Island City"];
+    self.stopNames = [[stopDataHelper getStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    
+    
+    //self.stopNames = @[@"Atlantic Terminal", @"Forest Hills", @"Penn Station", @"Long Island City"];
     
     self.pickHour = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12"];
     self.pickMinute = @[@"00", @"01", @"02", @"03", @"04", @"05", @"06", @"07", @"08", @"09",
@@ -240,51 +243,173 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (IBAction)saveTrip:(id)sender
 {
-    if (sender != self.saveTripButton) return;
-    
-    NSManagedObjectContext *context = [self managedObjectContext];
-    
-    //Set Functions to alert User about empty textfields.
-    
-    //Function to alert User that departure station is same as destination station
-    
-    //Function to convert tripTime to minutes
-    NSString *totalMins = [Utility convertTripTimeToMinutes:self.tripTime.text];
-    
-    
-    //Function to convert meridiem to 24 hour
-    NSString *timein24 = [Utility convertTimeto24Hour:self.startTime.text];
-    
-    NSLog(@"24 hour clock-%@", timein24);
-    
-    if (self.contactdb)
+    //Check for Empty textfields, and alert User.
+    if(sender == self.saveTripButton)
     {
-        //Update existing device
-        [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
-        [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
-        [self.contactdb setValue:timein24 forKey:@"startTime"];
-        [self.contactdb setValue:totalMins forKey:@"tripTime"];
-    }
-    else
-    {
-        //Create new device
-        NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
-        [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
-        [newDevice setValue:self.toStation.text forKey:@"toStation"];
-        [newDevice setValue:timein24 forKey:@"startTime"];
-        [newDevice setValue:totalMins forKey:@"tripTime"];
+        
+        
+        if ([self.fromStation.text length] == 0)
+        {
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Empty TextField" message:@"From Station must be selected!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertUser show];
+        }
+        else if ([self.toStation.text length] == 0)
+        {
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Empty TextField" message:@"To Station must be selected!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertUser show];
+            [alertUser reloadInputViews];
+        }
+        else if ([self.tripTime.text length] == 0)
+        {
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Empty TextField" message:@"Trip Time must be selected!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertUser show];
+            [alertUser reloadInputViews];
+        }
+        else if([self.startTime.text length] == 0)
+        {
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Empty TextField" message:@"Start Time must be selected!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertUser show];
+            [alertUser reloadInputViews];
+        }
+        else
+        {
+            //Prepare a segue programmatically: Call to segue-unwindList
+            
+            //[self prepareForSegue:@"unwindToList" sender:self];
+            //[self performSegueWithIdentifier:@"unwindToList" sender:self];
+            TripProfileViewController *destViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"TripProfileViewController"];
+            
+            
+            
+            if(([self.fromStation.text length] > 0) && ([self.toStation.text length] > 0) &&
+               ([self.tripTime.text length] > 0) && ([self.startTime.text length] > 0))
+            {
+                
+                NSManagedObjectContext *context = [self managedObjectContext];
+                
+                
+                //Function to alert User that departure station is same as destination station
+                
+                //Function to convert tripTime to minutes
+                NSString *totalMins = [Utility convertTripTimeToMinutes:self.tripTime.text];
+                
+                
+                //Function to convert meridiem to 24 hour
+                NSString *timein24 = [Utility convertTimeto24Hour:self.startTime.text];
+                
+                
+                
+                
+                if (self.contactdb)
+                {
+                    //Update existing device
+                    [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
+                    [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
+                    [self.contactdb setValue:timein24 forKey:@"startTime"];
+                    [self.contactdb setValue:totalMins forKey:@"tripTime"];
+                    
+                    destViewController.contactdb = self.contactdb;
+                }
+                else
+                {
+                    //Create new device
+                    NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
+                    [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
+                    [newDevice setValue:self.toStation.text forKey:@"toStation"];
+                    [newDevice setValue:timein24 forKey:@"startTime"];
+                    [newDevice setValue:totalMins forKey:@"tripTime"];
+                    
+                    destViewController.contactdb = newDevice;
+                }
+                
+                NSError *error = nil;
+                //Save the object to persistent store
+                if(![context save:&error])
+                {
+                    NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+                }
+                
+                
+            }
+            
+           
+            [self presentViewController:destViewController animated:NO completion:nil];
+            
+        }
     }
     
-    NSError *error = nil;
-    //Save the object to persistent store
-    if(![context save:&error])
-    {
-        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-    }
     
 }
+
+
+/*
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSLog(@"inside prepare segue-1");
+    if (sender != self.saveTripButton) return;
+    NSLog(@"inside prepare segue-2");
+    TripProfileViewController *destViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"TripProfileViewController"];
+    destViewController = segue.destinationViewController;
+    
+    NSLog(@"inside prepare segue-3");
+    if(([self.fromStation.text length] > 0) && ([self.toStation.text length] > 0) &&
+       ([self.tripTime.text length] > 0) && ([self.startTime.text length] > 0))
+    {
+        NSLog(@"inside segue if");
+        NSManagedObjectContext *context = [self managedObjectContext];
+    
+    
+        //Function to alert User that departure station is same as destination station
+    
+        //Function to convert tripTime to minutes
+        NSString *totalMins = [Utility convertTripTimeToMinutes:self.tripTime.text];
+    
+    
+        //Function to convert meridiem to 24 hour
+        NSString *timein24 = [Utility convertTimeto24Hour:self.startTime.text];
+    
+        NSLog(@"24 hour clock-%@", timein24);
+    
+        
+        if (self.contactdb)
+        {
+            //Update existing device
+            [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
+            [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
+            [self.contactdb setValue:timein24 forKey:@"startTime"];
+            [self.contactdb setValue:totalMins forKey:@"tripTime"];
+            
+            destViewController.contactdb = self.contactdb;
+        }
+        else
+        {
+            //Create new device
+            NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
+            [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
+            [newDevice setValue:self.toStation.text forKey:@"toStation"];
+            [newDevice setValue:timein24 forKey:@"startTime"];
+            [newDevice setValue:totalMins forKey:@"tripTime"];
+            
+            destViewController.contactdb = newDevice;
+        }
+    
+        NSError *error = nil;
+        //Save the object to persistent store
+        if(![context save:&error])
+        {
+            NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+        }
+        
+        
+    }
+    
+    NSLog(@"Before");
+    [self presentViewController:destViewController animated:YES completion:nil];
+    NSLog(@"After");
+}
+*/
+
 
 @end

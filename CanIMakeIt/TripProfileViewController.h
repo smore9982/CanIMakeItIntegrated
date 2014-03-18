@@ -11,5 +11,6 @@
 @interface TripProfileViewController : UITableViewController
 
 @property (strong) NSMutableArray *tripArray;
+@property (strong, nonatomic) NSManagedObject *contactdb;
 
 @end

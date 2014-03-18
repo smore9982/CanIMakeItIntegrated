@@ -276,22 +276,6 @@
     return stopModel;
 }
 
-
-- (NSArray *) getStopNames:(NSString*) agencyName{
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSError* error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Stops"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"stopAgency = %@",agencyName];
-    [fetchRequest setPredicate:predicate];
-    NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    NSManagedObject* value = nil;
-    for(int i=0; i<array.count;i++){
-        value = [array objectAtIndex:i];
-        return [value valueForKey:@"stopName"];
-    }
-    return [[NSArray alloc]init];
-}
-
 - (NSArray *) getTripDepartureTimesForDepartureId:(NSString*) departureID DestinationID:(NSString *)destionationId onDate:(NSDate*) departureDate{
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSError* error;
