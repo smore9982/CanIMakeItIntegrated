@@ -295,6 +295,7 @@
                                         <barButtonItem key="rightBarButtonItem" title="Save" id="IPB-8e-sD0">
                                             <connections>
                                                 <action selector="saveTrip:" destination="cb2-LZ-hCL" id="Up8-hv-TFz"/>
+                                                <segue destination="kXJ-Zs-Mw4" kind="unwind" unwindAction="unwindToList:" id="rwJ-yZ-EWP"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -375,7 +376,7 @@
                         <outlet property="cancelButton" destination="zt6-Ue-OVq" id="W4N-Zh-STV"/>
                         <outlet property="currentPicker" destination="RsM-3I-t09" id="UYe-HJ-KUH"/>
                         <outlet property="fromStation" destination="Xgn-vq-MMi" id="J9T-Yr-KUO"/>
-                        <outlet property="saveTripButton" destination="IPB-8e-sD0" id="ptb-xc-saq"/>
+                        <outlet property="saveTripButton" destination="IPB-8e-sD0" id="Dug-px-p6Q"/>
                         <outlet property="startTime" destination="9kE-fm-6F2" id="Vfq-cC-6Rq"/>
                         <outlet property="toStation" destination="mEL-4A-vfx" id="EZt-28-r5S"/>
                         <outlet property="tripTime" destination="xyE-vG-3gi" id="E4n-Ia-NnZ"/>

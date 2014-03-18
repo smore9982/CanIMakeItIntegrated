@@ -17,8 +17,6 @@
 @property (strong, nonatomic) IBOutlet UIPickerView *currentPicker;
 @property (strong, nonatomic) UITextField *currentTextField;
 
-- (IBAction)saveTrip:(id)sender;
-
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveTripButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 
