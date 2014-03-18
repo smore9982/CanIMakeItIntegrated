@@ -110,7 +110,7 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //if (sender != self.saveTripButton) return;
+    if (sender != self.saveTripButton) return;
     
     NSManagedObjectContext *context = [self managedObjectContext];
     
