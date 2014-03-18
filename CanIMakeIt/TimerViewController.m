@@ -154,12 +154,17 @@
 
 - (void)updateTimer
 {
+    TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
+    if(tripProfileModel == nil){
+        [self performSegueWithIdentifier:@"SplashToTripsSegue" sender:self];
+        return;
+    }
     _counter = _counter - 1;
     _appDelegate.counter = _appDelegate.counter - 1;
     int hours = _counter / 3600;
     int minutes = (_counter - (hours * 3600)) / 60;
     int seconds = _counter - (hours * 3600) - (minutes * 60);
-    int walktime = 300;
+    int walktime = [tripProfileModel.approxTimeToStation intValue];
     self.WatchLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes,seconds];
     if (_counter == 0) {
         NSNumberFormatter * f = [[NSNumberFormatter alloc] init];

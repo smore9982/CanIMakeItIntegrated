@@ -37,17 +37,17 @@
         return;
     }
     
-    /*if([self isTimerRunning]){
-     [self performSegueWithIdentifier:@"SplashToTimerSegue" sender:self];
-     }else{
-     [self performSegueWithIdentifier:@"SplashToTripsSegue" sender:self];
-     }
-     return;*/
+    TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
+    if(tripProfileModel == nil){
+        [self performSegueWithIdentifier:@"SplashToTripsSegue" sender:self];
+        return;
+    }
+    
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     NSDate * now = [NSDate date];
     [outputFormatter setDateFormat:@"HH:mm:ss"];
     //This is where to set the leaving time:
-    NSDate * starttime = [outputFormatter dateFromString:@"12:22:00"];
+    NSDate * starttime = [outputFormatter dateFromString:tripProfileModel.departureTime];
     NSString *StartTime = [outputFormatter stringFromDate:starttime];
     NSString *CurrentTime = [outputFormatter stringFromDate:now];
     NSLog(@"%@",StartTime);
