@@ -369,6 +369,10 @@
                                     <outlet property="delegate" destination="cb2-LZ-hCL" id="6pu-ZW-Btl"/>
                                 </connections>
                             </textField>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="G8T-38-JRb">
+                                <rect key="frame" x="145" y="274" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -376,6 +380,7 @@
                         <outlet property="cancelButton" destination="zt6-Ue-OVq" id="W4N-Zh-STV"/>
                         <outlet property="currentPicker" destination="RsM-3I-t09" id="UYe-HJ-KUH"/>
                         <outlet property="fromStation" destination="Xgn-vq-MMi" id="J9T-Yr-KUO"/>
+                        <outlet property="progressIcon" destination="G8T-38-JRb" id="GQ5-MK-UFv"/>
                         <outlet property="saveTripButton" destination="IPB-8e-sD0" id="Dug-px-p6Q"/>
                         <outlet property="startTime" destination="9kE-fm-6F2" id="Vfq-cC-6Rq"/>
                         <outlet property="toStation" destination="mEL-4A-vfx" id="EZt-28-r5S"/>

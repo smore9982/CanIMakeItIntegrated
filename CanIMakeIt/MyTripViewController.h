@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *startTime;
 @property (strong, nonatomic) IBOutlet UIPickerView *currentPicker;
 @property (strong, nonatomic) UITextField *currentTextField;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *progressIcon;
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveTripButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;

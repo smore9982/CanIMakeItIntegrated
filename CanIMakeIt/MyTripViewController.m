@@ -7,7 +7,6 @@
 //
 
 #import "MyTripViewController.h"
-#import "TripProfileViewController.h"
 #import "DataHelper.h"
 #import "Utility.h"
 
@@ -18,6 +17,7 @@
 @property (strong, nonatomic) NSArray *pickMinute;
 @property (strong, nonatomic) NSArray *pickMeridiem;
 @property (strong, nonatomic) NSArray *tripHour;
+@property DataHelper *stopDataHelper;
 
 @end
 
@@ -54,10 +54,7 @@
 	// Do any additional setup after loading the view.
     
     //Get Stop Names for agency - LIRR
-    DataHelper *stopDataHelper = [[DataHelper alloc] init];
-    
-    
-    self.stopNames = [[stopDataHelper getStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.stopNames = [[self.stopDataHelper getStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     
     //self.stopNames = @[@"Atlantic Terminal", @"Forest Hills", @"Penn Station", @"Long Island City"];
@@ -86,6 +83,8 @@
         NSString *timeMerd = [Utility convertTimeto12Hour:[self.contactdb valueForKey:@"startTime"]];
         [self.startTime setText:timeMerd];
     }
+    
+    [self.progressIcon setHidden:YES];
 }
 
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField
@@ -293,9 +292,29 @@
             
             return NO;
         }
-    }
+        
+        //Load the departure times for the departure and destination station
+        
+        StopModel *fromStationInfo = [self.stopDataHelper getStopModelWithName:self.fromStation.text];
+        StopModel *toStationInfo = [self.stopDataHelper getStopModelWithName:self.toStation.text];
+        
+        [self.stopDataHelper saveTripDepartureTimesWithDepartureId:fromStationInfo.stopId DestionstionID:toStationInfo.stopId
+        completion:^(NSString *onComp){
+            [self.progressIcon stopAnimating];
+            return;
+        }
+        error:^(NSString *onErr)
+        {
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Data Load Error" message:@"Departure times could not be saved. Please hit save again!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertUser show];
+            [self.progressIcon stopAnimating];
+        }];
+        [self.progressIcon startAnimating];
+        
     
-        return YES;
+    }//End of if condition that checks sender = saveTripButton
+    
+    return YES;
 }
 
 
