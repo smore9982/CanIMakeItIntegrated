@@ -10,4 +10,8 @@
 
 @interface Utility : NSObject
 + (NSDate*) stringToDateConversion:(NSString*) dateStr withFormat:(NSString*) formatStr;
++ (NSString *) convertTripTimeToMinutes:(NSString *)tripTimeStr;
++ (NSString *) convertMinutesToTripTimeStr:(NSString *)tripMins;
++ (NSString *) convertTimeto24Hour:(NSString *)timeIn12;
++ (NSString *) convertTimeto12Hour:(NSString *)timeIn24;
 @end

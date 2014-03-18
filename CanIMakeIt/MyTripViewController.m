@@ -7,19 +7,25 @@
 //
 
 #import "MyTripViewController.h"
+#import "TripProfileViewController.h"
+#import "DataHelper.h"
+#import "Utility.h"
 
 @interface MyTripViewController ()
 
-@property (strong, nonatomic) NSString *startTime;
+@property (strong, nonatomic) NSArray *stopNames;
 @property (strong, nonatomic) NSArray *pickHour;
 @property (strong, nonatomic) NSArray *pickMinute;
-@property (strong, nonatomic) NSArray *pickMeridian;
+@property (strong, nonatomic) NSArray *pickMeridiem;
+@property (strong, nonatomic) NSArray *tripHour;
 
 @end
 
 @implementation MyTripViewController
 
 @synthesize contactdb;
+@synthesize currentPicker;
+@synthesize currentTextField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,64 +34,6 @@
         // Custom initialization
     }
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    self.pickHour = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12"];
-    self.pickMinute = @[@"00", @"01", @"02", @"03", @"04", @"05", @"06", @"07", @"08", @"09",
-                        @"10", @"11", @"12", @"13", @"14", @"15", @"16", @"17", @"18", @"19",
-                        @"20", @"21", @"22", @"23", @"24", @"25", @"26", @"27", @"28", @"29",
-                        @"30", @"31", @"32", @"33", @"34", @"35", @"36", @"37", @"38", @"39",
-                        @"40", @"41", @"42", @"43", @"44", @"45", @"46", @"47", @"48", @"49",
-                        @"50", @"51", @"52", @"53", @"54", @"55", @"56", @"57", @"58", @"59"];
-    self.pickMeridian = @[@"AM", @"PM"];
-    
-    
-    
-    int phour = 0;
-    int pminute = 0;
-    int pmeridian = 0;
-    
-    if(self.contactdb)
-    {
-        [self.fromStation setText:[self.contactdb valueForKey:@"fromStation"]];
-        [self.toStation setText:[self.contactdb valueForKey:@"toStation"]];
-        [self.tripTime setText:[self.contactdb valueForKey:@"tripTime"]];
-        
-        //Saves the time from database to a string.
-        self.startTime = [self.contactdb valueForKey:@"startTime"];
-        
-        //Splits the string - get hour, minute, meridiem
-        NSArray *hourMin = [self.startTime componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@": "]];
-        
-        phour = (int)[hourMin[0] intValue];
-        pminute = (int)[hourMin[1] intValue];
-        pmeridian = 1;
-        
-        if([[hourMin objectAtIndex:2] isEqualToString:@"AM"])
-            pmeridian = 0;
-        else
-        {
-            pmeridian = 1;
-        }
-    }
-    
-    
-    //UIPicker for Start Time settings
-    [self.startTimePicker setDataSource:self];
-    [self.startTimePicker setDelegate:self];
-    self.startTimePicker.showsSelectionIndicator = YES;
-    
-    //Preselect the rows to be displayed in PickerView
-    [self.startTimePicker selectRow:phour-1 inComponent:0 animated:YES];
-    [self.startTimePicker selectRow:pminute inComponent:1 animated:YES];
-    [self.startTimePicker selectRow:pmeridian inComponent:2 animated:YES];
-    
-    [self.view addSubview:self.startTimePicker];
 }
 
 -(NSManagedObjectContext *) managedObjectContext
@@ -100,51 +48,81 @@
     return context;
 }
 
-
-- (void)didReceiveMemoryWarning
+- (void)viewDidLoad
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+    
+    //Get Stop Names for agency - LIRR
+    DataHelper *stopDataHelper = [[DataHelper alloc] init];
+    
+    
+    self.stopNames = [[stopDataHelper getStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    
+    
+    //self.stopNames = @[@"Atlantic Terminal", @"Forest Hills", @"Penn Station", @"Long Island City"];
+    
+    self.pickHour = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12"];
+    self.pickMinute = @[@"00", @"01", @"02", @"03", @"04", @"05", @"06", @"07", @"08", @"09",
+                        @"10", @"11", @"12", @"13", @"14", @"15", @"16", @"17", @"18", @"19",
+                        @"20", @"21", @"22", @"23", @"24", @"25", @"26", @"27", @"28", @"29",
+                        @"30", @"31", @"32", @"33", @"34", @"35", @"36", @"37", @"38", @"39",
+                        @"40", @"41", @"42", @"43", @"44", @"45", @"46", @"47", @"48", @"49",
+                        @"50", @"51", @"52", @"53", @"54", @"55", @"56", @"57", @"58", @"59"];
+    self.pickMeridiem = @[@"AM", @"PM"];
+    self.tripHour = @[@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12"];
+    
+    
+    if(self.contactdb)
+    {
+        [self.fromStation setText:[self.contactdb valueForKey:@"fromStation"]];
+        [self.toStation setText:[self.contactdb valueForKey:@"toStation"]];
+        
+        
+        NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
+        [self.tripTime setText:tripMin];
+        
+        
+        NSString *timeMerd = [Utility convertTimeto12Hour:[self.contactdb valueForKey:@"startTime"]];
+        [self.startTime setText:timeMerd];
+    }
 }
 
-
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(BOOL) textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if (sender != self.saveTripButton) return;
+    //Set current textField to identify the textfield type - fromStation, toStation, departTime, startTime
+    self.currentTextField = textField;
     
-    NSManagedObjectContext *context = [self managedObjectContext];
+    self.currentPicker.tag = self.currentTextField.tag;
     
-    if (self.contactdb)
+    [self.currentPicker setDataSource:self];
+    [self.currentPicker setDelegate:self];
+    self.currentPicker.showsSelectionIndicator = YES;
+    
+    
+    //Pre-Select Rows
+    if (self.currentPicker.tag == 3)
     {
-        //Update existing device
-        [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
-        [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
-        [self.contactdb setValue:self.startTime forKey:@"startTime"];
-        [self.contactdb setValue:self.tripTime.text forKey:@"tripTime"];
+        [self.currentPicker selectRow:0 inComponent:0 animated:YES];
+        [self.currentPicker selectRow:0 inComponent:1 animated:YES];
+    }
+    else if (self.currentPicker.tag == 4)
+    {
+        [self.currentPicker selectRow:0 inComponent:0 animated:YES];
+        [self.currentPicker selectRow:0 inComponent:1 animated:YES];
+        [self.currentPicker selectRow:0 inComponent:2 animated:YES];
     }
     else
     {
-        //Create new device
-        NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
-        [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
-        [newDevice setValue:self.toStation.text forKey:@"toStation"];
-        [newDevice setValue:self.startTime forKey:@"startTime"];
-        [newDevice setValue:self.tripTime.text forKey:@"tripTime"];
+        [self.currentPicker selectRow:0 inComponent:0 animated:YES];
     }
     
-    NSError *error = nil;
-    //Save the object to persistent store
-    if(![context save:&error])
-    {
-        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-    }
+    self.currentTextField.inputView = self.currentPicker;
     
-}
-
-
--(IBAction)textFieldReturn:(id)sender
-{
-    [sender resignFirstResponder];
+    [self.currentPicker reloadAllComponents];
+    
+    
+    return NO;
 }
 
 #pragma mark -
@@ -152,34 +130,73 @@
 
 -(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    return 3;
+    NSInteger numOfComponents = 1;
+    
+    if (pickerView.tag == 3)
+        numOfComponents = 2;
+    else if(pickerView.tag == 4)
+        numOfComponents = 3;
+    else
+        numOfComponents =  1;
+    
+    
+    return numOfComponents;
 }
 
 -(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    if(component == 0)
+    NSInteger numOfRows = 1;
+    
+    
+    if(pickerView.tag == 3)
     {
-        return [self.pickHour count];
+        if (component == 0)
+            numOfRows = [self.tripHour count];
+        else
+            numOfRows = [self.pickMinute count];
     }
-    else if(component == 1)
+    else if (pickerView.tag == 4)
     {
-        return [self.pickMinute count];
+        if (component == 0)
+            numOfRows = [self.pickHour count];
+        else if (component == 1)
+            numOfRows = [self.pickMinute count];
+        else
+            numOfRows = [self.pickMeridiem count];
     }
     else
-    {
-        return [self.pickMeridian count];
-    }
+        numOfRows = [self.stopNames count];
+    
+    
+    return numOfRows;
     
 }
 
 -(NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    if(component == 0)
-        return [self.pickHour objectAtIndex:row];
-    else if(component == 1)
-        return [self.pickMinute objectAtIndex:row];
+    NSString *showTitle = [[NSString alloc] init];
+    
+    if (pickerView.tag == 3)
+    {
+        if (component == 0)
+            showTitle = [self.tripHour objectAtIndex:row];
+        else
+            showTitle = [self.pickMinute objectAtIndex:row];
+    }
+    else if(pickerView.tag == 4)
+    {
+        if (component == 0)
+            showTitle = [self.pickHour objectAtIndex:row];
+        else if (component == 1)
+            showTitle = [self.pickMinute objectAtIndex:row];
+        else
+            showTitle = [self.pickMeridiem objectAtIndex:row];
+    }
     else
-        return [self.pickMeridian objectAtIndex:row];
+        showTitle = [self.stopNames objectAtIndex:row];
+    
+    
+    return showTitle;
     
 }
 
@@ -188,14 +205,211 @@
 
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSLog(@"Selected Row - %i", row);
     
-    NSInteger firstComponentRow = [self.startTimePicker selectedRowInComponent:0];
-    NSInteger secondComponentRow = [self.startTimePicker selectedRowInComponent:1];
-    NSInteger thirdComponentRow = [self.startTimePicker selectedRowInComponent:2];
-    
-    self.startTime = [NSString stringWithFormat:@"%@:%@ %@", self.pickHour[firstComponentRow],self.pickMinute[secondComponentRow], self.pickMeridian[thirdComponentRow]];
+    if (pickerView.tag == 3)
+    {
+        NSInteger firstRow = [pickerView selectedRowInComponent:0];
+        NSInteger secondRow = [pickerView selectedRowInComponent:1];
+        
+        
+        [self.currentTextField setText:[NSString stringWithFormat:@"%@ hour %@ minutes", [self.tripHour objectAtIndex:firstRow], [self.pickMinute objectAtIndex:secondRow]]];
+    }
+    else if (pickerView.tag == 4)
+    {
+        NSInteger firstRow = [pickerView selectedRowInComponent:0];
+        NSInteger secondRow = [pickerView selectedRowInComponent:1];
+        NSInteger thirdRow = [pickerView selectedRowInComponent:2];
+        
+        [self.currentTextField setText:[NSString stringWithFormat:@"%@:%@ %@", [self.pickHour objectAtIndex:firstRow],[self.pickMinute objectAtIndex:secondRow],[self.pickMeridiem objectAtIndex:thirdRow]]];
+    }
+    else
+    {
+        NSInteger firstRow = [pickerView selectedRowInComponent:0];
+        
+        [self.currentTextField setText:[self.stopNames objectAtIndex:firstRow]];
+    }
     
 }
+
+-(BOOL) textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return NO;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)saveTrip:(id)sender
+{
+    //Check for Empty textfields, and alert User.
+    if(sender == self.saveTripButton)
+    {
+        
+        
+        if ([self.fromStation.text length] == 0)
+        {
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Empty TextField" message:@"From Station must be selected!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertUser show];
+        }
+        else if ([self.toStation.text length] == 0)
+        {
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Empty TextField" message:@"To Station must be selected!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertUser show];
+            [alertUser reloadInputViews];
+        }
+        else if ([self.tripTime.text length] == 0)
+        {
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Empty TextField" message:@"Trip Time must be selected!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertUser show];
+            [alertUser reloadInputViews];
+        }
+        else if([self.startTime.text length] == 0)
+        {
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Empty TextField" message:@"Start Time must be selected!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertUser show];
+            [alertUser reloadInputViews];
+        }
+        else
+        {
+            //Prepare a segue programmatically: Call to segue-unwindList
+            
+            //[self prepareForSegue:@"unwindToList" sender:self];
+            //[self performSegueWithIdentifier:@"unwindToList" sender:self];
+            TripProfileViewController *destViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"TripProfileViewController"];
+            
+            
+            
+            if(([self.fromStation.text length] > 0) && ([self.toStation.text length] > 0) &&
+               ([self.tripTime.text length] > 0) && ([self.startTime.text length] > 0))
+            {
+                
+                NSManagedObjectContext *context = [self managedObjectContext];
+                
+                
+                //Function to alert User that departure station is same as destination station
+                
+                //Function to convert tripTime to minutes
+                NSString *totalMins = [Utility convertTripTimeToMinutes:self.tripTime.text];
+                
+                
+                //Function to convert meridiem to 24 hour
+                NSString *timein24 = [Utility convertTimeto24Hour:self.startTime.text];
+                
+                
+                
+                
+                if (self.contactdb)
+                {
+                    //Update existing device
+                    [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
+                    [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
+                    [self.contactdb setValue:timein24 forKey:@"startTime"];
+                    [self.contactdb setValue:totalMins forKey:@"tripTime"];
+                    
+                    destViewController.contactdb = self.contactdb;
+                }
+                else
+                {
+                    //Create new device
+                    NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
+                    [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
+                    [newDevice setValue:self.toStation.text forKey:@"toStation"];
+                    [newDevice setValue:timein24 forKey:@"startTime"];
+                    [newDevice setValue:totalMins forKey:@"tripTime"];
+                    
+                    destViewController.contactdb = newDevice;
+                }
+                
+                NSError *error = nil;
+                //Save the object to persistent store
+                if(![context save:&error])
+                {
+                    NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+                }
+                
+                
+            }
+            
+           
+            [self presentViewController:destViewController animated:NO completion:nil];
+            
+        }
+    }
+    
+    
+}
+
+
+/*
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSLog(@"inside prepare segue-1");
+    if (sender != self.saveTripButton) return;
+    NSLog(@"inside prepare segue-2");
+    TripProfileViewController *destViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"TripProfileViewController"];
+    destViewController = segue.destinationViewController;
+    
+    NSLog(@"inside prepare segue-3");
+    if(([self.fromStation.text length] > 0) && ([self.toStation.text length] > 0) &&
+       ([self.tripTime.text length] > 0) && ([self.startTime.text length] > 0))
+    {
+        NSLog(@"inside segue if");
+        NSManagedObjectContext *context = [self managedObjectContext];
+    
+    
+        //Function to alert User that departure station is same as destination station
+    
+        //Function to convert tripTime to minutes
+        NSString *totalMins = [Utility convertTripTimeToMinutes:self.tripTime.text];
+    
+    
+        //Function to convert meridiem to 24 hour
+        NSString *timein24 = [Utility convertTimeto24Hour:self.startTime.text];
+    
+        NSLog(@"24 hour clock-%@", timein24);
+    
+        
+        if (self.contactdb)
+        {
+            //Update existing device
+            [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
+            [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
+            [self.contactdb setValue:timein24 forKey:@"startTime"];
+            [self.contactdb setValue:totalMins forKey:@"tripTime"];
+            
+            destViewController.contactdb = self.contactdb;
+        }
+        else
+        {
+            //Create new device
+            NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
+            [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
+            [newDevice setValue:self.toStation.text forKey:@"toStation"];
+            [newDevice setValue:timein24 forKey:@"startTime"];
+            [newDevice setValue:totalMins forKey:@"tripTime"];
+            
+            destViewController.contactdb = newDevice;
+        }
+    
+        NSError *error = nil;
+        //Save the object to persistent store
+        if(![context save:&error])
+        {
+            NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+        }
+        
+        
+    }
+    
+    NSLog(@"Before");
+    [self presentViewController:destViewController animated:YES completion:nil];
+    NSLog(@"After");
+}
+*/
+
 
 @end

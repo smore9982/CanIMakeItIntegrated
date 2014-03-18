@@ -276,8 +276,6 @@
     return stopModel;
 }
 
-
-
 - (NSArray *) getTripDepartureTimesForDepartureId:(NSString*) departureID DestinationID:(NSString *)destionationId onDate:(NSDate*) departureDate{
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSError* error;
