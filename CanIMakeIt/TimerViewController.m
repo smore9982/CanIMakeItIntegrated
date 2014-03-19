@@ -27,15 +27,46 @@
 
 - (void)viewDidLoad
 {
+    /*self.dataHelper = [[DataHelper alloc] init];
+     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
+     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+     [outputFormatter setDateFormat:@"yyyy-MM-dd"];
+     NSDate * today = [NSDate date];
+     NSString *CurrentDate = [outputFormatter stringFromDate:today];
+     NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
+     NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
+     [outputFormatter setDateFormat:@"HH:mm:ss"];
+     NSString *CurrentTime = [outputFormatter stringFromDate:today];
+     NSString *nextTrain = [[NSString alloc]init];
+     for (_tripid  = 0; _tripid < [tripTimes count]; _tripid++) {
+     if ([CurrentTime compare:[tripTimes objectAtIndex:_tripid]] == NSOrderedAscending){
+     nextTrain = [tripTimes objectAtIndex:_tripid];
+     break;
+     }
+     }
+     NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
+     NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
+     [outputFormatter setDateFormat:@"mm:ss"];
+     NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
+     [outputFormatter setDateFormat:@"ss"];
+     NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
+     
+     self.NextTrainTime.text = [NSString stringWithFormat:@"%02d:%02d:%02d",[nexttrainhour integerValue], [nexttrainmin integerValue],[nexttrainsec integerValue]];*/
+    
+    
     self.dataHelper = [[DataHelper alloc] init];
+    TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-    [outputFormatter setDateFormat:@"yyyy-MM-dd"];
     NSDate * today = [NSDate date];
-    NSString *CurrentDate = [outputFormatter stringFromDate:today];
-    NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
-    NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:@"8" DestinationID:@"55" onDate:date];
     [outputFormatter setDateFormat:@"HH:mm:ss"];
     NSString *CurrentTime = [outputFormatter stringFromDate:today];
+    NSDate *starttime = [outputFormatter dateFromString:tripProfileModel.departureTime];
+    NSString *StartTime = [outputFormatter stringFromDate:starttime];
+    [outputFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *CurrentDate = [outputFormatter stringFromDate:today];
+    NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
+    NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
+    //NSString *string = [tripTimes objectAtIndex: 1];
     NSString *nextTrain = [[NSString alloc]init];
     for (_tripid  = 0; _tripid < [tripTimes count]; _tripid++) {
         if ([CurrentTime compare:[tripTimes objectAtIndex:_tripid]] == NSOrderedAscending){
@@ -43,14 +74,37 @@
             break;
         }
     }
+    
+    [outputFormatter setDateFormat:@"HH:mm:ss"];
+    NSDate * today1 = [NSDate date];
     NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
+    NSString *departhour = [outputFormatter stringFromDate:starttime];
     NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
+    NSString *currenthour = [outputFormatter stringFromDate:today1];
     [outputFormatter setDateFormat:@"mm:ss"];
+    NSString *departmin = [outputFormatter stringFromDate:starttime];
     NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
+    NSString *currentmin = [outputFormatter stringFromDate:today1];
     [outputFormatter setDateFormat:@"ss"];
+    NSString *departsec = [outputFormatter stringFromDate:starttime];
     NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
+    NSString *currentsec = [outputFormatter stringFromDate:today1];
+    NSLog(@"%@", nextTrain);
     
     self.NextTrainTime.text = [NSString stringWithFormat:@"%02d:%02d:%02d",[nexttrainhour integerValue], [nexttrainmin integerValue],[nexttrainsec integerValue]];
+    
+    /*if (StartTime > CurrentTime) {
+     _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([departhour integerValue] * 3600 + [departmin integerValue] * 60 + [departsec integerValue]);
+     }
+     else{*/
+    _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([currenthour integerValue] * 3600 + [currentmin integerValue] * 60 + [currentsec integerValue]);
+    
+    _appDelegate.counter = _counter;
+    self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                           target:self
+                                                         selector:@selector(updateTimer)
+                                                         userInfo:nil
+                                                          repeats:YES];
     
     _appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     _notification = [[UILocalNotification alloc] init];
@@ -91,60 +145,60 @@
 }
 
 - (IBAction)Start:(id)sender {
-    self.dataHelper = [[DataHelper alloc] init];
-    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-    NSDate * today = [NSDate date];
-    [outputFormatter setDateFormat:@"HH:mm:ss"];
-    //NSString *CurrentTime = [outputFormatter stringFromDate:today];
-    NSDate *starttime = [outputFormatter dateFromString:@"12:00:00"];
-    NSString *StartTime = [outputFormatter stringFromDate:starttime];
-    [outputFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *CurrentDate = [outputFormatter stringFromDate:today];
-    NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
-    NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:@"8" DestinationID:@"55" onDate:date];
-    //NSString *string = [tripTimes objectAtIndex: 1];
-    NSString *nextTrain = [[NSString alloc]init];
-    for (_tripid  = 0; _tripid < [tripTimes count]; _tripid++) {
-        if ([StartTime compare:[tripTimes objectAtIndex:_tripid]] == NSOrderedAscending){
-            nextTrain = [tripTimes objectAtIndex:_tripid];
-            break;
-        }
-    }
-
-    [outputFormatter setDateFormat:@"HH:mm:ss"];
-    NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
-    NSString *departhour = [outputFormatter stringFromDate:starttime];
-    NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
-    [outputFormatter setDateFormat:@"mm:ss"];
-    NSString *departmin = [outputFormatter stringFromDate:starttime];
-    NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
-    [outputFormatter setDateFormat:@"ss"];
-    NSString *departsec = [outputFormatter stringFromDate:starttime];
-    NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
-    NSLog(@"%@", nextTrain);
-    
-    self.NextTrainTime.text = [NSString stringWithFormat:@"%02d:%02d:%02d",[nexttrainhour integerValue], [nexttrainmin integerValue],[nexttrainsec integerValue]];
-    
-    if (_countdowning == TRUE) {
-        _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([departhour integerValue] * 3600 + [departmin integerValue] * 60 + [departsec integerValue]);
-        _appDelegate.counter = _counter;
-        self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                               target:self
-                                                             selector:@selector(updateTimer)
-                                                             userInfo:nil
-                                                              repeats:YES];
-        _countdowning = FALSE;
-    }
-    else{
-        [self.stopWatchTimer invalidate];
-        self.stopWatchTimer = nil;
-        self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                               target:self
-                                                             selector:@selector(updateTimer)
-                                                             userInfo:nil
-                                                              repeats:YES];
-    }
-    
+    /*self.dataHelper = [[DataHelper alloc] init];
+     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
+     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+     NSDate * today = [NSDate date];
+     [outputFormatter setDateFormat:@"HH:mm:ss"];
+     NSString *CurrentTime = [outputFormatter stringFromDate:today];
+     NSDate *starttime = [outputFormatter dateFromString:tripProfileModel.departureTime];
+     //NSString *StartTime = [outputFormatter stringFromDate:starttime];
+     [outputFormatter setDateFormat:@"yyyy-MM-dd"];
+     NSString *CurrentDate = [outputFormatter stringFromDate:today];
+     NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
+     NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
+     //NSString *string = [tripTimes objectAtIndex: 1];
+     NSString *nextTrain = [[NSString alloc]init];
+     for (_tripid  = 0; _tripid < [tripTimes count]; _tripid++) {
+     if ([CurrentTime compare:[tripTimes objectAtIndex:_tripid]] == NSOrderedAscending){
+     nextTrain = [tripTimes objectAtIndex:_tripid];
+     break;
+     }
+     }
+     
+     [outputFormatter setDateFormat:@"HH:mm:ss"];
+     NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
+     NSString *departhour = [outputFormatter stringFromDate:starttime];
+     NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
+     [outputFormatter setDateFormat:@"mm:ss"];
+     NSString *departmin = [outputFormatter stringFromDate:starttime];
+     NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
+     [outputFormatter setDateFormat:@"ss"];
+     NSString *departsec = [outputFormatter stringFromDate:starttime];
+     NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
+     NSLog(@"%@", nextTrain);
+     
+     self.NextTrainTime.text = [NSString stringWithFormat:@"%02d:%02d:%02d",[nexttrainhour integerValue], [nexttrainmin integerValue],[nexttrainsec integerValue]];
+     
+     if (_countdowning == TRUE) {
+     _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([departhour integerValue] * 3600 + [departmin integerValue] * 60 + [departsec integerValue]);
+     _appDelegate.counter = _counter;
+     self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+     target:self
+     selector:@selector(updateTimer)
+     userInfo:nil
+     repeats:YES];
+     _countdowning = FALSE;
+     }
+     else{
+     [self.stopWatchTimer invalidate];
+     self.stopWatchTimer = nil;
+     self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+     target:self
+     selector:@selector(updateTimer)
+     userInfo:nil
+     repeats:YES];
+     }*/
 }
 
 - (IBAction)Stop:(id)sender {
