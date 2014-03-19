@@ -260,7 +260,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O9y-1a-aXP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="I9A-Ga-uyl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2221" y="-234"/>
+            <point key="canvasLocation" x="1541" y="-546"/>
         </scene>
         <!--My Trip View Controller-->
         <scene sceneID="vCn-Gn-5Mn">
@@ -295,7 +295,7 @@
                                         <barButtonItem key="rightBarButtonItem" title="Save" id="IPB-8e-sD0">
                                             <connections>
                                                 <action selector="saveTrip:" destination="cb2-LZ-hCL" id="Up8-hv-TFz"/>
-                                                <segue destination="kXJ-Zs-Mw4" kind="unwind" unwindAction="unwindToList:" id="rwJ-yZ-EWP"/>
+                                                <segue destination="uPO-c7-cy4" kind="modal" identifier="saveSegue" id="MiI-88-6o5"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -390,7 +390,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xf8-nA-enH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="kXJ-Zs-Mw4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2221" y="480"/>
+            <point key="canvasLocation" x="2050" y="-315"/>
         </scene>
         <!--Welcome View Controller - Welcome-->
         <scene sceneID="3d4-Ob-N1B">
@@ -449,7 +449,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9tm-eY-qbe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1210" y="475"/>
+            <point key="canvasLocation" x="1040" y="211"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WB8-tC-ySj">
@@ -499,8 +499,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8MO-vw-P09"/>
-        <segue reference="xtc-AN-PFk"/>
+        <segue reference="MiI-88-6o5"/>
         <segue reference="tPX-Hl-ByA"/>
+        <segue reference="xtc-AN-PFk"/>
     </inferredMetricsTieBreakers>
 </document>

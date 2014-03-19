@@ -54,6 +54,7 @@
 	// Do any additional setup after loading the view.
     
     //Get Stop Names for agency - LIRR
+    self.stopDataHelper = [[DataHelper alloc] init];
     self.stopNames = [[self.stopDataHelper getStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     
@@ -293,57 +294,15 @@
             return NO;
         }
         
-        //Load the departure times for the departure and destination station
-        
-        StopModel *fromStationInfo = [self.stopDataHelper getStopModelWithName:self.fromStation.text];
-        StopModel *toStationInfo = [self.stopDataHelper getStopModelWithName:self.toStation.text];
-        
-        [self.stopDataHelper saveTripDepartureTimesWithDepartureId:fromStationInfo.stopId DestionstionID:toStationInfo.stopId
-        completion:^(NSString *onComp){
-            [self.progressIcon stopAnimating];
-            return;
-        }
-        error:^(NSString *onErr)
-        {
-            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Data Load Error" message:@"Departure times could not be saved. Please hit save again!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alertUser show];
-            [self.progressIcon stopAnimating];
-        }];
-        [self.progressIcon startAnimating];
-        
-    
-    }//End of if condition that checks sender = saveTripButton
-    
-    return YES;
-}
-
-
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    NSLog(@"inside prepare segue-1");
-    if (sender != self.saveTripButton) return;
-    NSLog(@"inside prepare segue-2");
-    
-    
-    
-    if(([self.fromStation.text length] > 0) && ([self.toStation.text length] > 0) &&
-       ([self.tripTime.text length] > 0) && ([self.startTime.text length] > 0))
-    {
-        NSLog(@"inside segue if");
+        //Saving Trip Profile to Database
         NSManagedObjectContext *context = [self managedObjectContext];
-    
-    
-        //Function to alert User that departure station is same as destination station
-    
+        
         //Function to convert tripTime to minutes
         NSString *totalMins = [Utility convertTripTimeToMinutes:self.tripTime.text];
-    
-    
+        
         //Function to convert meridiem to 24 hour
         NSString *timein24 = [Utility convertTimeto24Hour:self.startTime.text];
-    
-        NSLog(@"24 hour clock-%@", timein24);
-    
+        
         
         if (self.contactdb)
         {
@@ -362,14 +321,41 @@
             [newDevice setValue:timein24 forKey:@"startTime"];
             [newDevice setValue:totalMins forKey:@"tripTime"];
         }
-    
+        
         NSError *error = nil;
         //Save the object to persistent store
         if(![context save:&error])
         {
             NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
         }
-    }
+        
+        
+        //Load the departure times for the departure and destination station
+        StopModel *fromStationInfo = [self.stopDataHelper getStopModelWithName:self.fromStation.text];
+        StopModel *toStationInfo = [self.stopDataHelper getStopModelWithName:self.toStation.text];
+        
+        [self.stopDataHelper saveTripDepartureTimesWithDepartureId:fromStationInfo.stopId DestionstionID:toStationInfo.stopId
+        completion:^(NSString *onComp){
+            [self.progressIcon setHidden:true];
+            [self.progressIcon stopAnimating];
+            [self performSegueWithIdentifier:@"saveSegue" sender:self];
+            return YES;
+        }
+        error:^(NSString *onErr)
+        {
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Data Load Error" message:@"Departure times could not be saved. Please hit save again!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertUser show];
+            [self.progressIcon setHidden:true];
+            [self.progressIcon stopAnimating];
+            return NO;
+        }];
+        [self.progressIcon setHidden:false];
+        [self.progressIcon startAnimating];
+        
+    
+    }//End of if condition that checks sender = saveTripButton
+    
+    return NO;
 }
 
     

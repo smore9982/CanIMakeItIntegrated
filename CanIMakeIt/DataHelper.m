@@ -192,7 +192,7 @@
     return stopArray;
 }
 
-- (void) saveTripDepartureTimesWithDepartureId : (NSString*) departureID DestionstionID :(NSString*) destinationId completion:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock{
+- (void) saveTripDepartureTimesWithDepartureId : (NSString*) departureID DestionstionID :(NSString*) destinationId completion:(BOOL (^)(NSString*))completionBlock error:(BOOL (^)(NSString*))errorBlock{
     
     //Url of web service.
     NSString* hostName = @"http://ec2-54-85-36-246.compute-1.amazonaws.com:8080/CanIMakeWebService/";
