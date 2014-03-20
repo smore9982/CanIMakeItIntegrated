@@ -50,8 +50,6 @@
     NSDate * starttime = [outputFormatter dateFromString:tripProfileModel.departureTime];
     NSString *StartTime = [outputFormatter stringFromDate:starttime];
     NSString *CurrentTime = [outputFormatter stringFromDate:now];
-    NSLog(@"%@",StartTime);
-    NSLog(@"%@",CurrentTime);
     if ([CurrentTime compare:StartTime] == NSOrderedDescending) {
         [self performSegueWithIdentifier:@"SplashToTimerSegue" sender:self];
         

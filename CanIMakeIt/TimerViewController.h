@@ -10,12 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface TimerViewController : UIViewController <CLLocationManagerDelegate>
-- (IBAction)Start:(id)sender;
 - (IBAction)Stop:(id)sender;
 @property (strong, nonatomic) IBOutlet UILabel *WatchLabel;
 @property (strong, nonatomic) NSTimer *stopWatchTimer; // Store the timer that fires after a certain time
 @property (strong, nonatomic) NSDate *startDate; // Stores the date of the click on the start button
-@property (weak, nonatomic) IBOutlet UITextField *SetTime;
 @property NSInteger counter;
 @property UIApplication *app;
 @property (strong, nonatomic) IBOutlet UILabel *NextTrainTime;
