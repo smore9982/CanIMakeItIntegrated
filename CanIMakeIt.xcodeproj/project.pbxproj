@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83E0BC7518DCDF9A00ACBEA7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */; };
 		8B7451C118D4BE62002ED7A0 /* TripProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */; };
 		8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7451C318D4CDBA002ED7A0 /* StopModel.m */; };
 		8B7451C518D4E1CA002ED7A0 /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6A17A718D4BFDD001F0E8B /* TripDetailViewController.m */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8B7451BF18D4BE62002ED7A0 /* TripProfileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripProfileModel.h; sourceTree = "<group>"; };
 		8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripProfileModel.m; sourceTree = "<group>"; };
 		8B7451C218D4CDBA002ED7A0 /* StopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopModel.h; sourceTree = "<group>"; };
@@ -94,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8334EABB18D4DD2C0068F151 /* CoreLocation.framework in Frameworks */,
+				83E0BC7518DCDF9A00ACBEA7 /* CoreLocation.framework in Frameworks */,
 				FB5EC89C18C290A100AAA8AE /* CoreGraphics.framework in Frameworks */,
 				FB5EC8A018C290A100AAA8AE /* CoreData.framework in Frameworks */,
 				FB5EC89E18C290A100AAA8AE /* UIKit.framework in Frameworks */,
@@ -138,7 +140,7 @@
 		FB5EC89818C290A100AAA8AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8334EABA18D4DD2C0068F151 /* CoreLocation.framework */,
+				83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */,
 				FB5EC89918C290A100AAA8AE /* Foundation.framework */,
 				FB5EC89B18C290A100AAA8AE /* CoreGraphics.framework */,
 				FB5EC89D18C290A100AAA8AE /* UIKit.framework */,

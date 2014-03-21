@@ -22,5 +22,6 @@
 - (IBAction)GPS:(id)sender;
 @property (strong, nonatomic) IBOutlet UILabel *latlabel;
 @property (strong, nonatomic) IBOutlet UILabel *longlabel;
+- (IBAction)ResetTimer:(id)sender;
 
 @end
