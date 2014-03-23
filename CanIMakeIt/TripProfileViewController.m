@@ -30,16 +30,6 @@
     return context;
 }
 
-
-//- (id)initWithStyle:(UITableViewStyle)style
-//{
- //   self = [super initWithStyle:style];
-  //  if (self) {
-        // Custom initialization
-  //  }
-   // return self;
-//}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -55,8 +45,6 @@
 {
     [super viewDidAppear:animated];
     
-    
-    
     //fetch from persistent data store
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Trips"];
@@ -69,22 +57,17 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-    // Return the number of rows in the section.
     return self.tripArray.count;
 }
 
@@ -93,7 +76,6 @@
     static NSString *CellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
      self.contactdb = [self.tripArray objectAtIndex:indexPath.row];
     
     [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@",[self.contactdb valueForKey:@"fromStation"], [self.contactdb valueForKey:@"toStation"]]];
@@ -139,11 +121,17 @@
 //#pragma mark - Navigation
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"updateTrips"])
-    {
-        NSManagedObject *selectedDevice = [self.tripArray objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
-        MyTripViewController *destViewController = segue.destinationViewController;
-        destViewController.contactdb = selectedDevice;
+    if([self.tripArray count] > 0 ){
+        
+        NSManagedObject *selectedTrip = [self.tripArray objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
+        
+        NSManagedObjectID *tripObject = [selectedTrip objectID];
+        NSURL *objecturl = [tripObject URIRepresentation];
+        NSString *objectUrlString = [objecturl absoluteString];
+        
+        //Saving Default Trip object url to database context
+        DataHelper *saveDataHelper = [[DataHelper alloc] init];
+        [saveDataHelper saveUserData:@"defaultTripID" withValue:objectUrlString];
     }
 }
 
