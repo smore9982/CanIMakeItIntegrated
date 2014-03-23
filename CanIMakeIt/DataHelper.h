@@ -21,4 +21,5 @@
 - (NSArray*) getStopsForAgency:(NSString*) agencyName;
 - (TripProfileModel* )getDefaultProfileData;
 - (StopModel* ) getStopModelWithName: (NSString*) stopName;
+- (StopModel* ) getStopModelWithID: (NSString*) stopId;
 @end
