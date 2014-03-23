@@ -209,6 +209,14 @@
         }else{
             NSError* error;
             NSArray* departuresArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            
+            if([departuresArray count] <= 0){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    errorBlock(@"No trips between the selected stops could be found");
+                    return;
+                });
+            }else{
+            
             //Iterate over array and parse json data
             NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
             for(int i=0;i<[departuresArray count];i++){
@@ -246,11 +254,34 @@
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSString *responeStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
                 completionBlock(@"");
             });
+            }
         }
     }];
+}
+
+-(StopModel* ) getStopModelWithID: (NSString*) stopId{
+    StopModel* stopModel = [[StopModel alloc]init];
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest1 = [[NSFetchRequest alloc] initWithEntityName:@"Stops"];
+    NSPredicate *predicate1 = [NSPredicate predicateWithFormat: @"stopId = %@",stopId];
+    [fetchRequest1 setPredicate:predicate1];
+    
+    NSError* error= nil;
+    NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest1 error:&error];
+    
+    if(array==nil || [array count] <=0){
+        return nil;
+    }
+    
+    NSManagedObject* stopData = [array objectAtIndex:0];
+    stopModel.stopId = [stopData valueForKey:@"stopId"];
+    stopModel.stopLat = [stopData valueForKey:@"stopLat"];
+    stopModel.stopLon = [stopData valueForKey:@"stopLon"];
+    stopModel.stopName = [stopData valueForKey:@"stopName"];
+    stopModel.stopAgency = [stopData valueForKey:@"stopAgency"];
+    return stopModel;
 }
 
 -(StopModel* ) getStopModelWithName: (NSString*) stopName{
