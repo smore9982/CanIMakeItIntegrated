@@ -70,7 +70,6 @@
 
 - (IBAction)setDefaultTripButton:(id)sender
 {
-    NSManagedObjectContext *context = [self managedObjectContext];
     NSManagedObjectID *tripObject = [self.contactdb objectID];
     
     //Gets the object ID that uniquely identifies a row in table - Trips
@@ -83,13 +82,6 @@
     //Saving Default Trip object url to database context
     DataHelper *saveDataHelper = [[DataHelper alloc] init];
     [saveDataHelper saveUserData:@"defaultTripID" withValue:objectUrlString];
-    
-    //Save the object to persistent store
-    NSError *error = nil;
-    if(![context save:&error])
-    {
-        NSLog(@"Error Saving! %@ %@", error, [error localizedDescription]);
-    }
 }
 
 
