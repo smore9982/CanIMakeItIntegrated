@@ -30,8 +30,15 @@
 {
     self.dataHelper = [[DataHelper alloc] init];
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
-    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    StopModel* departureStation = [self.dataHelper getStopModelWithID:tripProfileModel.departureId];
+    StopModel* destinationStation = [self.dataHelper getStopModelWithID:tripProfileModel.destinationId];
     
+    
+    self.TripDetailLabel.text = [NSString stringWithFormat:@"%@ to %@",departureStation.stopName,destinationStation.stopName];
+    
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *friendlyDateFormatter = [[NSDateFormatter alloc] init];
+
     _today = [NSDate date];
     
     [outputFormatter setDateFormat:@"HH:mm:ss"];
@@ -66,7 +73,9 @@
     NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
     NSString *currentsec = [outputFormatter stringFromDate:today1];
     
-    self.NextTrainTime.text = [NSString stringWithFormat:@"%02d:%02d:%02d",[nexttrainhour integerValue], [nexttrainmin integerValue],[nexttrainsec integerValue]];
+    [friendlyDateFormatter setDateFormat:@"hh:mm a"];
+    NSString* nextTrainTime = [friendlyDateFormatter stringFromDate:nexttrain];
+    self.NextTrainTime.text = [NSString stringWithFormat:@"Next train leaves at %@", nextTrainTime];
     
     /*if (StartTime > CurrentTime) {
      _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([departhour integerValue] * 3600 + [departmin integerValue] * 60 + [departsec integerValue]);
@@ -184,7 +193,11 @@
         NSInteger add = (NEXTTRIPTIMEHOUR * 3600 + [nexttripTimemin integerValue] * 60 + [nexttripTimesec integerValue]) - ([currenttripTimehour integerValue] * 3600 + [currenttripTimemin integerValue] * 60 + [currenttripTimesec integerValue]);
         _counter = _counter + add;
         _tripid ++;
-        self.NextTrainTime.text = [NSString stringWithFormat:@"%02d:%02d:%02d",[nexttripTimehour integerValue], [nexttripTimemin integerValue],[nexttripTimesec integerValue]];
+        
+        NSDateFormatter *friendlyDateFormatter = [[NSDateFormatter alloc] init];
+        [friendlyDateFormatter setDateFormat:@"hh:mm a"];
+        NSString* nextTrainTime = [friendlyDateFormatter stringFromDate:nexttripTime];
+        self.NextTrainTime.text = [NSString stringWithFormat:@"Next train leaves at %@", nextTrainTime];
     }
     else if (_counter > walktime * 1.5){
         self.view.backgroundColor = [UIColor whiteColor];
@@ -261,7 +274,11 @@
     NSInteger add = (NEXTTRIPTIMEHOUR * 3600 + [nexttripTimemin integerValue] * 60 + [nexttripTimesec integerValue]) - ([currenttripTimehour integerValue] * 3600 + [currenttripTimemin integerValue] * 60 + [currenttripTimesec integerValue]);
     _counter = _counter + add;
     _tripid ++;
-    self.NextTrainTime.text = [NSString stringWithFormat:@"%02d:%02d:%02d",[nexttripTimehour integerValue], [nexttripTimemin integerValue],[nexttripTimesec integerValue]];
+    
+    NSDateFormatter *friendlyDateFormatter = [[NSDateFormatter alloc] init];
+    [friendlyDateFormatter setDateFormat:@"hh:mm a"];
+    NSString* nextTrainTime = [friendlyDateFormatter stringFromDate:nexttripTime];
+    self.NextTrainTime.text = [NSString stringWithFormat:@"Next train leaves at %@", nextTrainTime];
 }
 
 - (IBAction)GPS:(id)sender {
@@ -301,7 +318,10 @@
     NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
     NSString *currentsec = [outputFormatter stringFromDate:today1];
     
-    self.NextTrainTime.text = [NSString stringWithFormat:@"%02d:%02d:%02d",[nexttrainhour integerValue], [nexttrainmin integerValue],[nexttrainsec integerValue]];
+    NSDateFormatter *friendlyDateFormatter = [[NSDateFormatter alloc] init];
+    [friendlyDateFormatter setDateFormat:@"hh:mm a"];
+    NSString* nextTrainTime = [friendlyDateFormatter stringFromDate:nexttrain];
+    self.NextTrainTime.text = [NSString stringWithFormat:@"Next train leaves at %@", nextTrainTime];
     
     _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([currenthour integerValue] * 3600 + [currentmin integerValue] * 60 + [currentsec integerValue]);
     
