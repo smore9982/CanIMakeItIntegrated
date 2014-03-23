@@ -31,7 +31,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -56,10 +56,7 @@
     //Get Stop Names for agency - LIRR
     self.stopDataHelper = [[DataHelper alloc] init];
     self.stopNames = [[self.stopDataHelper getStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-    
-    
-    //self.stopNames = @[@"Atlantic Terminal", @"Forest Hills", @"Penn Station", @"Long Island City"];
-    
+
     self.pickHour = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12"];
     self.pickMinute = @[@"00", @"01", @"02", @"03", @"04", @"05", @"06", @"07", @"08", @"09",
                         @"10", @"11", @"12", @"13", @"14", @"15", @"16", @"17", @"18", @"19",
@@ -294,48 +291,45 @@
             return NO;
         }
         
-        //Saving Trip Profile to Database
-        NSManagedObjectContext *context = [self managedObjectContext];
-        
-        //Function to convert tripTime to minutes
-        NSString *totalMins = [Utility convertTripTimeToMinutes:self.tripTime.text];
-        
-        //Function to convert meridiem to 24 hour
-        NSString *timein24 = [Utility convertTimeto24Hour:self.startTime.text];
-        
-        
-        if (self.contactdb)
-        {
-            //Update existing device
-            [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
-            [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
-            [self.contactdb setValue:timein24 forKey:@"startTime"];
-            [self.contactdb setValue:totalMins forKey:@"tripTime"];
-        }
-        else
-        {
-            //Create new device
-            NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
-            [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
-            [newDevice setValue:self.toStation.text forKey:@"toStation"];
-            [newDevice setValue:timein24 forKey:@"startTime"];
-            [newDevice setValue:totalMins forKey:@"tripTime"];
-        }
-        
-        NSError *error = nil;
-        //Save the object to persistent store
-        if(![context save:&error])
-        {
-            NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-        }
-        
-        
         //Load the departure times for the departure and destination station
         StopModel *fromStationInfo = [self.stopDataHelper getStopModelWithName:self.fromStation.text];
         StopModel *toStationInfo = [self.stopDataHelper getStopModelWithName:self.toStation.text];
         
         [self.stopDataHelper saveTripDepartureTimesWithDepartureId:fromStationInfo.stopId DestionstionID:toStationInfo.stopId
         completion:^(NSString *onComp){
+            //Saving Trip Profile to Database
+            NSManagedObjectContext *context = [self managedObjectContext];
+            
+            //Function to convert tripTime to minutes
+            NSString *totalMins = [Utility convertTripTimeToMinutes:self.tripTime.text];
+            
+            //Function to convert meridiem to 24 hour
+            NSString *timein24 = [Utility convertTimeto24Hour:self.startTime.text];
+            
+            
+            if (self.contactdb)
+            {
+                //Update existing device
+                [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
+                [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
+                [self.contactdb setValue:timein24 forKey:@"startTime"];
+                [self.contactdb setValue:totalMins forKey:@"tripTime"];
+            }
+            else
+            {
+                //Create new device
+                NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
+                [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
+                [newDevice setValue:self.toStation.text forKey:@"toStation"];
+                [newDevice setValue:timein24 forKey:@"startTime"];
+                [newDevice setValue:totalMins forKey:@"tripTime"];
+            }
+            NSError *error = nil;
+            //Save the object to persistent store
+            if(![context save:&error])
+            {
+                NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+            }
             [self.progressIcon setHidden:true];
             [self.progressIcon stopAnimating];
             [self performSegueWithIdentifier:@"saveSegue" sender:self];
@@ -343,7 +337,15 @@
         }
         error:^(NSString *onErr)
         {
-            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Data Load Error" message:@"Departure times could not be saved. Please hit save again!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            NSMutableString* errorString = [[NSMutableString alloc]init];
+            
+            if(onErr != nil && !([onErr isEqualToString:@""])){
+                [errorString setString:onErr];
+            }else{
+                [errorString setString:@"An error occured trying to save the profile. Please try again"];
+            }
+         
+            UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"Data Load Error" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertUser show];
             [self.progressIcon setHidden:true];
             [self.progressIcon stopAnimating];
@@ -352,11 +354,11 @@
         [self.progressIcon setHidden:false];
         [self.progressIcon startAnimating];
         
+        //Completion Handlers will handle the segue when save is clicked.
+        return NO;
     
-    }//End of if condition that checks sender = saveTripButton
-    
-    return NO;
+    }else{
+        return YES;
+    }
 }
-
-    
 @end
