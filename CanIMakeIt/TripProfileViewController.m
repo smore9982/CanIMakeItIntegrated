@@ -97,8 +97,7 @@
         
     if(![retrievedObjectUrlString compare:savedDefaultTripID])
     {
-        //NSLog(@"inside check");
-        cell.imageView.image = [UIImage imageNamed:@"right2-25.png"];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:19.0];
     }
     
     
@@ -170,10 +169,7 @@
     
 }
 
-- (IBAction)unwindToList:(UIStoryboardSegue *)segue
-{
-    [self.tableView reloadData];
-}
+
 
 /*
 // Override to support rearranging the table view.

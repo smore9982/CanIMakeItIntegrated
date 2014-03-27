@@ -49,9 +49,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "369"
-            endingLineNumber = "369"
-            landmarkName = "@implementation MyTripViewController"
-            landmarkType = "3">
+            endingLineNumber = "369">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
