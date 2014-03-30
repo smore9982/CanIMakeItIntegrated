@@ -19,6 +19,9 @@
 @property (strong, nonatomic) NSArray *tripHour;
 @property DataHelper *stopDataHelper;
 
+@property (nonatomic, retain) UITableView *stationTableViewOne;
+@property (nonatomic, retain) UITableView *stationTableViewTwo;
+
 @end
 
 @implementation MyTripViewController
@@ -26,6 +29,8 @@
 @synthesize contactdb;
 @synthesize currentPicker;
 @synthesize currentTextField;
+@synthesize stationTableViewOne;
+@synthesize stationTableViewTwo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,10 +58,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    //Getting all Initial Data that will be displayed to User for selection
+    
     //Get Stop Names for agency - LIRR
     self.stopDataHelper = [[DataHelper alloc] init];
     self.stopNames = [[self.stopDataHelper getStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-
+    
+    
+    //Set Time - hour, min, seconds for Picker View
     self.pickHour = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12"];
     self.pickMinute = @[@"00", @"01", @"02", @"03", @"04", @"05", @"06", @"07", @"08", @"09",
                         @"10", @"11", @"12", @"13", @"14", @"15", @"16", @"17", @"18", @"19",
@@ -68,6 +77,21 @@
     self.tripHour = @[@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12"];
     
     
+    //Creating Table View for Departure Station Names
+    self.stationTableViewOne = [[UITableView alloc] initWithFrame:CGRectMake(0, 115, 310, 320) style:UITableViewStylePlain];
+    self.stationTableViewOne.dataSource = self;
+    self.stationTableViewOne.delegate = self;
+    self.stationTableViewOne.tag = 1;
+    self.stationTableViewOne.scrollEnabled = YES;
+    
+    //Creating Table View for Destination Station Names
+    self.stationTableViewTwo = [[UITableView alloc] initWithFrame:CGRectMake(0, 160, 310, 320) style:UITableViewStylePlain];
+    self.stationTableViewTwo.dataSource = self;
+    self.stationTableViewTwo.delegate = self;
+    self.stationTableViewTwo.tag = 2;
+    self.stationTableViewTwo.scrollEnabled = YES;
+    
+    //Display Data in TextFields if on Edit Mode
     if(self.contactdb)
     {
         [self.fromStation setText:[self.contactdb valueForKey:@"fromStation"]];
@@ -82,7 +106,9 @@
         [self.startTime setText:timeMerd];
     }
     
+    //Hide ProgressIcon and Picker View
     [self.progressIcon setHidden:YES];
+    [self.currentPicker setHidden:YES];
 }
 
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField
@@ -90,36 +116,97 @@
     //Set current textField to identify the textfield type - fromStation, toStation, departTime, startTime
     self.currentTextField = textField;
     
-    self.currentPicker.tag = self.currentTextField.tag;
     
-    [self.currentPicker setDataSource:self];
-    [self.currentPicker setDelegate:self];
-    self.currentPicker.showsSelectionIndicator = YES;
-    
-    
-    //Pre-Select Rows
-    if (self.currentPicker.tag == 3)
+    if(self.currentTextField.tag == 1)
     {
-        [self.currentPicker selectRow:0 inComponent:0 animated:YES];
-        [self.currentPicker selectRow:0 inComponent:1 animated:YES];
+        [self.currentTextField resignFirstResponder];
+        [self.view addSubview:self.stationTableViewOne];
+        
+        [self.stationTableViewOne reloadData];
     }
-    else if (self.currentPicker.tag == 4)
+    else if(self.currentTextField.tag == 2)
     {
-        [self.currentPicker selectRow:0 inComponent:0 animated:YES];
-        [self.currentPicker selectRow:0 inComponent:1 animated:YES];
-        [self.currentPicker selectRow:0 inComponent:2 animated:YES];
+        [self.currentTextField resignFirstResponder];
+        [self.view addSubview:self.stationTableViewTwo];
+        [self.stationTableViewTwo reloadData];
     }
     else
     {
-        [self.currentPicker selectRow:0 inComponent:0 animated:YES];
+        //Show UIPicker
+        [self.currentPicker setHidden:NO];
+        
+        self.currentPicker.tag = self.currentTextField.tag;
+    
+        [self.currentPicker setDataSource:self];
+        [self.currentPicker setDelegate:self];
+        self.currentPicker.showsSelectionIndicator = YES;
+    
+    
+        //Pre-Select Rows
+        if (self.currentPicker.tag == 3)
+        {
+            [self.currentPicker selectRow:0 inComponent:0 animated:YES];
+            [self.currentPicker selectRow:0 inComponent:1 animated:YES];
+        }
+        else if (self.currentPicker.tag == 4)
+        {
+            [self.currentPicker selectRow:0 inComponent:0 animated:YES];
+            [self.currentPicker selectRow:0 inComponent:1 animated:YES];
+            [self.currentPicker selectRow:0 inComponent:2 animated:YES];
+        }
+    
+        self.currentTextField.inputView = self.currentPicker;
+    
+        [self.currentPicker reloadAllComponents];
     }
-    
-    self.currentTextField.inputView = self.currentPicker;
-    
-    [self.currentPicker reloadAllComponents];
     
     
     return NO;
+}
+
+
+
+#pragma mark -
+#pragma mark TableView DataSource
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.stopNames.count;
+}
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"stationCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:cellIdentifier];
+    if (cell == nil)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    
+    
+    [cell.textLabel setText:[self.stopNames objectAtIndex:indexPath.row]];
+    [cell.textLabel setTextAlignment:NSTextAlignmentRight];
+    
+    return cell;
+}
+
+
+#pragma mark -
+#pragma mark TableView Delegate
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if(tableView.tag == 1)
+    {
+        [self.fromStation setText:cell.textLabel.text];
+        [self.stationTableViewOne removeFromSuperview];
+    }
+    else if(tableView.tag == 2)
+    {
+        [self.toStation setText:cell.textLabel.text];
+        [self.stationTableViewTwo removeFromSuperview];
+
+    }
+    
 }
 
 #pragma mark -
@@ -133,8 +220,6 @@
         numOfComponents = 2;
     else if(pickerView.tag == 4)
         numOfComponents = 3;
-    else
-        numOfComponents =  1;
     
     
     return numOfComponents;
@@ -161,8 +246,6 @@
         else
             numOfRows = [self.pickMeridiem count];
     }
-    else
-        numOfRows = [self.stopNames count];
     
     
     return numOfRows;
@@ -189,8 +272,6 @@
         else
             showTitle = [self.pickMeridiem objectAtIndex:row];
     }
-    else
-        showTitle = [self.stopNames objectAtIndex:row];
     
     
     return showTitle;
@@ -219,20 +300,11 @@
         
         [self.currentTextField setText:[NSString stringWithFormat:@"%@:%@ %@", [self.pickHour objectAtIndex:firstRow],[self.pickMinute objectAtIndex:secondRow],[self.pickMeridiem objectAtIndex:thirdRow]]];
     }
-    else
-    {
-        NSInteger firstRow = [pickerView selectedRowInComponent:0];
-        
-        [self.currentTextField setText:[self.stopNames objectAtIndex:firstRow]];
-    }
+
     
 }
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return NO;
-}
+
 
 - (void)didReceiveMemoryWarning
 {
