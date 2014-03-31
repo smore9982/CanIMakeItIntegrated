@@ -51,8 +51,8 @@
     self.TripDetailLabel.textColor = [UIColor lightGrayColor];
     self.TripDetailLabel.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:20];
     
-    _defaultStopLat = destinationStation.stopLat;
-    _defaultStopLongt = destinationStation.stopLon;
+    _defaultStopLat = departureStation.stopLat;
+    _defaultStopLongt = departureStation.stopLon;
     
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     NSDateFormatter *friendlyDateFormatter = [[NSDateFormatter alloc] init];
@@ -156,7 +156,7 @@
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     _currentLongt = longt;
     double distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
-    _DTS = [NSString stringWithFormat:@"Distance to destination station: %f meters", distance];
+    _DTS = [NSString stringWithFormat:@"Distance to departure station: %f meters", distance];
 }
 
 - (IBAction)Stop:(id)sender {
