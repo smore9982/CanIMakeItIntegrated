@@ -15,13 +15,12 @@
 @interface TimerViewController ()
 
 @property NSNumber *myNumber;
-@property BOOL countdowning;
 @property UILocalNotification *notification;
 @property AppDelegate *appDelegate;
 @property DataHelper* dataHelper;
 @property int tripid;
 @property NSDate* today;
-@property BOOL decide;
+@property BOOL case1;
 @property float counternow;
 
 @end
@@ -32,7 +31,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    _decide = true;
+    _case1 = true;
     
     self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
     self.WatchLabel.textColor = [UIColor lightGrayColor];
@@ -120,69 +119,17 @@
 
 - (void)ToStation
 {
-    
-    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-    NSString *nextTrain = [[NSString alloc]init];
-    TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
-    
-    while (_decide) {
-
-    
-        [outputFormatter setDateFormat:@"HH:mm:ss"];
-        NSString *CurrentTime = [outputFormatter stringFromDate:_today];
-        [outputFormatter setDateFormat:@"yyyy-MM-dd"];
-        NSString *CurrentDate = [outputFormatter stringFromDate:_today];
-        NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
-        NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
-    
-        for (_tripid  = 0; _tripid < [tripTimes count]; _tripid++) {
-            if ([CurrentTime compare:[tripTimes objectAtIndex:_tripid]] == NSOrderedAscending){
-                nextTrain = [tripTimes objectAtIndex:_tripid];
-                break;
-            }
-            else if ([CurrentTime compare:[tripTimes objectAtIndex:([tripTimes count] - 1)]] == NSOrderedDescending){
-                _today = [_today dateByAddingTimeInterval:60*60*24];
-                CurrentDate = [outputFormatter stringFromDate:_today];
-                date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
-                tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
-                _tripid = 0;
-                nextTrain = [tripTimes objectAtIndex:_tripid];
-                break;
-            }
-        }
-        
-        [outputFormatter setDateFormat:@"HH:mm:ss"];
-        NSDate * today1 = [NSDate date];
-        NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
-        NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
-        NSString *currenthour = [outputFormatter stringFromDate:today1];
-        [outputFormatter setDateFormat:@"mm:ss"];
-        NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
-        NSString *currentmin = [outputFormatter stringFromDate:today1];
-        [outputFormatter setDateFormat:@"ss"];
-        NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
-        NSString *currentsec = [outputFormatter stringFromDate:today1];
-        
-        _counternow = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([currenthour integerValue] * 3600 + [currentmin integerValue] * 60 + [currentsec integerValue]);
-        //NSLog(@"%f",_counternow);
-        
-        
-        _decide = false;
-        
+    while (_case1) {
+        _counternow = _counter;
+        _case1 = false;
     }
-    
-
-    
     float actual = [_ProgressToStation progress];
     if (actual < 1.0) {
         _ProgressToStation.progress = 1.0 - (float)_counter / _counternow;
-        //NSLog(@"%f", (float)_counter / _counternow);
-        //NSLog(@"%f", _ProgressToStation.progress);
     }
     else if (actual == 1.0){
-        _decide = true;
+        _case1 = true;
     }
-    
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ToStation) userInfo:nil repeats:NO];
 }
 
@@ -318,6 +265,8 @@
 
 - (IBAction)SkipTrain:(id)sender {
     
+    _case1 = true;
+    
     self.dataHelper = [[DataHelper alloc] init];
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
@@ -377,6 +326,8 @@
     [_locationManager startUpdatingLocation];
 }
 - (IBAction)ResetTimer:(id)sender {
+    
+    _case1 = true;
     
     self.dataHelper = [[DataHelper alloc] init];
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
