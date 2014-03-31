@@ -26,6 +26,7 @@
 @property NSString* defaultStopLongt;
 @property NSString* currentLat;
 @property NSString* currentLongt;
+@property NSString* DTS;
 
 @end
 
@@ -52,7 +53,6 @@
     
     _defaultStopLat = destinationStation.stopLat;
     _defaultStopLongt = destinationStation.stopLon;
-    NSLog(@"%@, %@", _defaultStopLat,_defaultStopLongt);
     
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     NSDateFormatter *friendlyDateFormatter = [[NSDateFormatter alloc] init];
@@ -151,26 +151,12 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    /*int degrees = newLocation.coordinate.latitude;
-    double decimal = fabs(newLocation.coordinate.latitude - degrees);
-    int minutes = decimal * 60;
-    double seconds = decimal * 3600 - minutes * 60;
-    NSString *lat = [NSString stringWithFormat:@"%d° %d' %1.4f\"",
-                     degrees, minutes, seconds];*/
     NSString *lat = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
-    //_latlabel.text = lat;
     _currentLat = lat;
-    NSLog(@"%@", _currentLat);
-    /*degrees = newLocation.coordinate.longitude;
-    decimal = fabs(newLocation.coordinate.longitude - degrees);
-    minutes = decimal * 60;
-    seconds = decimal * 3600 - minutes * 60;
-    NSString *longt = [NSString stringWithFormat:@"%d° %d' %1.4f\"",
-                       degrees, minutes, seconds];*/
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
-    //_longlabel.text = longt;
     _currentLongt = longt;
-    NSLog(@"%@",_currentLongt);
+    double distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
+    _DTS = [NSString stringWithFormat:@"Distance to destination station: %f meters", distance];
 }
 
 - (IBAction)Stop:(id)sender {
@@ -341,13 +327,8 @@
 
 - (IBAction)GPS:(id)sender {
     [_locationManager startUpdatingLocation];
-    double distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
     
-    NSString *DTS;
-    
-    DTS = [NSString stringWithFormat:@"Distance to destination station: %f meters", distance];
-    
-    _distanceToStop.text = DTS;
+    _distanceToStop.text = _DTS;
     _distanceToStop.textColor = [UIColor lightGrayColor];
     _distanceToStop.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
     _distanceToStop.textAlignment = NSTextAlignmentCenter;
