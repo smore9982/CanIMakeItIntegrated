@@ -158,7 +158,7 @@
     NSString *lat = [NSString stringWithFormat:@"%d° %d' %1.4f\"",
                      degrees, minutes, seconds];*/
     NSString *lat = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
-    _latlabel.text = lat;
+    //_latlabel.text = lat;
     _currentLat = lat;
     NSLog(@"%@", _currentLat);
     /*degrees = newLocation.coordinate.longitude;
@@ -168,7 +168,7 @@
     NSString *longt = [NSString stringWithFormat:@"%d° %d' %1.4f\"",
                        degrees, minutes, seconds];*/
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
-    _longlabel.text = longt;
+    //_longlabel.text = longt;
     _currentLongt = longt;
     NSLog(@"%@",_currentLongt);
 }

@@ -20,8 +20,6 @@
 - (IBAction)SkipTrain:(id)sender;
 @property CLLocationManager *locationManager;
 - (IBAction)GPS:(id)sender;
-@property (strong, nonatomic) IBOutlet UILabel *latlabel;
-@property (strong, nonatomic) IBOutlet UILabel *longlabel;
 - (IBAction)ResetTimer:(id)sender;
 @property (strong, nonatomic) IBOutlet UILabel *TripDetailLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *ProgressToStation;
