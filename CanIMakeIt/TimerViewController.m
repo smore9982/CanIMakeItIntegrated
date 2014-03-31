@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad
 {
+    //self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
     self.dataHelper = [[DataHelper alloc] init];
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     StopModel* departureStation = [self.dataHelper getStopModelWithID:tripProfileModel.departureId];
@@ -51,12 +52,25 @@
     NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
     //NSString *string = [tripTimes objectAtIndex: 1];
     NSString *nextTrain = [[NSString alloc]init];
+    NSString *current;
+    NSString *next;
+    
     for (_tripid  = 0; _tripid < [tripTimes count]; _tripid++) {
         if ([CurrentTime compare:[tripTimes objectAtIndex:_tripid]] == NSOrderedAscending){
             nextTrain = [tripTimes objectAtIndex:_tripid];
             break;
         }
+        else if ([CurrentTime compare:[tripTimes objectAtIndex:([tripTimes count] - 1)]] == NSOrderedDescending){
+            _today = [_today dateByAddingTimeInterval:60*60*24];
+            CurrentDate = [outputFormatter stringFromDate:_today];
+            date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
+            tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
+            _tripid = 0;
+            nextTrain = [tripTimes objectAtIndex:_tripid];
+            break;
+        }
     }
+    
     
     [outputFormatter setDateFormat:@"HH:mm:ss"];
     NSDate * today1 = [NSDate date];
@@ -134,6 +148,7 @@
 
 - (void)updateTimer
 {
+    
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     if(tripProfileModel == nil){
         [self performSegueWithIdentifier:@"SplashToTripsSegue" sender:self];
@@ -200,7 +215,7 @@
         self.NextTrainTime.text = [NSString stringWithFormat:@"Next train leaves at %@", nextTrainTime];
     }
     else if (_counter > walktime * 1.5){
-        self.view.backgroundColor = [UIColor whiteColor];
+        //self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];;
     }
     else if (_counter == walktime * 1.5){
         if (_notification)
@@ -225,6 +240,7 @@
     else if (_counter <= walktime){
         self.view.backgroundColor = [UIColor redColor];
     }
+    
 }
 
 - (IBAction)SkipTrain:(id)sender {
@@ -301,6 +317,15 @@
     NSString *nextTrain = [[NSString alloc]init];
     for (_tripid  = 0; _tripid < [tripTimes count]; _tripid++) {
         if ([CurrentTime compare:[tripTimes objectAtIndex:_tripid]] == NSOrderedAscending){
+            nextTrain = [tripTimes objectAtIndex:_tripid];
+            break;
+        }
+        else if ([CurrentTime compare:[tripTimes objectAtIndex:([tripTimes count] - 1)]] == NSOrderedDescending){
+            _today = [_today dateByAddingTimeInterval:60*60*24];
+            CurrentDate = [outputFormatter stringFromDate:_today];
+            date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
+            tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
+            _tripid = 0;
             nextTrain = [tripTimes objectAtIndex:_tripid];
             break;
         }
