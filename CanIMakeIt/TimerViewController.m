@@ -22,6 +22,10 @@
 @property NSDate* today;
 @property BOOL case1;
 @property float counternow;
+@property NSString* defaultStopLat;
+@property NSString* defaultStopLongt;
+@property NSString* currentLat;
+@property NSString* currentLongt;
 
 @end
 
@@ -45,6 +49,10 @@
     self.TripDetailLabel.text = [NSString stringWithFormat:@"%@ to %@",departureStation.stopName,destinationStation.stopName];
     self.TripDetailLabel.textColor = [UIColor lightGrayColor];
     self.TripDetailLabel.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:20];
+    
+    _defaultStopLat = destinationStation.stopLat;
+    _defaultStopLongt = destinationStation.stopLon;
+    NSLog(@"%@, %@", _defaultStopLat,_defaultStopLongt);
     
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     NSDateFormatter *friendlyDateFormatter = [[NSDateFormatter alloc] init];
@@ -143,20 +151,26 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    int degrees = newLocation.coordinate.latitude;
+    /*int degrees = newLocation.coordinate.latitude;
     double decimal = fabs(newLocation.coordinate.latitude - degrees);
     int minutes = decimal * 60;
     double seconds = decimal * 3600 - minutes * 60;
     NSString *lat = [NSString stringWithFormat:@"%d° %d' %1.4f\"",
-                     degrees, minutes, seconds];
+                     degrees, minutes, seconds];*/
+    NSString *lat = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
     _latlabel.text = lat;
-    degrees = newLocation.coordinate.longitude;
+    _currentLat = lat;
+    NSLog(@"%@", _currentLat);
+    /*degrees = newLocation.coordinate.longitude;
     decimal = fabs(newLocation.coordinate.longitude - degrees);
     minutes = decimal * 60;
     seconds = decimal * 3600 - minutes * 60;
     NSString *longt = [NSString stringWithFormat:@"%d° %d' %1.4f\"",
-                       degrees, minutes, seconds];
+                       degrees, minutes, seconds];*/
+    NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     _longlabel.text = longt;
+    _currentLongt = longt;
+    NSLog(@"%@",_currentLongt);
 }
 
 - (IBAction)Stop:(id)sender {
@@ -233,6 +247,9 @@
         self.NextTrainTime.text = [NSString stringWithFormat:@"Next train leaves at %@", nextTrainTime];
         self.NextTrainTime.textColor = [UIColor lightGrayColor];
         self.NextTrainTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
+        
+        _case1 = true;
+        
     }
     else if (_counter > walktime * 1.5){
         self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];;
