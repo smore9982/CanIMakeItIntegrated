@@ -21,6 +21,8 @@
 @property DataHelper* dataHelper;
 @property int tripid;
 @property NSDate* today;
+@property BOOL decide;
+@property float counternow;
 
 @end
 
@@ -28,7 +30,13 @@
 
 - (void)viewDidLoad
 {
-    //self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+    [super viewDidLoad];
+	// Do any additional setup after loading the view, typically from a nib.
+    _decide = true;
+    
+    self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+    self.WatchLabel.textColor = [UIColor lightGrayColor];
+    
     self.dataHelper = [[DataHelper alloc] init];
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     StopModel* departureStation = [self.dataHelper getStopModelWithID:tripProfileModel.departureId];
@@ -36,6 +44,8 @@
     
     
     self.TripDetailLabel.text = [NSString stringWithFormat:@"%@ to %@",departureStation.stopName,destinationStation.stopName];
+    self.TripDetailLabel.textColor = [UIColor lightGrayColor];
+    self.TripDetailLabel.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:20];
     
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     NSDateFormatter *friendlyDateFormatter = [[NSDateFormatter alloc] init];
@@ -44,16 +54,12 @@
     
     [outputFormatter setDateFormat:@"HH:mm:ss"];
     NSString *CurrentTime = [outputFormatter stringFromDate:_today];
-    NSDate *starttime = [outputFormatter dateFromString:tripProfileModel.departureTime];
-    NSString *StartTime = [outputFormatter stringFromDate:starttime];
     [outputFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *CurrentDate = [outputFormatter stringFromDate:_today];
     NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
     NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
-    //NSString *string = [tripTimes objectAtIndex: 1];
+    
     NSString *nextTrain = [[NSString alloc]init];
-    NSString *current;
-    NSString *next;
     
     for (_tripid  = 0; _tripid < [tripTimes count]; _tripid++) {
         if ([CurrentTime compare:[tripTimes objectAtIndex:_tripid]] == NSOrderedAscending){
@@ -75,26 +81,21 @@
     [outputFormatter setDateFormat:@"HH:mm:ss"];
     NSDate * today1 = [NSDate date];
     NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
-    NSString *departhour = [outputFormatter stringFromDate:starttime];
     NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
     NSString *currenthour = [outputFormatter stringFromDate:today1];
     [outputFormatter setDateFormat:@"mm:ss"];
-    NSString *departmin = [outputFormatter stringFromDate:starttime];
     NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
     NSString *currentmin = [outputFormatter stringFromDate:today1];
     [outputFormatter setDateFormat:@"ss"];
-    NSString *departsec = [outputFormatter stringFromDate:starttime];
     NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
     NSString *currentsec = [outputFormatter stringFromDate:today1];
     
     [friendlyDateFormatter setDateFormat:@"hh:mm a"];
     NSString* nextTrainTime = [friendlyDateFormatter stringFromDate:nexttrain];
     self.NextTrainTime.text = [NSString stringWithFormat:@"Next train leaves at %@", nextTrainTime];
-    
-    /*if (StartTime > CurrentTime) {
-     _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([departhour integerValue] * 3600 + [departmin integerValue] * 60 + [departsec integerValue]);
-     }
-     else{*/
+    self.NextTrainTime.textColor = [UIColor lightGrayColor];
+    self.NextTrainTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
+
     _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([currenthour integerValue] * 3600 + [currentmin integerValue] * 60 + [currentsec integerValue]);
     
     _appDelegate.counter = _counter;
@@ -111,8 +112,78 @@
     _locationManager.delegate = self;
     _locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
     _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    _ProgressToStation.progress = 0.0;
+    [self performSelectorOnMainThread:@selector(ToStation) withObject:nil waitUntilDone:NO];
+
+}
+
+- (void)ToStation
+{
+    
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    NSString *nextTrain = [[NSString alloc]init];
+    TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
+    
+    while (_decide) {
+
+    
+        [outputFormatter setDateFormat:@"HH:mm:ss"];
+        NSString *CurrentTime = [outputFormatter stringFromDate:_today];
+        [outputFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *CurrentDate = [outputFormatter stringFromDate:_today];
+        NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
+        NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
+    
+        for (_tripid  = 0; _tripid < [tripTimes count]; _tripid++) {
+            if ([CurrentTime compare:[tripTimes objectAtIndex:_tripid]] == NSOrderedAscending){
+                nextTrain = [tripTimes objectAtIndex:_tripid];
+                break;
+            }
+            else if ([CurrentTime compare:[tripTimes objectAtIndex:([tripTimes count] - 1)]] == NSOrderedDescending){
+                _today = [_today dateByAddingTimeInterval:60*60*24];
+                CurrentDate = [outputFormatter stringFromDate:_today];
+                date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
+                tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
+                _tripid = 0;
+                nextTrain = [tripTimes objectAtIndex:_tripid];
+                break;
+            }
+        }
+        
+        [outputFormatter setDateFormat:@"HH:mm:ss"];
+        NSDate * today1 = [NSDate date];
+        NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
+        NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
+        NSString *currenthour = [outputFormatter stringFromDate:today1];
+        [outputFormatter setDateFormat:@"mm:ss"];
+        NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
+        NSString *currentmin = [outputFormatter stringFromDate:today1];
+        [outputFormatter setDateFormat:@"ss"];
+        NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
+        NSString *currentsec = [outputFormatter stringFromDate:today1];
+        
+        _counternow = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([currenthour integerValue] * 3600 + [currentmin integerValue] * 60 + [currentsec integerValue]);
+        //NSLog(@"%f",_counternow);
+        
+        
+        _decide = false;
+        
+    }
+    
+
+    
+    float actual = [_ProgressToStation progress];
+    if (actual < 1.0) {
+        _ProgressToStation.progress = 1.0 - (float)_counter / _counternow;
+        //NSLog(@"%f", (float)_counter / _counternow);
+        //NSLog(@"%f", _ProgressToStation.progress);
+    }
+    else if (actual == 1.0){
+        _decide = true;
+    }
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ToStation) userInfo:nil repeats:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -213,9 +284,11 @@
         [friendlyDateFormatter setDateFormat:@"hh:mm a"];
         NSString* nextTrainTime = [friendlyDateFormatter stringFromDate:nexttripTime];
         self.NextTrainTime.text = [NSString stringWithFormat:@"Next train leaves at %@", nextTrainTime];
+        self.NextTrainTime.textColor = [UIColor lightGrayColor];
+        self.NextTrainTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
     }
     else if (_counter > walktime * 1.5){
-        //self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];;
+        self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];;
     }
     else if (_counter == walktime * 1.5){
         if (_notification)
@@ -244,6 +317,7 @@
 }
 
 - (IBAction)SkipTrain:(id)sender {
+    
     self.dataHelper = [[DataHelper alloc] init];
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
@@ -295,6 +369,8 @@
     [friendlyDateFormatter setDateFormat:@"hh:mm a"];
     NSString* nextTrainTime = [friendlyDateFormatter stringFromDate:nexttripTime];
     self.NextTrainTime.text = [NSString stringWithFormat:@"Next train leaves at %@", nextTrainTime];
+    self.NextTrainTime.textColor = [UIColor lightGrayColor];
+    self.NextTrainTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
 }
 
 - (IBAction)GPS:(id)sender {
@@ -347,6 +423,8 @@
     [friendlyDateFormatter setDateFormat:@"hh:mm a"];
     NSString* nextTrainTime = [friendlyDateFormatter stringFromDate:nexttrain];
     self.NextTrainTime.text = [NSString stringWithFormat:@"Next train leaves at %@", nextTrainTime];
+    self.NextTrainTime.textColor = [UIColor lightGrayColor];
+    self.NextTrainTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
     
     _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([currenthour integerValue] * 3600 + [currentmin integerValue] * 60 + [currentsec integerValue]);
     

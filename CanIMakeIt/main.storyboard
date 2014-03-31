@@ -66,10 +66,10 @@
                                     <segue destination="uPO-c7-cy4" kind="modal" modalTransitionStyle="crossDissolve" id="oNh-6C-rnZ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TbZ-fP-vWg">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00:00" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TbZ-fP-vWg">
                                 <rect key="frame" x="45" y="145" width="231" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                <fontDescription key="fontDescription" name="Futura-CondensedExtraBold" family="Futura" pointSize="54"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -131,12 +131,17 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rf3-rI-nND">
+                                <rect key="frame" x="84" y="129" width="150" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="NextTrainTime" destination="7hY-U5-mFC" id="Yhi-Ss-aX2"/>
+                        <outlet property="ProgressToStation" destination="Rf3-rI-nND" id="MzI-5t-ufG"/>
                         <outlet property="TripDetailLabel" destination="oEM-e3-4m3" id="q7E-qd-564"/>
                         <outlet property="WatchLabel" destination="TbZ-fP-vWg" id="whJ-4G-Ui6"/>
                         <outlet property="latlabel" destination="HWj-Vf-KtY" id="IdV-7q-tsl"/>
@@ -496,7 +501,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="tPX-Hl-ByA"/>
-        <segue reference="rJ3-ZE-tVO"/>
+        <segue reference="oNh-6C-rnZ"/>
         <segue reference="xtc-AN-PFk"/>
     </inferredMetricsTieBreakers>
 </document>

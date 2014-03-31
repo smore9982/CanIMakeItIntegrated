@@ -24,5 +24,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *longlabel;
 - (IBAction)ResetTimer:(id)sender;
 @property (strong, nonatomic) IBOutlet UILabel *TripDetailLabel;
+@property (weak, nonatomic) IBOutlet UIProgressView *ProgressToStation;
 
 @end
