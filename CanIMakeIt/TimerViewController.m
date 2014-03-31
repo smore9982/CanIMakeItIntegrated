@@ -341,6 +341,16 @@
 
 - (IBAction)GPS:(id)sender {
     [_locationManager startUpdatingLocation];
+    double distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
+    
+    NSString *DTS;
+    
+    DTS = [NSString stringWithFormat:@"Distance to destination station: %f meters", distance];
+    
+    _distanceToStop.text = DTS;
+    _distanceToStop.textColor = [UIColor lightGrayColor];
+    _distanceToStop.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
+    _distanceToStop.textAlignment = NSTextAlignmentCenter;
 }
 - (IBAction)ResetTimer:(id)sender {
     
