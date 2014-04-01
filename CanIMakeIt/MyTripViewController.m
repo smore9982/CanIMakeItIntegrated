@@ -183,7 +183,7 @@
     
     
     [cell.textLabel setText:[self.stopNames objectAtIndex:indexPath.row]];
-    [cell.textLabel setTextAlignment:NSTextAlignmentRight];
+    [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
     
     return cell;
 }
@@ -304,7 +304,23 @@
     
 }
 
+//Method to dismiss table subview, hide UiPicker when touched outside textfields
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
 
+    UITouch *touch = [touches anyObject];
+    if(![touch.view isKindOfClass:[MyTripViewController class]])
+    {
+        if([self.stationTableViewOne isDescendantOfView:[self view]])
+            [self.stationTableViewOne removeFromSuperview];
+            
+        if([self.stationTableViewTwo isDescendantOfView:[self view]])
+            [self.stationTableViewTwo removeFromSuperview];
+            
+        if(![self.currentPicker isHidden])
+            [self.currentPicker setHidden:YES];
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
