@@ -117,8 +117,8 @@
     _app = [UIApplication sharedApplication];
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
-    _locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
-    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
+    _locationManager.distanceFilter = kCLDistanceFilterNone;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     _ProgressToStation.progress = 0.0;
     [self performSelectorOnMainThread:@selector(ToStation) withObject:nil waitUntilDone:NO];
@@ -166,6 +166,7 @@
 
 - (void)updateTimer
 {
+    [_locationManager startUpdatingLocation];
     
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     if(tripProfileModel == nil){
@@ -326,8 +327,6 @@
 }
 
 - (IBAction)GPS:(id)sender {
-    [_locationManager startUpdatingLocation];
-    
     _distanceToStop.text = _DTS;
     _distanceToStop.textColor = [UIColor lightGrayColor];
     _distanceToStop.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
