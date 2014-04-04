@@ -16,7 +16,6 @@
 - (BOOL) isFirstLaunch;
 - (BOOL) setFirstLaunch : (BOOL) isFirstLaunch;
 - (void) saveTripDepartureTimesWithDepartureId : (NSString*) departureID DestionstionID :(NSString*) destinationId TransferID :(NSString*) transferId completion:(BOOL (^)(NSString*))completionBlock error:(BOOL (^)(NSString*))errorBlock;
-- (void) saveTripDepartureTimesWithDepartureId : (NSString*) departureID DestionstionID :(NSString*) destinationId completion:(BOOL (^)(NSString*))completionBlock error:(BOOL (^)(NSString*))errorBlock;
 - (NSArray*) getTripDepartureTimesForDepartureId:(NSString*) departureID DestinationID:(NSString*) destionationId onDate:(NSDate*) departureDate;
 - (void) loadStops:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock;
 - (NSArray*) getStopsForAgency:(NSString*) agencyName;
