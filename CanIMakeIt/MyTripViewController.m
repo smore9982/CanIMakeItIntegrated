@@ -426,7 +426,7 @@
         StopModel *fromStationInfo = [self.stopDataHelper getStopModelWithName:self.fromStation.text];
         StopModel *toStationInfo = [self.stopDataHelper getStopModelWithName:self.toStation.text];
         NSLog(@"transfer - %@", self.transferStation.text);
-        StopModel *transferStationInfo = [self.stopDataHelper getStopModelWithName:@"Jamaica"];
+        StopModel *transferStationInfo = [self.stopDataHelper getStopModelWithName:self.transferStation.text];
         
         [self.stopDataHelper saveTripDepartureTimesWithDepartureId:fromStationInfo.stopId DestionstionID:toStationInfo.stopId TransferID :transferStationInfo.stopId
         completion:^(NSString *onComp){
