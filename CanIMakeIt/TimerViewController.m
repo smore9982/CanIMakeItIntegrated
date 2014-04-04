@@ -103,7 +103,13 @@
     self.NextTrainTime.textColor = [UIColor lightGrayColor];
     self.NextTrainTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
 
-    _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([currenthour integerValue] * 3600 + [currentmin integerValue] * 60 + [currentsec integerValue]);
+    int NEXTTRIPTIMEHOUR = [nexttrainhour integerValue];
+    if ([nexttrainhour integerValue] < [currenthour integerValue]) {
+        
+        NEXTTRIPTIMEHOUR = NEXTTRIPTIMEHOUR + 24;
+    }
+    
+    _counter = (NEXTTRIPTIMEHOUR * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([currenthour integerValue] * 3600 + [currentmin integerValue] * 60 + [currentsec integerValue]);
     
     _appDelegate.counter = _counter;
     self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
@@ -384,7 +390,13 @@
     self.NextTrainTime.textColor = [UIColor lightGrayColor];
     self.NextTrainTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
     
-    _counter = ([nexttrainhour integerValue] * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([currenthour integerValue] * 3600 + [currentmin integerValue] * 60 + [currentsec integerValue]);
+    int NEXTTRIPTIMEHOUR = [nexttrainhour integerValue];
+    if ([nexttrainhour integerValue] < [currenthour integerValue]) {
+        
+        NEXTTRIPTIMEHOUR = NEXTTRIPTIMEHOUR + 24;
+    }
+    
+    _counter = (NEXTTRIPTIMEHOUR * 3600 + [nexttrainmin integerValue] * 60 + [nexttrainsec integerValue]) - ([currenthour integerValue] * 3600 + [currentmin integerValue] * 60 + [currentsec integerValue]);
     
     _appDelegate.counter = _counter;
     
