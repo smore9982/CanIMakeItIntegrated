@@ -196,76 +196,12 @@
     
     //Url of web service.
     NSString* hostName = @"http://ec2-54-85-36-246.compute-1.amazonaws.com:8080/CanIMakeWebService/";
-    NSString* urlStr = [NSString stringWithFormat:@"%@/GetDepartureTimes?fromStationID=%@&toStationID=%@&transferStationID=%@",hostName,departureID,destinationId,transferId];
-    NSURL *url= [NSURL URLWithString:urlStr];
-    
-    NSURLRequest *request=[NSURLRequest requestWithURL:url];
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        if(connectionError != nil){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                errorBlock(@"");
-            });
-        }else{
-            NSError* error;
-            NSArray* departuresArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-            
-            if([departuresArray count] <= 0){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    errorBlock(@"No trips between the selected stops could be found");
-                    return;
-                });
-            }else{
-                
-                //Iterate over array and parse json data
-                NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-                for(int i=0;i<[departuresArray count];i++){
-                    //Each array object can be put into NSDictionary.
-                    NSDictionary* departureData = [departuresArray objectAtIndex:i];
-                    NSString* departureId = [departureData valueForKey:@"departureStopId"];
-                    NSString* destinationId = [departureData valueForKey:@"destinationStopId"];
-                    NSString* departureDateStr = [departureData valueForKey:@"departureDate"];
-                    NSDate* date = [Utility stringToDateConversion:departureDateStr withFormat:@"yyyy-MM-dd"];
-                    NSArray* departureTimes = [departureData valueForKey:@"departureTimes"];
-                    
-                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"DepartureTimes"];
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"departureStopId = %@ AND destinationStopId = %@ AND departureDate =%@",departureId,destinationId,date];
-                    [fetchRequest setPredicate:predicate];
-                    NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-                    
-                    if(array.count > 0){
-                        NSLog(@"Found Value. Update");
-                        NSManagedObject* value = [array objectAtIndex:0];
-                        [value setValue:departureId forKey:@"departureStopId"];
-                        [value setValue:destinationId forKey:@"destinationStopId"];
-                        [value setValue:date forKey:@"departureDate"];
-                        [value setValue:departureTimes forKey:@"departureTimes"];
-                        
-                    }else{
-                        NSLog(@"Did not find value. Insert");
-                        NSManagedObject *newDeparture = [NSEntityDescription insertNewObjectForEntityForName:@"DepartureTimes" inManagedObjectContext:managedObjectContext];
-                        [newDeparture setValue:departureId forKey:@"departureStopId"];
-                        [newDeparture setValue:destinationId forKey:@"destinationStopId"];
-                        [newDeparture setValue:date forKey:@"departureDate"];
-                        [newDeparture setValue:departureTimes forKey:@"departureTimes"];
-                    }
-                    
-                    [managedObjectContext save:&error];
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(@"");
-                });
-            }
-        }
-    }];
-}
-
-- (void) saveTripDepartureTimesWithDepartureId : (NSString*) departureID DestionstionID :(NSString*) destinationId completion:(BOOL (^)(NSString*))completionBlock error:(BOOL (^)(NSString*))errorBlock{
-    
-    //Url of web service.
-    NSString* hostName = @"http://ec2-54-85-36-246.compute-1.amazonaws.com:8080/CanIMakeWebService/";
     NSString* urlStr = [NSString stringWithFormat:@"%@/GetDepartureTimes?fromStationID=%@&toStationID=%@",hostName,departureID,destinationId];
+    
+    if(transferId != nil){
+        urlStr = [NSString stringWithFormat:@"%@/GetDepartureTimes?fromStationID=%@&toStationID=%@&transferStationID=%@",hostName,departureID,destinationId,transferId];
+    }
+    
     NSURL *url= [NSURL URLWithString:urlStr];
     
     NSURLRequest *request=[NSURLRequest requestWithURL:url];
