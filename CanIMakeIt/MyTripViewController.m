@@ -425,9 +425,10 @@
         //Load the departure times for the departure and destination station
         StopModel *fromStationInfo = [self.stopDataHelper getStopModelWithName:self.fromStation.text];
         StopModel *toStationInfo = [self.stopDataHelper getStopModelWithName:self.toStation.text];
-        StopModel *transferStationInfo = [self.stopDataHelper getStopModelWithName:self.transferStation.text];
+        NSLog(@"transfer - %@", self.transferStation.text);
+        StopModel *transferStationInfo = [self.stopDataHelper getStopModelWithName:@"Jamaica"];
         
-        [self.stopDataHelper saveTripDepartureTimesWithDepartureId:fromStationInfo.stopId DestionstionID:toStationInfo.stopId
+        [self.stopDataHelper saveTripDepartureTimesWithDepartureId:fromStationInfo.stopId DestionstionID:toStationInfo.stopId TransferID :transferStationInfo.stopId
         completion:^(NSString *onComp){
             //Saving Trip Profile to Database
             NSManagedObjectContext *context = [self managedObjectContext];

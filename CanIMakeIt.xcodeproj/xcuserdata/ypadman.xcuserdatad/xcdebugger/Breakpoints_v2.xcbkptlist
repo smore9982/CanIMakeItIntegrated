@@ -45,11 +45,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanIMakeIt/MyTripViewController.m"
-            timestampString = "418325263.271764"
+            timestampString = "418346480.797745"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "497"
-            endingLineNumber = "497">
+            startingLineNumber = "504"
+            endingLineNumber = "504">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -81,6 +81,54 @@
             startingLineNumber = "104"
             endingLineNumber = "104"
             landmarkName = "-loadStops:error:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CanIMakeIt/MyTripViewController.m"
+            timestampString = "418346843.903957"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
+            landmarkName = "-shouldPerformSegueWithIdentifier:sender:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CanIMakeIt/MyTripViewController.m"
+            timestampString = "418346847.990199"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "433"
+            endingLineNumber = "433"
+            landmarkName = "-shouldPerformSegueWithIdentifier:sender:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CanIMakeIt/DataHelper.m"
+            timestampString = "418347099.476299"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "-saveTripDepartureTimesWithDepartureId:DestionstionID:TransferID:completion:error:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
