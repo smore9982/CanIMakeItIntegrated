@@ -13,22 +13,16 @@
 
 @interface TripProfileViewController ()
 
+@property DataHelper *getDataHelper;
+@property NSManagedObjectContext *managedObjectContext;
+
+
 @end
 
 @implementation TripProfileViewController
-
--(NSManagedObjectContext *) managedObjectContext
-{
-    NSManagedObjectContext *context = nil;
-    id delegate = [[UIApplication sharedApplication] delegate];
-        
-    if([delegate performSelector:@selector(managedObjectContext)])
-    {
-        context = [delegate managedObjectContext];
-    }
-    
-    return context;
-}
+@synthesize getDataHelper;
+@synthesize contactdb;
+@synthesize managedObjectContext;
 
 - (void)viewDidLoad
 {
@@ -39,17 +33,23 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
+    //Initialize DataHelper
+    self.getDataHelper = [[DataHelper alloc] init];
+    
+    //fetch from persistent data store
+    self.managedObjectContext = [self.getDataHelper managedObjectContext];
+    
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    //fetch from persistent data store
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Trips"];
         
-    self.tripArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    self.tripArray = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
     [self.tableView reloadData];
 }
@@ -73,32 +73,36 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"Inside cell view");
+    
     static NSString *CellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
      self.contactdb = [self.tripArray objectAtIndex:indexPath.row];
     
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@",[self.contactdb valueForKey:@"fromStation"], [self.contactdb valueForKey:@"toStation"]]];
     
-    //Trip Detail disclosure
-    cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@",[self.contactdb valueForKey:@"fromStation"], [self.contactdb valueForKey:@"toStation"]]];
     
-    //Below code checks for the default trip id, and sets the checkmark appropriately.
-    NSManagedObjectID *tripurl = [self.contactdb objectID];
-    //Gets the object ID that uniquely identifies a row in table - Trips
-    NSURL *objecturl = [tripurl URIRepresentation];
-    NSString *retrievedObjectUrlString = [objecturl absoluteString];
+        //Trip Detail disclosure
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
     
-    DataHelper *getTripIDHelper = [[DataHelper alloc] init];
-    NSString *savedDefaultTripID = [getTripIDHelper getUserData:@"defaultTripID"];
+        //Below code checks for the default trip id, and sets the checkmark appropriately.
+        NSManagedObjectID *tripurl = [self.contactdb objectID];
+        //Gets the object ID that uniquely identifies a row in table - Trips
+        NSURL *objecturl = [tripurl URIRepresentation];
+        NSString *retrievedObjectUrlString = [objecturl absoluteString];
+    
+        DataHelper *getTripIDHelper = [[DataHelper alloc] init];
+        NSString *savedDefaultTripID = [getTripIDHelper getUserData:@"defaultTripID"];
     
     
-    //NSLog(@"def id -%@, tripid - %@", savedDefaultTripID, retrievedObjectUrlString);
+        //NSLog(@"def id -%@, tripid - %@", savedDefaultTripID, retrievedObjectUrlString);
         
-    if(![retrievedObjectUrlString compare:savedDefaultTripID])
-    {
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:19.0];
-    }
+        if(![retrievedObjectUrlString compare:savedDefaultTripID])
+        {
+            cell.textLabel.font = [UIFont boldSystemFontOfSize:19.0];
+        }
+    
     
     
     return cell;
@@ -147,15 +151,15 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObjectContext *context = [self managedObjectContext];
+    
     
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         //Delete object from database
-        [context deleteObject:[self.tripArray objectAtIndex:indexPath.row]];
+        [self.managedObjectContext deleteObject:[self.tripArray objectAtIndex:indexPath.row]];
         
         NSError *error = nil;
-        if(![context save:&error])
+        if(![self.managedObjectContext save:&error])
         {
             NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
             return;

@@ -13,6 +13,7 @@
 @interface MyTripViewController ()
 
 @property (strong, nonatomic) NSArray *stopNames;
+@property (strong, nonatomic) NSArray *transferStops;
 @property (strong, nonatomic) NSArray *pickHour;
 @property (strong, nonatomic) NSArray *pickMinute;
 @property (strong, nonatomic) NSArray *pickMeridiem;
@@ -21,6 +22,7 @@
 
 @property (nonatomic, retain) UITableView *stationTableViewOne;
 @property (nonatomic, retain) UITableView *stationTableViewTwo;
+@property (nonatomic, retain) UITableView *transferStationTable;
 
 @end
 
@@ -31,6 +33,7 @@
 @synthesize currentTextField;
 @synthesize stationTableViewOne;
 @synthesize stationTableViewTwo;
+@synthesize transferStationTable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,6 +67,9 @@
     self.stopDataHelper = [[DataHelper alloc] init];
     self.stopNames = [[self.stopDataHelper getStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
+    //Get Transfer Stop Names
+    self.transferStops = @[@"N/A", @"Jamaica"];
+    
     
     //Set Time - hour, min, seconds for Picker View
     self.pickHour = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12"];
@@ -78,25 +84,35 @@
     
     
     //Creating Table View for Departure Station Names
-    self.stationTableViewOne = [[UITableView alloc] initWithFrame:CGRectMake(0, 115, 310, 320) style:UITableViewStylePlain];
+    self.stationTableViewOne = [[UITableView alloc] initWithFrame:CGRectMake(20, 115, 289, 320) style:UITableViewStyleGrouped];
     self.stationTableViewOne.dataSource = self;
     self.stationTableViewOne.delegate = self;
     self.stationTableViewOne.tag = 1;
     self.stationTableViewOne.scrollEnabled = YES;
     
     //Creating Table View for Destination Station Names
-    self.stationTableViewTwo = [[UITableView alloc] initWithFrame:CGRectMake(0, 160, 310, 320) style:UITableViewStylePlain];
+    self.stationTableViewTwo = [[UITableView alloc] initWithFrame:CGRectMake(20, 155, 289, 320) style:UITableViewStyleGrouped];
     self.stationTableViewTwo.dataSource = self;
     self.stationTableViewTwo.delegate = self;
     self.stationTableViewTwo.tag = 2;
     self.stationTableViewTwo.scrollEnabled = YES;
+    
+    
+    //Create Table View for Transfer Stations
+    self.transferStationTable = [[UITableView alloc] initWithFrame:CGRectMake(20, 190, 289, 320) style:UITableViewStyleGrouped];
+    self.transferStationTable.dataSource = self;
+    self.transferStationTable.delegate = self;
+    self.transferStationTable.tag = 3;
+    self.transferStationTable.scrollEnabled = YES;
+
+    
     
     //Display Data in TextFields if on Edit Mode
     if(self.contactdb)
     {
         [self.fromStation setText:[self.contactdb valueForKey:@"fromStation"]];
         [self.toStation setText:[self.contactdb valueForKey:@"toStation"]];
-        
+        [self.transferStation setText:@"None"];
         
         NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
         [self.tripTime setText:tripMin];
@@ -130,6 +146,13 @@
         [self.view addSubview:self.stationTableViewTwo];
         [self.stationTableViewTwo reloadData];
     }
+    else if(self.currentTextField.tag == 3)
+    {
+        [self.currentTextField resignFirstResponder];
+        [self.view addSubview:self.transferStationTable];
+        [self.transferStationTable reloadData];
+
+    }
     else
     {
         //Show UIPicker
@@ -143,12 +166,12 @@
     
     
         //Pre-Select Rows
-        if (self.currentPicker.tag == 3)
+        if (self.currentPicker.tag == 4)
         {
             [self.currentPicker selectRow:0 inComponent:0 animated:YES];
             [self.currentPicker selectRow:0 inComponent:1 animated:YES];
         }
-        else if (self.currentPicker.tag == 4)
+        else if (self.currentPicker.tag == 5)
         {
             [self.currentPicker selectRow:0 inComponent:0 animated:YES];
             [self.currentPicker selectRow:0 inComponent:1 animated:YES];
@@ -170,7 +193,10 @@
 #pragma mark TableView DataSource
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.stopNames.count;
+    if (tableView.tag == 3)
+        return self.transferStops.count;
+    else
+        return self.stopNames.count;
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -182,7 +208,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
     
-    [cell.textLabel setText:[self.stopNames objectAtIndex:indexPath.row]];
+    if (tableView.tag == 3)
+        [cell.textLabel setText:[self.transferStops objectAtIndex:indexPath.row]];
+    else
+        [cell.textLabel setText:[self.stopNames objectAtIndex:indexPath.row]];
+    
+    
     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
     
     return cell;
@@ -206,6 +237,11 @@
         [self.stationTableViewTwo removeFromSuperview];
 
     }
+    else if(tableView.tag == 3)
+    {
+        [self.transferStation setText:cell.textLabel.text];
+        [self.transferStationTable removeFromSuperview];
+    }
     
 }
 
@@ -216,9 +252,9 @@
 {
     NSInteger numOfComponents = 1;
     
-    if (pickerView.tag == 3)
+    if (pickerView.tag == 4)
         numOfComponents = 2;
-    else if(pickerView.tag == 4)
+    else if(pickerView.tag == 5)
         numOfComponents = 3;
     
     
@@ -230,14 +266,14 @@
     NSInteger numOfRows = 1;
     
     
-    if(pickerView.tag == 3)
+    if(pickerView.tag == 4)
     {
         if (component == 0)
             numOfRows = [self.tripHour count];
         else
             numOfRows = [self.pickMinute count];
     }
-    else if (pickerView.tag == 4)
+    else if (pickerView.tag == 5)
     {
         if (component == 0)
             numOfRows = [self.pickHour count];
@@ -256,14 +292,14 @@
 {
     NSString *showTitle = [[NSString alloc] init];
     
-    if (pickerView.tag == 3)
+    if (pickerView.tag == 4)
     {
         if (component == 0)
             showTitle = [self.tripHour objectAtIndex:row];
         else
             showTitle = [self.pickMinute objectAtIndex:row];
     }
-    else if(pickerView.tag == 4)
+    else if(pickerView.tag == 5)
     {
         if (component == 0)
             showTitle = [self.pickHour objectAtIndex:row];
@@ -284,7 +320,7 @@
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     
-    if (pickerView.tag == 3)
+    if (pickerView.tag == 4)
     {
         NSInteger firstRow = [pickerView selectedRowInComponent:0];
         NSInteger secondRow = [pickerView selectedRowInComponent:1];
@@ -292,7 +328,7 @@
         
         [self.currentTextField setText:[NSString stringWithFormat:@"%@ hour %@ minutes", [self.tripHour objectAtIndex:firstRow], [self.pickMinute objectAtIndex:secondRow]]];
     }
-    else if (pickerView.tag == 4)
+    else if (pickerView.tag == 5)
     {
         NSInteger firstRow = [pickerView selectedRowInComponent:0];
         NSInteger secondRow = [pickerView selectedRowInComponent:1];
@@ -316,6 +352,9 @@
             
         if([self.stationTableViewTwo isDescendantOfView:[self view]])
             [self.stationTableViewTwo removeFromSuperview];
+        
+        if([self.transferStationTable isDescendantOfView:[self view]])
+            [self.transferStationTable removeFromSuperview];
             
         if(![self.currentPicker isHidden])
             [self.currentPicker setHidden:YES];
@@ -367,6 +406,10 @@
             
             return NO;
         }
+        else if([self.transferStation.text length] == 0)
+        {
+            [self.transferStation setText:@"N/A"];
+        }
         
         //Check if from-station is not same as the to-station
         if([self.fromStation.text isEqualToString:self.toStation.text])
@@ -382,6 +425,7 @@
         //Load the departure times for the departure and destination station
         StopModel *fromStationInfo = [self.stopDataHelper getStopModelWithName:self.fromStation.text];
         StopModel *toStationInfo = [self.stopDataHelper getStopModelWithName:self.toStation.text];
+        StopModel *transferStationInfo = [self.stopDataHelper getStopModelWithName:self.transferStation.text];
         
         [self.stopDataHelper saveTripDepartureTimesWithDepartureId:fromStationInfo.stopId DestionstionID:toStationInfo.stopId
         completion:^(NSString *onComp){
@@ -400,6 +444,7 @@
                 //Update existing device
                 [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
                 [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
+                [self.contactdb setValue:self.transferStation.text forKey:@"transferStation"];
                 [self.contactdb setValue:timein24 forKey:@"startTime"];
                 [self.contactdb setValue:totalMins forKey:@"tripTime"];
             }
@@ -409,6 +454,7 @@
                 NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
                 [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
                 [newDevice setValue:self.toStation.text forKey:@"toStation"];
+                [newDevice setValue:self.transferStation.text forKey:@"transferStation"];
                 [newDevice setValue:timein24 forKey:@"startTime"];
                 [newDevice setValue:totalMins forKey:@"tripTime"];
             }

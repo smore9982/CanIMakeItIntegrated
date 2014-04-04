@@ -50,7 +50,7 @@
     {
         [self.fromStationLabel setText:[self.contactdb valueForKey:@"fromStation"]];
         [self.toStationLabel setText:[self.contactdb valueForKey:@"toStation"]];
-        
+        [self.transferStationLabel setText:[self.contactdb valueForKey:@"transferStation"]];
         
         NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
         [self.tripTimeLabel setText:tripMin];

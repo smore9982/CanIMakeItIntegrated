@@ -16,6 +16,7 @@
 		8BD137B618CB8FBC0089FD4D /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */; };
 		8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137B818CB97CD0089FD4D /* TimerViewController.m */; };
 		8BD137BC18CBCEB30089FD4D /* DataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD137BB18CBCEB30089FD4D /* DataHelper.m */; };
+		FB544E8A18EF0F290037CD0B /* TripLineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB544E8918EF0F290037CD0B /* TripLineTableViewController.m */; };
 		FB5EC89A18C290A100AAA8AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5EC89918C290A100AAA8AE /* Foundation.framework */; };
 		FB5EC89C18C290A100AAA8AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5EC89B18C290A100AAA8AE /* CoreGraphics.framework */; };
 		FB5EC89E18C290A100AAA8AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5EC89D18C290A100AAA8AE /* UIKit.framework */; };
@@ -62,6 +63,8 @@
 		8BD137B818CB97CD0089FD4D /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
 		8BD137BA18CBCEB30089FD4D /* DataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHelper.h; sourceTree = "<group>"; };
 		8BD137BB18CBCEB30089FD4D /* DataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHelper.m; sourceTree = "<group>"; };
+		FB544E8818EF0F290037CD0B /* TripLineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TripLineTableViewController.h; path = ../TripLineTableViewController.h; sourceTree = "<group>"; };
+		FB544E8918EF0F290037CD0B /* TripLineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TripLineTableViewController.m; path = ../TripLineTableViewController.m; sourceTree = "<group>"; };
 		FB5EC89618C290A100AAA8AE /* CanIMakeIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CanIMakeIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB5EC89918C290A100AAA8AE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FB5EC89B18C290A100AAA8AE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -164,6 +167,8 @@
 				FB6A17A718D4BFDD001F0E8B /* TripDetailViewController.m */,
 				8BD137B118CB8D6F0089FD4D /* SplashScreenViewController.h */,
 				8BD137B218CB8D6F0089FD4D /* SplashScreenViewController.m */,
+				FB544E8818EF0F290037CD0B /* TripLineTableViewController.h */,
+				FB544E8918EF0F290037CD0B /* TripLineTableViewController.m */,
 				FB5EC8D318C292FD00AAA8AE /* MyTripViewController.h */,
 				FB5EC8D418C292FD00AAA8AE /* MyTripViewController.m */,
 				FB5EC8D018C2927000AAA8AE /* TripProfileViewController.h */,
@@ -312,6 +317,7 @@
 			files = (
 				8BD137BC18CBCEB30089FD4D /* DataHelper.m in Sources */,
 				8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */,
+				FB544E8A18EF0F290037CD0B /* TripLineTableViewController.m in Sources */,
 				8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */,
 				8B7451C518D4E1CA002ED7A0 /* TripDetailViewController.m in Sources */,
 				8B74541618D149E200EB308E /* Utility.m in Sources */,

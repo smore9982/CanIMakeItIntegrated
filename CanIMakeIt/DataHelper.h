@@ -11,6 +11,7 @@
 #import "StopModel.h"
 
 @interface DataHelper : NSObject
+-(NSManagedObjectContext *) managedObjectContext;
 - (NSString *) getUserData : (NSString*) key;
 - (BOOL) saveUserData : (NSString*) key withValue: (NSString*) value;
 - (BOOL) isFirstLaunch;
