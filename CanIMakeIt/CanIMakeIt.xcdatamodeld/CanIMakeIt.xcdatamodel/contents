@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DepartureTimes" syncable="YES">
         <attribute name="departureDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="departureStopId" optional="YES" attributeType="String" syncable="YES"/>
@@ -7,6 +7,7 @@
         <attribute name="destinationStopId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Stops" syncable="YES">
+        <attribute name="isTransferStation" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="stopAgency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stopId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stopLat" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,9 +26,9 @@
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DepartureTimes" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="Stops" positionX="-306" positionY="393" width="128" height="118"/>
-        <element name="Trips" positionX="54" positionY="405" width="164" height="120"/>
-        <element name="UserData" positionX="-378" positionY="-153" width="128" height="73"/>
+        <element name="DepartureTimes" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Stops" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Trips" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UserData" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

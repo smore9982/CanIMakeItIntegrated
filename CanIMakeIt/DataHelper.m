@@ -124,8 +124,9 @@
                 NSString* stopName = [stopData valueForKey:@"name"];
                 NSString* stopLat = [stopData valueForKey:@"lat"];
                 NSString* stopLon = [stopData valueForKey:@"lon"];
+                BOOL isTransferStation = [[stopData valueForKey:@"isTransferStation"]boolValue];
                 NSString* stopAgency = @"LIRR";
-                [self saveStopWithID:stopId StopName:stopName StopLat:stopLat StopLon:stopLon StopAgency:stopAgency];
+                [self saveStopWithID:stopId StopName:stopName StopLat:stopLat StopLon:stopLon StopAgency:stopAgency TransferPoint:isTransferStation];
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -134,7 +135,7 @@
     }];
 }
 
--(void) saveStopWithID:(NSString*) stopId StopName:(NSString*) stopName StopLat:(NSString*)stopLat StopLon:(NSString*)stopLon StopAgency:(NSString*) stopAgency{
+-(void) saveStopWithID:(NSString*) stopId StopName:(NSString*) stopName StopLat:(NSString*)stopLat StopLon:(NSString*)stopLon StopAgency:(NSString*) stopAgency TransferPoint:(BOOL) isTransferPoint {
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Stops"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat: @"stopId = %@ AND stopAgency = %@",stopId,stopAgency];
@@ -148,6 +149,7 @@
         [managedObject setValue:stopName forKey:@"stopName"];
         [managedObject setValue:stopLat forKey:@"stopLat"];
         [managedObject setValue:stopLat forKey:@"stopLon"];
+        [managedObject setValue:[NSNumber numberWithBool:isTransferPoint] forKey:@"isTransferStation"];
         return;
     }else{
         NSLog(@"Did not find value. Insert");
@@ -157,6 +159,7 @@
         [stopData setValue:stopName forKey:@"stopName"];
         [stopData setValue:stopLat forKey:@"stopLat"];
         [stopData setValue:stopLon forKey:@"stopLon"];
+        [stopData setValue:[NSNumber numberWithBool:isTransferPoint] forKey:@"isTransferStation"];
         NSError *error = nil;
         if( ![managedObjectContext save:&error] )
         {
@@ -165,6 +168,26 @@
         }
         return;
     }
+}
+
+-(NSArray*) getTransferStopsForAgency:(NSString *)agencyName{
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Stops"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"stopAgency = %@",agencyName];
+    [fetchRequest setPredicate:predicate];
+    NSError *error = nil;
+    NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    NSMutableArray* stopArray = [[NSMutableArray alloc]init];
+    for(int i=0; i< [array count]; i++){
+        NSManagedObject* stopData = [array objectAtIndex:i];
+        NSString* stopName = [stopData valueForKey:@"stopName"];
+        BOOL isTransferPoint = [[stopData valueForKey:@"isTransferStation"]boolValue];
+        if(isTransferPoint){
+            [stopArray addObject:stopName];
+        }
+    }
+    return stopArray;
 }
 
 -(NSArray*) getStopsForAgency:(NSString*) agencyName{

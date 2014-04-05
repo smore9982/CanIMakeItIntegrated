@@ -68,7 +68,7 @@
     self.stopNames = [[self.stopDataHelper getStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     //Get Transfer Stop Names
-    self.transferStops = @[@"N/A", @"Jamaica"];
+    self.transferStops = [[self.stopDataHelper getTransferStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     
     //Set Time - hour, min, seconds for Picker View
