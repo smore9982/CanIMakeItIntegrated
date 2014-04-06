@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Agency" syncable="YES">
+        <attribute name="agencyId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="agencyName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="DepartureTimes" syncable="YES">
         <attribute name="departureDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="departureStopId" optional="YES" attributeType="String" syncable="YES"/>
@@ -30,5 +34,6 @@
         <element name="Stops" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Trips" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UserData" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Agency" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
