@@ -65,10 +65,10 @@
     
     //Get Stop Names for agency - LIRR
     self.stopDataHelper = [[DataHelper alloc] init];
-    self.stopNames = [[self.stopDataHelper getStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.stopNames = [[self.stopDataHelper getStopsForAgency:@"LI"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     //Get Transfer Stop Names
-    self.transferStops = [[self.stopDataHelper getTransferStopsForAgency:@"LIRR"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.transferStops = [[self.stopDataHelper getTransferStopsForAgency:@"LI"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     
     //Set Time - hour, min, seconds for Picker View
