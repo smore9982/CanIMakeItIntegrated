@@ -26,12 +26,20 @@
     [super viewDidAppear:animated];
     
     if([self.dataHelper isFirstLaunch]){
-        [self.dataHelper loadStops:^(NSString* str){
-            [self.dataHelper setFirstLaunch:true];
-            [self performSegueWithIdentifier:@"SplashToWelcomeSegue" sender:self];
-            return;
-        }error:^(NSString * str) {
-            NSLog(@"Inside Completion Handler");
+        //Load Agencies then load stops
+        [self.dataHelper loadAgencies:^(NSString* str){
+            NSArray* agencies = [self.dataHelper getAgencyNames];
+
+            [self.dataHelper loadStops:^(NSString* str){
+                
+                [self.dataHelper setFirstLaunch:true];
+                [self performSegueWithIdentifier:@"SplashToWelcomeSegue" sender:self];
+                return;
+            }error:^(NSString * str) {
+                NSLog(@"Inside Completion Handler");
+                return;
+            }];
+        }error:^(NSString* str){
             return;
         }];
         return;
