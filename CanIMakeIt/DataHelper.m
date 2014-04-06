@@ -125,7 +125,7 @@
                 NSString* stopLat = [stopData valueForKey:@"lat"];
                 NSString* stopLon = [stopData valueForKey:@"lon"];
                 BOOL isTransferStation = [[stopData valueForKey:@"isTransferStation"]boolValue];
-                NSString* stopAgency = @"LIRR";
+                NSString* stopAgency = @"LI";
                 [self saveStopWithID:stopId StopName:stopName StopLat:stopLat StopLon:stopLon StopAgency:stopAgency TransferPoint:isTransferStation];
             }
         }
@@ -388,4 +388,81 @@
     tripModel.stopLon = destinationStop.stopLon;
     return tripModel;
 }
+
+- (void) loadAgencies:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock{
+    NSString* hostName = @"http://ec2-54-85-36-246.compute-1.amazonaws.com:8080/CanIMakeWebService/";
+    NSString* urlStr = [NSString stringWithFormat:@"%@/GetLines",hostName];
+    NSURL *url= [NSURL URLWithString:urlStr];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    
+    //Send an asyncronous request to get data from url.
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if(connectionError != nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(@"");
+            });
+        }else{
+            //Do json desrialization on data
+            NSError* error;
+            NSArray* stopsArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            //Iterate over array and parse json data
+            for(int i=0;i<[stopsArray count];i++){
+                //Each array object can be put into NSDictionary.
+                NSDictionary* stopData = [stopsArray objectAtIndex:i];
+                NSString* agencyId = [stopData valueForKey:@"id"];
+                NSString* agencyName = [stopData valueForKey:@"name"];
+                [self saveAgencyWithID:agencyId AgencyName:agencyName];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(@"");
+        });
+    }];
+}
+
+-(void) saveAgencyWithID:(NSString*) agencyId AgencyName:(NSString*) agencyName  {
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Agency"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"agencyId = %@",agencyId];
+    [fetchRequest setPredicate:predicate];
+    NSError *error = nil;
+    NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if(array.count > 0){
+        NSLog(@"Found Value. Update");
+        NSManagedObject* managedObject = [array objectAtIndex:0];
+        [managedObject setValue:agencyId forKey:@"agencyId"];
+        [managedObject setValue:agencyName forKey:@"agencyName"];
+        return;
+    }else{
+        NSLog(@"Did not find value. Insert");
+        NSManagedObject *agencyData = [NSEntityDescription insertNewObjectForEntityForName:@"Agency" inManagedObjectContext:managedObjectContext];
+        [agencyData setValue:agencyId forKey:@"agencyId"];
+        [agencyData setValue:agencyName forKey:@"agencyName"];
+        NSError *error = nil;
+        if( ![managedObjectContext save:&error] )
+        {
+            NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+            return;
+        }
+        return;
+    }
+}
+
+-(NSArray*) getAgencyNames{
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Agency"];
+    NSError *error = nil;
+    NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    NSMutableArray* agencyArray = [[NSMutableArray alloc]init];
+    for(int i=0; i< [array count]; i++){
+        NSManagedObject* agencyData = [array objectAtIndex:i];
+        NSString* agencyName = [agencyData valueForKey:@"agencyName"];\
+        [agencyArray addObject:agencyName];
+    }
+    
+    return agencyArray;
+}
+
 @end

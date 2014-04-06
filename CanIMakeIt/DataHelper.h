@@ -12,16 +12,25 @@
 
 @interface DataHelper : NSObject
 -(NSManagedObjectContext *) managedObjectContext;
+
 - (NSString *) getUserData : (NSString*) key;
 - (BOOL) saveUserData : (NSString*) key withValue: (NSString*) value;
+
 - (BOOL) isFirstLaunch;
 - (BOOL) setFirstLaunch : (BOOL) isFirstLaunch;
+
 - (void) saveTripDepartureTimesWithDepartureId : (NSString*) departureID DestionstionID :(NSString*) destinationId TransferID :(NSString*) transferId completion:(BOOL (^)(NSString*))completionBlock error:(BOOL (^)(NSString*))errorBlock;
 - (NSArray*) getTripDepartureTimesForDepartureId:(NSString*) departureID DestinationID:(NSString*) destionationId onDate:(NSDate*) departureDate;
+
 - (void) loadStops:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock;
 - (NSArray*) getStopsForAgency:(NSString*) agencyName;
 - (NSArray*) getTransferStopsForAgency: (NSString*) agencyName;
-- (TripProfileModel* )getDefaultProfileData;
 - (StopModel* ) getStopModelWithName: (NSString*) stopName;
 - (StopModel* ) getStopModelWithID: (NSString*) stopId;
+
+- (void) loadAgencies:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock;
+- (NSArray*) getAgencyNames;
+
+- (TripProfileModel* )getDefaultProfileData;
+
 @end
