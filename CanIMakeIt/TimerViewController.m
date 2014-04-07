@@ -181,13 +181,12 @@
     double distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
     double time = distance / 2.235;
     double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
-    double suggesttime;
-    if (nexttraintime - time < 0) {
-        suggesttime = nexttraintime - time + 24 * 3600;
+    double suggesttime = nexttraintime - time;
+    
+    while (suggesttime < 0) {
+        suggesttime = suggesttime + 24 * 3600;
     }
-    else{
-        suggesttime = nexttraintime - time;
-    }
+    
     int suggesthour = suggesttime / 3600;
     int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
     int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
