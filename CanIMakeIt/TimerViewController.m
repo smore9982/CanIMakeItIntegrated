@@ -429,4 +429,6 @@
     _appDelegate.counter = _counter;
     
 }
+- (IBAction)RecordTime:(id)sender {
+}
 @end

@@ -24,5 +24,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *TripDetailLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *ProgressToStation;
 @property (weak, nonatomic) IBOutlet UILabel *distanceToStop;
+- (IBAction)RecordTime:(id)sender;
 
 @end
