@@ -40,6 +40,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     _case1 = true;
+    _recording = true;
     
     self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
     self.WatchLabel.textColor = [UIColor lightGrayColor];
@@ -150,6 +151,19 @@
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ToStation) userInfo:nil repeats:NO];
 }
 
+-(void)RecordingTime
+{
+    _recordcounter = _recordcounter + 1;
+
+        if (_distance < 100) {
+            NSLog(@"%d", _recordcounter);
+            _recording = true;
+            [_RecordTimer invalidate];
+            _RecordTimer = nil;
+        }
+
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -204,9 +218,6 @@
 - (void)updateTimer
 {
     [_locationManager startUpdatingLocation];
-    
-    _recordcounter = _recordcounter + 1;
-
     
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     if(tripProfileModel == nil){
@@ -310,6 +321,8 @@
 - (IBAction)SkipTrain:(id)sender {
 
     _case1 = true;
+    
+    NSLog(@"%d", _recordcounter);
     
     self.dataHelper = [[DataHelper alloc] init];
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
@@ -436,7 +449,16 @@
     
 }
 - (IBAction)RecordTime:(id)sender {
-    _recording = true;
+
     _recordcounter = 0;
+    if (_recording) {
+        _RecordTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                        target:self
+                                                      selector:@selector(RecordingTime)
+                                                      userInfo:nil
+                                                       repeats:YES];
+        _recording = false;
+    }
+
 }
 @end
