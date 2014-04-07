@@ -206,13 +206,6 @@
     [_locationManager startUpdatingLocation];
     
     _recordcounter = _recordcounter + 1;
-    
-    while (_recording) {
-        if (_distance < 100) {
-            NSLog(@"%d", _recordcounter);
-            _recording = false;
-        }
-    }
 
     
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];

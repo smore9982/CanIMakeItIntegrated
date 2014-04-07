@@ -167,7 +167,7 @@
                                 <color key="tintColor" red="0.0" green="0.4839373911321081" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                             </progressView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="293" translatesAutoresizingMaskIntoConstraints="NO" id="EPN-Bi-Rz2">
-                                <rect key="frame" x="13" y="413" width="293" height="128"/>
+                                <rect key="frame" x="14" y="361" width="293" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
