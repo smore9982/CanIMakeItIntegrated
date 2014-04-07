@@ -154,9 +154,15 @@
 -(void)RecordingTime
 {
     _recordcounter = _recordcounter + 1;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Time Stored"
+                                                    message:@"You are close to departure station, and your travel time have been stored."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
 
         if (_distance < 100) {
             NSLog(@"%d", _recordcounter);
+            [alert show];
             _recording = true;
             [_RecordTimer invalidate];
             _RecordTimer = nil;
@@ -321,8 +327,6 @@
 - (IBAction)SkipTrain:(id)sender {
 
     _case1 = true;
-    
-    NSLog(@"%d", _recordcounter);
     
     self.dataHelper = [[DataHelper alloc] init];
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
