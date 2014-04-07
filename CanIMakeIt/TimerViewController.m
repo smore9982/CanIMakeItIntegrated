@@ -27,6 +27,9 @@
 @property NSString* currentLat;
 @property NSString* currentLongt;
 @property NSString* DTS;
+@property double distance;
+@property BOOL recording;
+@property int recordcounter;
 
 @end
 
@@ -178,8 +181,8 @@
     _currentLat = lat;
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     _currentLongt = longt;
-    double distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
-    double time = distance / 2.235;
+    _distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
+    double time = _distance / 2.235;
     double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
     double suggesttime = nexttraintime - time;
     
@@ -190,7 +193,7 @@
     int suggesthour = suggesttime / 3600;
     int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
     int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
-    _DTS = [NSString stringWithFormat:@"Distance to departure station: %.02f meters, recommended departure time: %02d:%02d:%02d", distance, suggesthour, suggestmin, suggestsec];
+    _DTS = [NSString stringWithFormat:@"Distance to departure station: %.02f meters, recommended departure time: %02d:%02d:%02d", _distance, suggesthour, suggestmin, suggestsec];
 }
 
 - (IBAction)Stop:(id)sender {
@@ -201,6 +204,16 @@
 - (void)updateTimer
 {
     [_locationManager startUpdatingLocation];
+    
+    _recordcounter = _recordcounter + 1;
+    
+    while (_recording) {
+        if (_distance < 100) {
+            NSLog(@"%d", _recordcounter);
+            _recording = false;
+        }
+    }
+
     
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     if(tripProfileModel == nil){
@@ -302,7 +315,7 @@
 }
 
 - (IBAction)SkipTrain:(id)sender {
-    
+
     _case1 = true;
     
     self.dataHelper = [[DataHelper alloc] init];
@@ -430,5 +443,7 @@
     
 }
 - (IBAction)RecordTime:(id)sender {
+    _recording = true;
+    _recordcounter = 0;
 }
 @end
