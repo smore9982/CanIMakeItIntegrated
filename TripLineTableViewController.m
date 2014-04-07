@@ -44,9 +44,6 @@
     //Initialize DataHelper
     self.dataHelp = [[DataHelper alloc] init];
     
-    //fetch from persistent data store
-    self.context = [self.dataHelp managedObjectContext];
-    
     //Initialize the agency names into array
     self.agencyArray = [self.dataHelp getAgencyNames];
 }
