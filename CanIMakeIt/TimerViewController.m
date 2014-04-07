@@ -157,12 +157,41 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
+    self.dataHelper = [[DataHelper alloc] init];
+    TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"HH:mm:ss"];
+    [outputFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *CurrentDate = [outputFormatter stringFromDate:_today];
+    NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
+    NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
+    NSString* nextTrain = [tripTimes objectAtIndex:_tripid];
+    [outputFormatter setDateFormat:@"HH:mm:ss"];
+    NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
+    NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
+    [outputFormatter setDateFormat:@"mm:ss"];
+    NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
+    [outputFormatter setDateFormat:@"ss"];
+    NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
+    
     NSString *lat = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
     _currentLat = lat;
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     _currentLongt = longt;
     double distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
-    _DTS = [NSString stringWithFormat:@"Distance to departure station: %f meters", distance];
+    double time = distance / 2.235;
+    double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
+    double suggesttime;
+    if (nexttraintime - time < 0) {
+        suggesttime = nexttraintime - time + 24 * 3600;
+    }
+    else{
+        suggesttime = nexttraintime - time;
+    }
+    int suggesthour = suggesttime / 3600;
+    int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
+    int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
+    _DTS = [NSString stringWithFormat:@"Distance to departure station: %.02f meters, recommended departure time: %02d:%02d:%02d", distance, suggesthour, suggestmin, suggestsec];
 }
 
 - (IBAction)Stop:(id)sender {
