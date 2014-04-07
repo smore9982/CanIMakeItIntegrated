@@ -7,12 +7,20 @@
 //
 
 #import "TripLineTableViewController.h"
+#import "MyTripViewController.h"
+#import "DataHelper.h"
 
 @interface TripLineTableViewController ()
+
+@property NSManagedObjectContext *context;
+@property DataHelper *dataHelp;
 
 @end
 
 @implementation TripLineTableViewController
+@synthesize agencyArray;
+@synthesize context;
+@synthesize dataHelp;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -32,6 +40,15 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    //Initialize DataHelper
+    self.dataHelp = [[DataHelper alloc] init];
+    
+    //fetch from persistent data store
+    self.context = [self.dataHelp managedObjectContext];
+    
+    //Initialize the agency names into array
+    self.agencyArray = [self.dataHelp getAgencyNames];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,7 +69,7 @@
 {
 
     // Return the number of rows in the section.
-    return 2;
+    return self.agencyArray.count;
 }
 
 
@@ -61,10 +78,14 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LineCell" forIndexPath:indexPath];
     
     // Configure the cell...
+    /*
     if (indexPath.row == 0)
         [cell.textLabel setText:@"LIRR"];
     if (indexPath.row == 1)
         [cell.textLabel setText:@"METRONORTH"];
+    */
+    
+    [cell.textLabel setText:[self.agencyArray objectAtIndex:indexPath.row]];
     
     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
     
@@ -111,7 +132,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -119,7 +140,13 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    NSString *selectedAgency = [self.agencyArray objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
+    
+    MyTripViewController *destController = segue.destinationViewController;
+    destController.agencyName = selectedAgency;
+    
 }
-*/
+
 
 @end

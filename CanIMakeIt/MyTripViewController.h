@@ -22,6 +22,7 @@
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveTripButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property NSString *agencyName;
 
 
 @property (strong) NSManagedObject *contactdb;

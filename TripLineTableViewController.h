@@ -10,4 +10,6 @@
 
 @interface TripLineTableViewController : UITableViewController
 
+@property (strong) NSArray *agencyArray;
+
 @end

@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSArray *pickMeridiem;
 @property (strong, nonatomic) NSArray *tripHour;
 @property DataHelper *stopDataHelper;
+@property NSString *matchAgencyName;
 
 @property (nonatomic, retain) UITableView *stationTableViewOne;
 @property (nonatomic, retain) UITableView *stationTableViewTwo;
@@ -34,6 +35,7 @@
 @synthesize stationTableViewOne;
 @synthesize stationTableViewTwo;
 @synthesize transferStationTable;
+@synthesize agencyName;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,12 +65,19 @@
     
     //Getting all Initial Data that will be displayed to User for selection
     
-    //Get Stop Names for agency - LIRR
+    //Get Stop Names for agency
+    if ([self.agencyName isEqualToString:@"Long Island Rail Road"])
+    {
+        self.matchAgencyName = @"LI";
+    }
+    
+    
+    
     self.stopDataHelper = [[DataHelper alloc] init];
-    self.stopNames = [[self.stopDataHelper getStopsForAgency:@"LI"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.stopNames = [[self.stopDataHelper getStopsForAgency:self.matchAgencyName] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     //Get Transfer Stop Names
-    self.transferStops = [[self.stopDataHelper getTransferStopsForAgency:@"LI"] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.transferStops = [[self.stopDataHelper getTransferStopsForAgency:self.matchAgencyName] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     
     //Set Time - hour, min, seconds for Picker View
