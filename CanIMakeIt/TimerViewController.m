@@ -27,6 +27,9 @@
 @property NSString* currentLat;
 @property NSString* currentLongt;
 @property NSString* DTS;
+@property double distance;
+@property BOOL recording;
+@property int recordcounter;
 
 @end
 
@@ -37,6 +40,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     _case1 = true;
+    _recording = true;
     
     self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
     self.WatchLabel.textColor = [UIColor lightGrayColor];
@@ -147,6 +151,25 @@
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ToStation) userInfo:nil repeats:NO];
 }
 
+-(void)RecordingTime
+{
+    _recordcounter = _recordcounter + 1;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Time Stored"
+                                                    message:@"You are close to departure station, and your travel time have been stored."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+
+        if (_distance < 100) {
+            NSLog(@"%d", _recordcounter);
+            [alert show];
+            _recording = true;
+            [_RecordTimer invalidate];
+            _RecordTimer = nil;
+        }
+
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -157,12 +180,40 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
+    self.dataHelper = [[DataHelper alloc] init];
+    TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"HH:mm:ss"];
+    [outputFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *CurrentDate = [outputFormatter stringFromDate:_today];
+    NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
+    NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
+    NSString* nextTrain = [tripTimes objectAtIndex:_tripid];
+    [outputFormatter setDateFormat:@"HH:mm:ss"];
+    NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
+    NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
+    [outputFormatter setDateFormat:@"mm:ss"];
+    NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
+    [outputFormatter setDateFormat:@"ss"];
+    NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
+    
     NSString *lat = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
     _currentLat = lat;
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     _currentLongt = longt;
-    double distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
-    _DTS = [NSString stringWithFormat:@"Distance to departure station: %f meters", distance];
+    _distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
+    double time = _distance / 2.235;
+    double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
+    double suggesttime = nexttraintime - time;
+    
+    while (suggesttime < 0) {
+        suggesttime = suggesttime + 24 * 3600;
+    }
+    
+    int suggesthour = suggesttime / 3600;
+    int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
+    int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
+    _DTS = [NSString stringWithFormat:@"Distance to departure station: %.02f meters, recommended departure time: %02d:%02d:%02d", _distance, suggesthour, suggestmin, suggestsec];
 }
 
 - (IBAction)Stop:(id)sender {
@@ -274,7 +325,7 @@
 }
 
 - (IBAction)SkipTrain:(id)sender {
-    
+
     _case1 = true;
     
     self.dataHelper = [[DataHelper alloc] init];
@@ -400,5 +451,18 @@
     
     _appDelegate.counter = _counter;
     
+}
+- (IBAction)RecordTime:(id)sender {
+
+    _recordcounter = 0;
+    if (_recording) {
+        _RecordTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                        target:self
+                                                      selector:@selector(RecordingTime)
+                                                      userInfo:nil
+                                                       repeats:YES];
+        _recording = false;
+    }
+
 }
 @end

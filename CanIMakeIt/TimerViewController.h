@@ -12,8 +12,9 @@
 @interface TimerViewController : UIViewController <CLLocationManagerDelegate>
 - (IBAction)Stop:(id)sender;
 @property (strong, nonatomic) IBOutlet UILabel *WatchLabel;
-@property (strong, nonatomic) NSTimer *stopWatchTimer; // Store the timer that fires after a certain time
-@property (strong, nonatomic) NSDate *startDate; // Stores the date of the click on the start button
+@property (strong, nonatomic) NSTimer *stopWatchTimer;
+@property (strong, nonatomic) NSTimer *RecordTimer;
+@property (strong, nonatomic) NSDate *startDate;
 @property NSInteger counter;
 @property UIApplication *app;
 @property (strong, nonatomic) IBOutlet UILabel *NextTrainTime;
@@ -24,5 +25,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *TripDetailLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *ProgressToStation;
 @property (weak, nonatomic) IBOutlet UILabel *distanceToStop;
+- (IBAction)RecordTime:(id)sender;
 
 @end
