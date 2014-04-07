@@ -119,7 +119,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanIMakeIt/DataHelper.m"
@@ -128,7 +128,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "202"
             endingLineNumber = "202"
-            landmarkName = "-saveTripDepartureTimesWithDepartureId:DestionstionID:TransferID:completion:error:"
+            landmarkName = "-getStopsForAgency:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -139,22 +139,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             symbolName = "*0x1000124be">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MyTripViewController shouldPerformSegueWithIdentifier:sender:]"
-                  moduleName = "CanIMakeIt"
-                  urlString = "file:///Users/ypadman/Desktop/XcodeProjects/CanIMakeItIntegrated/CanIMakeIt/MyTripViewController.m"
-                  timestampString = "418347526.667404"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "429"
-                  endingLineNumber = "429"
-                  offsetFromSymbolStart = "3022">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

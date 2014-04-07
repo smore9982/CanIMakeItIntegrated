@@ -33,4 +33,9 @@
 
 - (TripProfileModel* )getDefaultProfileData;
 
+- (NSArray *) getTripRealTimes:(NSString*) tripId;
+-(void) saveTripRealTime: (NSInteger) realTimeinSec withTripId: (NSString *)tripId;
+-(NSString *) getDefaultTripId: (NSManagedObject *) managedObject;
+
+
 @end
