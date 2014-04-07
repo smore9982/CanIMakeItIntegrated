@@ -41,6 +41,7 @@
     //fetch from persistent data store
     self.managedObjectContext = [self.getDataHelper managedObjectContext];
     
+    
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -50,6 +51,13 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Trips"];
         
     self.tripArray = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+    if (self.tripArray.count == 0)
+    {
+        UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"0 Trips" message:@"No Trip has been created yet!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertUser show];
+        [alertUser reloadInputViews];
+    }
     
     [self.tableView reloadData];
 }
@@ -79,29 +87,31 @@
      self.contactdb = [self.tripArray objectAtIndex:indexPath.row];
     
     
-        [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@",[self.contactdb valueForKey:@"fromStation"], [self.contactdb valueForKey:@"toStation"]]];
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@",[self.contactdb valueForKey:@"fromStation"], [self.contactdb valueForKey:@"toStation"]]];
     
-        //Trip Detail disclosure
-        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+    //Trip Detail disclosure
+    cell.accessoryType = UITableViewCellAccessoryDetailButton;
     
-        //Below code checks for the default trip id, and sets the checkmark appropriately.
-        NSManagedObjectID *tripurl = [self.contactdb objectID];
-        //Gets the object ID that uniquely identifies a row in table - Trips
-        NSURL *objecturl = [tripurl URIRepresentation];
-        NSString *retrievedObjectUrlString = [objecturl absoluteString];
-    
-        DataHelper *getTripIDHelper = [[DataHelper alloc] init];
-        NSString *savedDefaultTripID = [getTripIDHelper getUserData:@"defaultTripID"];
+    //Set font size, color and type
+    cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0];
+    cell.textLabel.textColor = [UIColor whiteColor];
     
     
-        //NSLog(@"def id -%@, tripid - %@", savedDefaultTripID, retrievedObjectUrlString);
+    //Below code checks for the default trip id, and sets the checkmark appropriately.
+    NSManagedObjectID *tripurl = [self.contactdb objectID];
+    //Gets the object ID that uniquely identifies a row in table - Trips
+    NSURL *objecturl = [tripurl URIRepresentation];
+    NSString *retrievedObjectUrlString = [objecturl absoluteString];
+    
+    DataHelper *getTripIDHelper = [[DataHelper alloc] init];
+    NSString *savedDefaultTripID = [getTripIDHelper getUserData:@"defaultTripID"];
+
         
-        if(![retrievedObjectUrlString compare:savedDefaultTripID])
-        {
-            cell.textLabel.font = [UIFont boldSystemFontOfSize:19.0];
-        }
-    
-    
+    if(![retrievedObjectUrlString compare:savedDefaultTripID])
+    {
+        cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:19.0];
+        cell.textLabel.textColor = [UIColor orangeColor];
+    }
     
     return cell;
 }

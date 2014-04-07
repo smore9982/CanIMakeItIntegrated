@@ -59,7 +59,14 @@
         NSString *timeMerd = [Utility convertTimeto12Hour:[self.contactdb valueForKey:@"startTime"]];
         [self.startTimeLabel setText:timeMerd];
         
+        
+        
     }
+}
+
+-(UIStatusBarStyle) preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning

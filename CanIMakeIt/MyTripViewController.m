@@ -98,6 +98,7 @@
     self.stationTableViewOne.delegate = self;
     self.stationTableViewOne.tag = 1;
     self.stationTableViewOne.scrollEnabled = YES;
+    self.stationTableViewOne.backgroundColor = [UIColor lightGrayColor];
     
     //Creating Table View for Destination Station Names
     self.stationTableViewTwo = [[UITableView alloc] initWithFrame:CGRectMake(20, 155, 289, 320) style:UITableViewStyleGrouped];
@@ -107,12 +108,15 @@
     self.stationTableViewTwo.scrollEnabled = YES;
     
     
+    
     //Create Table View for Transfer Stations
     self.transferStationTable = [[UITableView alloc] initWithFrame:CGRectMake(20, 190, 289, 320) style:UITableViewStyleGrouped];
     self.transferStationTable.dataSource = self;
     self.transferStationTable.delegate = self;
     self.transferStationTable.tag = 3;
     self.transferStationTable.scrollEnabled = YES;
+
+    
 
     
     
@@ -135,6 +139,12 @@
     [self.progressIcon setHidden:YES];
     [self.currentPicker setHidden:YES];
 }
+
+-(UIStatusBarStyle) preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField
 {
@@ -224,6 +234,7 @@
     
     
     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
+    cell.backgroundColor = [UIColor lightGrayColor];
     
     return cell;
 }

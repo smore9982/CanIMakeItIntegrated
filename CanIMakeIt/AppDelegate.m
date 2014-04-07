@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -20,6 +21,13 @@
     // Override point for customization after application launch.
     //self.window.backgroundColor = [UIColor whiteColor];
     //[self.window makeKeyAndVisible];
+    
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x067AB5)];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont fontWithName:@"AvenirNext-Heavy" size:20.0], NSFontAttributeName, nil]];
+    
+    
+    
     return YES;
 }
 

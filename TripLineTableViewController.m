@@ -78,8 +78,9 @@
     [cell.textLabel setText:[self.agencyArray objectAtIndex:indexPath.row]];
     
     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
-    
-    
+    cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0];
+    cell.textLabel.textColor = [UIColor whiteColor];
+
     return cell;
 }
 
