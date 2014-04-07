@@ -59,7 +59,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="cb2-LZ-hCL" kind="modal" modalTransitionStyle="crossDissolve" id="cRg-KP-wgE"/>
+                                    <segue destination="cb2-LZ-hCL" kind="modal" identifier="LineCell" modalTransitionStyle="crossDissolve" id="cRg-KP-wgE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -71,14 +71,14 @@
                     <navigationItem key="navigationItem" title="Choose Line" id="FV0-bu-XCd">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="oRv-tr-b0Y">
                             <connections>
-                                <segue destination="uPO-c7-cy4" kind="modal" modalTransitionStyle="crossDissolve" id="frA-da-ZB5"/>
+                                <segue destination="uPO-c7-cy4" kind="modal" modalTransitionStyle="crossDissolve" id="WdI-BT-Oxp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KPL-PC-86M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2107" y="257"/>
+            <point key="canvasLocation" x="2287" y="257"/>
         </scene>
         <!--Timer View Controller-->
         <scene sceneID="Cjq-qB-jGV">
@@ -577,7 +577,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="xtc-AN-PFk"/>
-        <segue reference="oNh-6C-rnZ"/>
-        <segue reference="wSy-hu-SrE"/>
+        <segue reference="WdI-BT-Oxp"/>
+        <segue reference="cRg-KP-wgE"/>
     </inferredMetricsTieBreakers>
 </document>

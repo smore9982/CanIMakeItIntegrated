@@ -75,13 +75,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LineCell" forIndexPath:indexPath];
     
     // Configure the cell...
-    /*
-    if (indexPath.row == 0)
-        [cell.textLabel setText:@"LIRR"];
-    if (indexPath.row == 1)
-        [cell.textLabel setText:@"METRONORTH"];
-    */
-    
     [cell.textLabel setText:[self.agencyArray objectAtIndex:indexPath.row]];
     
     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
@@ -137,11 +130,13 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"LineCell"])
+    {
+        NSString *selectedAgency = [self.agencyArray objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
     
-    NSString *selectedAgency = [self.agencyArray objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
-    
-    MyTripViewController *destController = segue.destinationViewController;
-    destController.agencyName = selectedAgency;
+        MyTripViewController *destController = segue.destinationViewController;
+        destController.agencyName = selectedAgency;
+    }
     
 }
 
