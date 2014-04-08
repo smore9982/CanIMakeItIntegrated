@@ -183,6 +183,9 @@
     }
     else
     {
+        //remove placeholder text
+        self.currentTextField.placeholder = nil;
+        
         //Show UIPicker
         [self.currentPicker setHidden:NO];
         
@@ -399,6 +402,10 @@
 
 -(BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
+    
+    //Hide the picker
+    if(![self.currentPicker isHidden])
+        [self.currentPicker setHidden:YES];
     
     if(sender == self.saveTripButton)
     {
