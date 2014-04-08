@@ -45,11 +45,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanIMakeIt/MyTripViewController.m"
-            timestampString = "418599958.296788"
+            timestampString = "418682002.239128"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "525"
-            endingLineNumber = "525">
+            startingLineNumber = "528"
+            endingLineNumber = "528">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -91,11 +91,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanIMakeIt/MyTripViewController.m"
-            timestampString = "418599958.296788"
+            timestampString = "418682002.239128"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
             landmarkName = "-shouldPerformSegueWithIdentifier:sender:"
             landmarkType = "5">
          </BreakpointContent>
@@ -107,11 +107,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanIMakeIt/MyTripViewController.m"
-            timestampString = "418599958.296788"
+            timestampString = "418682002.239128"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "454"
-            endingLineNumber = "454"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
             landmarkName = "-shouldPerformSegueWithIdentifier:sender:"
             landmarkType = "5">
          </BreakpointContent>

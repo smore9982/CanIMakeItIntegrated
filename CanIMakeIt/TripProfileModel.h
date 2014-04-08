@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface TripProfileModel : NSObject
+@property NSString* tripObjectId;
 @property NSString* departureId;
 @property NSString* destinationId;
 @property NSString* departureTime;

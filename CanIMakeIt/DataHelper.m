@@ -380,6 +380,7 @@
         return nil;
     }
     
+    tripModel.tripObjectId = objectUrl;
     tripModel.departureId = departureStop.stopId;
     tripModel.destinationId = destinationStop.stopId;
     tripModel.departureTime = [tripData valueForKey:@"startTime"];
@@ -506,18 +507,6 @@
     
     return;
     
-}
-
--(NSString *) getDefaultTripId: (NSManagedObject *) managedObject{
-    
-    if (managedObject == nil)
-        return nil;
-    
-    NSManagedObjectID *ObjectId = [managedObject objectID];
-    NSURL *objecturl = [ObjectId URIRepresentation];
-    NSString *objectUrlString = [objecturl absoluteString];
-    
-    return objectUrlString;
 }
 
 @end
