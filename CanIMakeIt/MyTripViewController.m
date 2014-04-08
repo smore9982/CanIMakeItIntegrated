@@ -106,7 +106,7 @@
     self.stationTableViewTwo.delegate = self;
     self.stationTableViewTwo.tag = 2;
     self.stationTableViewTwo.scrollEnabled = YES;
-    
+    self.stationTableViewTwo.backgroundColor = [UIColor lightGrayColor];
     
     
     //Create Table View for Transfer Stations
@@ -115,9 +115,15 @@
     self.transferStationTable.delegate = self;
     self.transferStationTable.tag = 3;
     self.transferStationTable.scrollEnabled = YES;
-
+    self.transferStationTable.backgroundColor = [UIColor lightGrayColor];
     
-
+    
+    //Set the placeholder text, and its font color
+    self.fromStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Departure Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    self.toStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Destination Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    self.transferStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Transfer Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    self.tripTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Approx. Time to Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    self.startTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Time to Start Timer" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
     
     //Display Data in TextFields if on Edit Mode
@@ -125,7 +131,7 @@
     {
         [self.fromStation setText:[self.contactdb valueForKey:@"fromStation"]];
         [self.toStation setText:[self.contactdb valueForKey:@"toStation"]];
-        [self.transferStation setText:@"None"];
+        [self.transferStation setText:[self.contactdb valueForKey:@"transferStation"]];
         
         NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
         [self.tripTime setText:tripMin];
@@ -155,6 +161,7 @@
     if(self.currentTextField.tag == 1)
     {
         [self.currentTextField resignFirstResponder];
+        self.currentTextField.placeholder = nil;
         [self.view addSubview:self.stationTableViewOne];
         
         [self.stationTableViewOne reloadData];
@@ -162,12 +169,14 @@
     else if(self.currentTextField.tag == 2)
     {
         [self.currentTextField resignFirstResponder];
+        self.currentTextField.placeholder = nil;
         [self.view addSubview:self.stationTableViewTwo];
         [self.stationTableViewTwo reloadData];
     }
     else if(self.currentTextField.tag == 3)
     {
         [self.currentTextField resignFirstResponder];
+        self.currentTextField.placeholder = nil;
         [self.view addSubview:self.transferStationTable];
         [self.transferStationTable reloadData];
 
