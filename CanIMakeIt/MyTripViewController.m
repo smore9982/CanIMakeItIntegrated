@@ -119,11 +119,11 @@
     
     
     //Set the placeholder text, and its font color
-    self.fromStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Departure Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
-    self.toStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Destination Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
-    self.transferStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Transfer Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
-    self.tripTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Approx. Time to Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
-    self.startTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Time to Start Timer" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    self.fromStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Departure Station" attributes:@{NSForegroundColorAttributeName: [UIColor yellowColor]}];
+    self.toStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Destination Station" attributes:@{NSForegroundColorAttributeName: [UIColor yellowColor]}];
+    self.transferStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Transfer Station" attributes:@{NSForegroundColorAttributeName: [UIColor yellowColor]}];
+    self.tripTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Approx. Time to Station" attributes:@{NSForegroundColorAttributeName: [UIColor yellowColor]}];
+    self.startTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Time to Start Timer" attributes:@{NSForegroundColorAttributeName: [UIColor yellowColor]}];
     
     
     //Display Data in TextFields if on Edit Mode
