@@ -30,6 +30,7 @@
 @property double distance;
 @property BOOL recording;
 @property int recordcounter;
+@property NSString* defulttripID;
 
 @end
 
@@ -57,7 +58,8 @@
     
     _defaultStopLat = departureStation.stopLat;
     _defaultStopLongt = departureStation.stopLon;
-    
+    _defulttripID = tripProfileModel.tripObjectId;
+
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     NSDateFormatter *friendlyDateFormatter = [[NSDateFormatter alloc] init];
 
@@ -161,11 +163,13 @@
                                           otherButtonTitles:nil];
 
         if (_distance < 100) {
-            NSLog(@"%d", _recordcounter);
+            
+            [_dataHelper saveTripRealTime:_recordcounter withTripId:_defulttripID];
             [alert show];
             _recording = true;
             [_RecordTimer invalidate];
             _RecordTimer = nil;
+            
         }
 
 }
