@@ -27,7 +27,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="wgn-fh-rXW" kind="modal" identifier="ToTimerSegue" modalTransitionStyle="crossDissolve" id="xtc-AN-PFk"/>
+                                    <segue destination="M0c-i7-0ug" kind="modal" identifier="ToTimerSegue" modalTransitionStyle="crossDissolve" id="xtc-AN-PFk"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -89,7 +89,7 @@
             </objects>
             <point key="canvasLocation" x="2287" y="257"/>
         </scene>
-        <!--Timer View Controller-->
+        <!--Timer View Controller - Timer-->
         <scene sceneID="Cjq-qB-jGV">
             <objects>
                 <viewController id="wgn-fh-rXW" customClass="TimerViewController" sceneMemberID="viewController">
@@ -101,34 +101,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3vz-AL-yaU">
-                                <rect key="frame" x="220" y="296" width="65" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="25"/>
-                                <state key="normal" title="Stop">
-                                    <color key="titleColor" red="0.0" green="0.24296525481664458" blue="0.50205927309782616" alpha="0.5" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="Stop:" destination="wgn-fh-rXW" eventType="touchUpInside" id="lR0-tg-WKG"/>
-                                    <segue destination="uPO-c7-cy4" kind="modal" modalTransitionStyle="crossDissolve" id="oNh-6C-rnZ"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00:00" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TbZ-fP-vWg">
-                                <rect key="frame" x="45" y="145" width="231" height="66"/>
+                                <rect key="frame" x="45" y="174" width="231" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Futura-CondensedExtraBold" family="Futura" pointSize="54"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7hY-U5-mFC">
-                                <rect key="frame" x="20" y="90" width="280" height="21"/>
+                                <rect key="frame" x="20" y="119" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVf-kX-yZ0">
-                                <rect key="frame" x="125" y="231" width="71" height="30"/>
+                                <rect key="frame" x="84" y="269" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="25"/>
                                 <state key="normal" title="Skip">
@@ -140,7 +127,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsv-UN-ypf">
-                                <rect key="frame" x="117" y="269" width="87" height="30"/>
+                                <rect key="frame" x="163" y="269" width="87" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="25"/>
                                 <state key="normal" title="Reset">
@@ -152,14 +139,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEM-e3-4m3">
-                                <rect key="frame" x="20" y="61" width="280" height="21"/>
+                                <rect key="frame" x="20" y="90" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rf3-rI-nND">
-                                <rect key="frame" x="84" y="129" width="150" height="2"/>
+                                <rect key="frame" x="84" y="158" width="150" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.0" green="0.4839373911321081" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                             </progressView>
@@ -193,6 +180,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Timer" id="oBK-lx-d82">
+                        <barButtonItem key="leftBarButtonItem" title="Stop" id="5dc-0g-jH9">
+                            <connections>
+                                <action selector="Stop:" destination="wgn-fh-rXW" id="vg7-Be-Pbb"/>
+                                <segue destination="uPO-c7-cy4" kind="modal" id="u6l-ku-uLv"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Reset" id="Gey-6h-bI4">
+                            <connections>
+                                <action selector="ResetTimer:" destination="wgn-fh-rXW" id="e3T-pg-hJW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="NextTrainTime" destination="7hY-U5-mFC" id="Yhi-Ss-aX2"/>
@@ -204,7 +204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6gb-ES-vxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1350" y="1544"/>
+            <point key="canvasLocation" x="1876" y="1544"/>
         </scene>
         <!--Trip Detail View Controller-->
         <scene sceneID="uOq-Ai-PT7">
@@ -527,6 +527,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uPO-c7-cy4" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="DVO-Pg-bzK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PtE-YN-4fG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -574,7 +575,7 @@
                     <connections>
                         <segue destination="MVt-cq-Q0y" kind="modal" identifier="SplashToWelcomeSegue" modalTransitionStyle="crossDissolve" id="HIk-0s-d3Q"/>
                         <segue destination="uPO-c7-cy4" kind="modal" identifier="SplashToTripsSegue" modalTransitionStyle="crossDissolve" id="QpA-BK-GbL"/>
-                        <segue destination="wgn-fh-rXW" kind="modal" identifier="SplashToTimerSegue" modalTransitionStyle="crossDissolve" id="0MI-JX-Kt9"/>
+                        <segue destination="M0c-i7-0ug" kind="modal" identifier="SplashToTimerSegue" modalTransitionStyle="crossDissolve" id="0MI-JX-Kt9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3S-GT-0zk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -599,6 +600,24 @@
             </objects>
             <point key="canvasLocation" x="1629" y="257"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sHA-gY-DNR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M0c-i7-0ug" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EaB-Kz-Jyj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wgn-fh-rXW" kind="relationship" relationship="rootViewController" id="qbB-6F-1Ma"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Jc-Mk-aev" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1350" y="1544"/>
+        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -606,8 +625,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="cRg-KP-wgE"/>
-        <segue reference="oNh-6C-rnZ"/>
         <segue reference="xtc-AN-PFk"/>
+        <segue reference="u6l-ku-uLv"/>
+        <segue reference="cRg-KP-wgE"/>
     </inferredMetricsTieBreakers>
 </document>
