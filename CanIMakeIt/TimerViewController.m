@@ -29,8 +29,10 @@
 @property NSString* DTS;
 @property double distance;
 @property BOOL recording;
-@property int recordcounter;
 @property NSString* defulttripID;
+@property int record1;
+@property int record2;
+@property NSString* DepartTime;
 
 @end
 
@@ -155,7 +157,6 @@
 
 -(void)RecordingTime
 {
-    _recordcounter = _recordcounter + 1;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Time Stored"
                                                     message:@"You are close to departure station, and your travel time have been stored."
                                                    delegate:nil
@@ -163,8 +164,17 @@
                                           otherButtonTitles:nil];
 
         if (_distance < 100) {
-            
-            [_dataHelper saveTripRealTime:_recordcounter withTripId:_defulttripID];
+            NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+            [outputFormatter setDateFormat:@"HH:mm:ss"];
+            NSDate * today1 = [NSDate date];
+            NSString *currenthour = [outputFormatter stringFromDate:today1];
+            [outputFormatter setDateFormat:@"mm:ss"];
+            NSString *currentmin = [outputFormatter stringFromDate:today1];
+            [outputFormatter setDateFormat:@"ss"];
+            NSString *currentsec = [outputFormatter stringFromDate:today1];
+            double RecordTo = [currenthour doubleValue] * 3600 + [currentmin doubleValue] * 60 + [currentsec doubleValue];
+            _record2 = RecordTo;
+            [_dataHelper saveTripRealTime:(_record2 - _record1) withTripId:_defulttripID];
             [alert show];
             _recording = true;
             [_RecordTimer invalidate];
@@ -217,7 +227,8 @@
     int suggesthour = suggesttime / 3600;
     int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
     int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
-    _DTS = [NSString stringWithFormat:@"Distance to departure station: %.02f meters, recommended departure time: %02d:%02d:%02d", _distance, suggesthour, suggestmin, suggestsec];
+    _DTS = [NSString stringWithFormat:@"%.02f meters", _distance];
+    _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];
 }
 
 - (IBAction)Stop:(id)sender {
@@ -485,7 +496,17 @@
      switch (buttonIndex) {
          case 0:
          {
-             _recordcounter = 0;
+             NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+             [outputFormatter setDateFormat:@"HH:mm:ss"];
+             NSDate * today1 = [NSDate date];
+             NSString *currenthour = [outputFormatter stringFromDate:today1];
+             [outputFormatter setDateFormat:@"mm:ss"];
+             NSString *currentmin = [outputFormatter stringFromDate:today1];
+             [outputFormatter setDateFormat:@"ss"];
+             NSString *currentsec = [outputFormatter stringFromDate:today1];
+             double RecordFrom = [currenthour doubleValue] * 3600 + [currentmin doubleValue] * 60 + [currentsec doubleValue];
+             _record1 = RecordFrom;
+             NSLog(@"%d",_record1);
              if (_recording) {
                  _RecordTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                                  target:self
@@ -525,12 +546,16 @@
              int suggesthour = suggesttime / 3600;
              int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
              int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
-             _DTS = [NSString stringWithFormat:@"Distance to departure station: %.02f meters, recommended departure time: %02d:%02d:%02d", _distance, suggesthour, suggestmin, suggestsec];
+             _DTS = [NSString stringWithFormat:@"%.02f meters", _distance];
+             _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];
              _distanceToStop.text = _DTS;
              _distanceToStop.textColor = [UIColor lightGrayColor];
-             _distanceToStop.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
+             _distanceToStop.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:20];
              _distanceToStop.textAlignment = NSTextAlignmentCenter;
-
+             _DepartureTime.text = _DepartTime;
+             _DepartureTime.textColor = [UIColor lightGrayColor];
+             _DepartureTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:20];
+             _DepartureTime.textAlignment = NSTextAlignmentCenter;
          }
              break;
      }

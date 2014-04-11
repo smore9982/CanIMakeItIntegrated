@@ -27,5 +27,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *distanceToStop;
 
 -(IBAction)showActionSheet:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *DepartureTime;
 
 @end
