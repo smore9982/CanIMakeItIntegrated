@@ -61,6 +61,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
 	// Do any additional setup after loading the view.
     
     //Getting all Initial Data that will be displayed to User for selection
