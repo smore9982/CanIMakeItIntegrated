@@ -387,12 +387,6 @@
     self.NextTrainTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
 }
 
-- (IBAction)GPS:(id)sender {
-    _distanceToStop.text = _DTS;
-    _distanceToStop.textColor = [UIColor lightGrayColor];
-    _distanceToStop.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
-    _distanceToStop.textAlignment = NSTextAlignmentCenter;
-}
 - (IBAction)ResetTimer:(id)sender {
     
     _case1 = true;
@@ -456,17 +450,60 @@
     _appDelegate.counter = _counter;
     
 }
-- (IBAction)RecordTime:(id)sender {
 
-    _recordcounter = 0;
-    if (_recording) {
-        _RecordTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                        target:self
-                                                      selector:@selector(RecordingTime)
-                                                      userInfo:nil
-                                                       repeats:YES];
-        _recording = false;
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet
+{
+    TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
+    int walktime = [tripProfileModel.approxTimeToStation intValue] * 60;
+    for (UIView *subview in actionSheet.subviews) {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)subview;
+            button.titleLabel.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:25];
+            if (_counter > walktime * 1.5){
+                button.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];;
+            }
+            else if (_counter <= walktime * 1.5 && _counter > walktime){
+                button.backgroundColor = [UIColor yellowColor];
+            }
+            else if (_counter <= walktime){
+                button.backgroundColor = [UIColor redColor];
+            }
+            button.titleLabel.textColor = [UIColor lightGrayColor];
+        }
     }
+}
 
+-(IBAction)showActionSheet:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Record", @"Distance", nil];
+    [actionSheet showInView:self.view];
+}
+
+
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+     switch (buttonIndex) {
+         case 0:
+         {
+             _recordcounter = 0;
+             if (_recording) {
+                 _RecordTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                                 target:self
+                                                               selector:@selector(RecordingTime)
+                                                               userInfo:nil
+                                                                repeats:YES];
+                 _recording = false;
+             }
+         }
+             break;
+         case 1:
+         {
+             _distanceToStop.text = _DTS;
+             _distanceToStop.textColor = [UIColor lightGrayColor];
+             _distanceToStop.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
+             _distanceToStop.textAlignment = NSTextAlignmentCenter;
+         }
+             break;
+     }
 }
 @end
