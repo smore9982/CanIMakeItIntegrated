@@ -125,7 +125,7 @@
                 NSString* stopLat = [stopData valueForKey:@"lat"];
                 NSString* stopLon = [stopData valueForKey:@"lon"];
                 BOOL isTransferStation = [[stopData valueForKey:@"isTransferStation"]boolValue];
-                NSString* stopAgency = @"LI";
+                NSString* stopAgency = [stopData valueForKey:@"agency"];
                 [self saveStopWithID:stopId StopName:stopName StopLat:stopLat StopLon:stopLon StopAgency:stopAgency TransferPoint:isTransferStation];
             }
         }

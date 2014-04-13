@@ -67,12 +67,11 @@
     //Getting all Initial Data that will be displayed to User for selection
     
     //Get Stop Names for agency
-    if ([self.agencyName isEqualToString:@"Long Island Rail Road"])
-    {
+    if ([self.agencyName isEqualToString:@"Long Island Rail Road"]){
         self.matchAgencyName = @"LI";
+    } else if( [self.agencyName isEqualToString:@"New Jersey Transit Rail Road"] ){
+        self.matchAgencyName = @"NJT";
     }
-    
-    
     
     self.stopDataHelper = [[DataHelper alloc] init];
     self.stopNames = [[self.stopDataHelper getStopsForAgency:self.matchAgencyName] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
