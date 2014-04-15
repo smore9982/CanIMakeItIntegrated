@@ -235,6 +235,7 @@
                 errorBlock(@"");
             });
         }else{
+            NSLog(@"Sync Called");
             NSError* error;
             NSArray* departuresArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
             
@@ -247,7 +248,8 @@
             
             //Iterate over array and parse json data
             NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-            for(int i=0;i<[departuresArray count];i++){
+            [[managedObjectContext persistentStoreCoordinator] lock];
+                for(int i=0;i<[departuresArray count];i++){
                 //Each array object can be put into NSDictionary.
                 NSDictionary* departureData = [departuresArray objectAtIndex:i];
                 NSString* departureId = [departureData valueForKey:@"departureStopId"];
@@ -277,11 +279,11 @@
                     [newDeparture setValue:date forKey:@"departureDate"];
                     [newDeparture setValue:departureTimes forKey:@"departureTimes"];
                 }
-                
-                [managedObjectContext save:&error];
             }
-            
+            [managedObjectContext save:&error];
+            [[managedObjectContext persistentStoreCoordinator] unlock];
             dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Going to call callback");
                 completionBlock(@"");
             });
             }
