@@ -301,7 +301,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YJ-50-OaH">
-                                <rect key="frame" x="20" y="329" width="280" height="30"/>
+                                <rect key="frame" x="20" y="471" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Set As Default Trip">
@@ -526,7 +526,7 @@
         <!--Navigation Controller-->
         <scene sceneID="BPR-QR-Ufn">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uPO-c7-cy4" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="uPO-c7-cy4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="DVO-Pg-bzK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PtE-YN-4fG">
@@ -586,7 +586,7 @@
         <!--Navigation Controller-->
         <scene sceneID="WNf-pC-wEb">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="co6-W8-img" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="co6-W8-img" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dc1-lT-3z3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -626,8 +626,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xtc-AN-PFk"/>
-        <segue reference="u6l-ku-uLv"/>
+        <segue reference="vIZ-eo-a7q"/>
         <segue reference="wSy-hu-SrE"/>
+        <segue reference="0MI-JX-Kt9"/>
     </inferredMetricsTieBreakers>
 </document>
