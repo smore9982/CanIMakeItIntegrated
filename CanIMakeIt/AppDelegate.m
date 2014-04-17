@@ -22,7 +22,7 @@
     //self.window.backgroundColor = [UIColor whiteColor];
     //[self.window makeKeyAndVisible];
     
-    //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x067AB5)];
+    
     [[UINavigationBar appearance] setBarTintColor:[UIColor darkGrayColor]];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
