@@ -641,10 +641,10 @@
             </objects>
             <point key="canvasLocation" x="1229" y="680"/>
         </scene>
-        <!--View Controller - Advisories-->
+        <!--Advisory View Controller - Advisories-->
         <scene sceneID="xXJ-4z-Mhf">
             <objects>
-                <viewController id="Pmf-eY-RIm" sceneMemberID="viewController">
+                <viewController id="Pmf-eY-RIm" customClass="AdvisoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="u2c-bz-ypr"/>
                         <viewControllerLayoutGuide type="bottom" id="Rt2-gU-SWU"/>
@@ -660,10 +660,10 @@
             </objects>
             <point key="canvasLocation" x="1759" y="1677"/>
         </scene>
-        <!--View Controller - Settings-->
+        <!--Settings View Controller - Settings-->
         <scene sceneID="rMb-Qh-Yau">
             <objects>
-                <viewController id="nXq-oj-hrl" sceneMemberID="viewController">
+                <viewController id="nXq-oj-hrl" customClass="SettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jMk-L3-kqK"/>
                         <viewControllerLayoutGuide type="bottom" id="lrn-Ic-WVG"/>
@@ -671,9 +671,28 @@
                     <view key="view" contentMode="scaleToFill" id="95i-fQ-2Uj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Update Data?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0J-Ek-fV0">
+                                <rect key="frame" x="57" y="128" width="107" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGj-HT-tZy">
+                                <rect key="frame" x="199" y="124" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Enter">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="0.5102761951" blue="0.4210555373" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="08-Wrench-icon.png" id="KNO-UW-Qss"/>
+                    <connections>
+                        <outlet property="updateButton" destination="wGj-HT-tZy" id="Pzn-4r-V9w"/>
+                        <outlet property="updateLabel" destination="Z0J-Ek-fV0" id="A1V-zS-ktT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nn8-xO-TEk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

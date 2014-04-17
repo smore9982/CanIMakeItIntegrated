@@ -11,6 +11,8 @@
 		8B70DB3918FF848E000C6CCE /* Transport-Train-icon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3818FF848E000C6CCE /* Transport-Train-icon-1.png */; };
 		8B70DB3B18FF8552000C6CCE /* alert-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3A18FF8552000C6CCE /* alert-icon.png */; };
 		8B70DB3D18FF85C0000C6CCE /* 08-Wrench-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3C18FF85C0000C6CCE /* 08-Wrench-icon.png */; };
+		8B70DB4018FF8773000C6CCE /* AdvisoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B70DB3F18FF8773000C6CCE /* AdvisoryViewController.m */; };
+		8B70DB4318FF8795000C6CCE /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B70DB4218FF8795000C6CCE /* SettingsViewController.m */; };
 		8B7451C118D4BE62002ED7A0 /* TripProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */; };
 		8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7451C318D4CDBA002ED7A0 /* StopModel.m */; };
 		8B7451C518D4E1CA002ED7A0 /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6A17A718D4BFDD001F0E8B /* TripDetailViewController.m */; };
@@ -55,6 +57,10 @@
 		8B70DB3818FF848E000C6CCE /* Transport-Train-icon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Transport-Train-icon-1.png"; sourceTree = "<group>"; };
 		8B70DB3A18FF8552000C6CCE /* alert-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-icon.png"; sourceTree = "<group>"; };
 		8B70DB3C18FF85C0000C6CCE /* 08-Wrench-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "08-Wrench-icon.png"; sourceTree = "<group>"; };
+		8B70DB3E18FF8773000C6CCE /* AdvisoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvisoryViewController.h; sourceTree = "<group>"; };
+		8B70DB3F18FF8773000C6CCE /* AdvisoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvisoryViewController.m; sourceTree = "<group>"; };
+		8B70DB4118FF8795000C6CCE /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		8B70DB4218FF8795000C6CCE /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		8B7451BF18D4BE62002ED7A0 /* TripProfileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripProfileModel.h; sourceTree = "<group>"; };
 		8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripProfileModel.m; sourceTree = "<group>"; };
 		8B7451C218D4CDBA002ED7A0 /* StopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopModel.h; sourceTree = "<group>"; };
@@ -162,6 +168,10 @@
 		FB5EC8A118C290A100AAA8AE /* CanIMakeIt */ = {
 			isa = PBXGroup;
 			children = (
+				8B70DB4118FF8795000C6CCE /* SettingsViewController.h */,
+				8B70DB4218FF8795000C6CCE /* SettingsViewController.m */,
+				8B70DB3E18FF8773000C6CCE /* AdvisoryViewController.h */,
+				8B70DB3F18FF8773000C6CCE /* AdvisoryViewController.m */,
 				8B70DB3C18FF85C0000C6CCE /* 08-Wrench-icon.png */,
 				8B70DB3A18FF8552000C6CCE /* alert-icon.png */,
 				8B70DB3818FF848E000C6CCE /* Transport-Train-icon-1.png */,
@@ -330,11 +340,13 @@
 				8BD137BC18CBCEB30089FD4D /* DataHelper.m in Sources */,
 				8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */,
 				FB544E8A18EF0F290037CD0B /* TripLineTableViewController.m in Sources */,
+				8B70DB4318FF8795000C6CCE /* SettingsViewController.m in Sources */,
 				8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */,
 				8B7451C518D4E1CA002ED7A0 /* TripDetailViewController.m in Sources */,
 				8B74541618D149E200EB308E /* Utility.m in Sources */,
 				8B7451C118D4BE62002ED7A0 /* TripProfileModel.m in Sources */,
 				FB5EC8AC18C290A100AAA8AE /* AppDelegate.m in Sources */,
+				8B70DB4018FF8773000C6CCE /* AdvisoryViewController.m in Sources */,
 				FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */,
 				FB5EC8D218C2927000AAA8AE /* TripProfileViewController.m in Sources */,
 				FB5EC8A818C290A100AAA8AE /* main.m in Sources */,

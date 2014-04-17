@@ -62,7 +62,7 @@
     int phour = (int)[hourMin[0] intValue];
     int pminute = (int)[hourMin[1] intValue];
     
-    NSString *timeIn24 = [[NSString alloc] init];
+    NSString *timeIn24;
     if([[hourMin objectAtIndex:2] isEqualToString:@"AM"])
     {
         if (phour == 12)
@@ -97,7 +97,7 @@
     int mhour = (int)[timeMerd[0] intValue];
     int mmin = (int)[timeMerd[1] intValue];
     
-    NSString *retTimeMerd = [[NSString alloc] init];
+    NSString *retTimeMerd;
     
     if(mhour > 12)
         retTimeMerd = [NSString stringWithFormat:@"%d:%02d PM", mhour-12, mmin];

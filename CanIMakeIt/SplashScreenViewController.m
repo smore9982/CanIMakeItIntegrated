@@ -29,8 +29,6 @@
     if([self.dataHelper isFirstLaunch]){
         //Load Agencies then load stops
         [self.dataHelper loadAgencies:^(NSString* str){
-            NSArray* agencies = [self.dataHelper getAgencyNames];
-
             [self.dataHelper loadStops:^(NSString* str){
                 
                 [self.dataHelper setFirstLaunch:true];
