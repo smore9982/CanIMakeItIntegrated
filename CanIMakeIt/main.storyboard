@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="lcZ-db-bmj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="lcZ-db-bmj">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Trip Profile View Controller - Trips-->
@@ -9,13 +9,12 @@
             <objects>
                 <tableViewController storyboardIdentifier="TripProfileViewController" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sbG-mG-2qb" customClass="TripProfileViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="IuX-iY-OgM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="vUB-Gb-OcP">
                                 <rect key="frame" x="0.0" y="119" width="320" height="44"/>
@@ -46,7 +45,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iU3-id-VNE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1074" y="456"/>
+            <point key="canvasLocation" x="2928" y="64"/>
         </scene>
         <!--Trip Line Table View Controller - Choose Line-->
         <scene sceneID="LlX-xd-oV3">
@@ -57,7 +56,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LineCell" id="bTR-U1-Rfo">
                                 <rect key="frame" x="0.0" y="119" width="320" height="44"/>
@@ -80,14 +78,14 @@
                     <navigationItem key="navigationItem" title="Choose Line" id="FV0-bu-XCd">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="oRv-tr-b0Y">
                             <connections>
-                                <segue destination="uPO-c7-cy4" kind="modal" modalTransitionStyle="crossDissolve" id="WdI-BT-Oxp"/>
+                                <segue destination="iB5-mu-DGo" kind="modal" id="hvf-Eq-ddl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KPL-PC-86M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2287" y="257"/>
+            <point key="canvasLocation" x="4652" y="664"/>
         </scene>
         <!--Timer View Controller - Timer-->
         <scene sceneID="Cjq-qB-jGV">
@@ -184,7 +182,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Stop" id="5dc-0g-jH9">
                             <connections>
                                 <action selector="Stop:" destination="wgn-fh-rXW" id="vg7-Be-Pbb"/>
-                                <segue destination="uPO-c7-cy4" kind="modal" id="u6l-ku-uLv"/>
+                                <segue destination="iB5-mu-DGo" kind="modal" id="olF-tK-ynx"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Reset" id="Gey-6h-bI4">
@@ -205,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6gb-ES-vxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1920" y="1544"/>
+            <point key="canvasLocation" x="692" y="1872"/>
         </scene>
         <!--Trip Detail View Controller-->
         <scene sceneID="uOq-Ai-PT7">
@@ -233,7 +231,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="Abi-9y-tW2">
                                             <connections>
                                                 <action selector="backButton:" destination="vxD-9y-ndS" id="VBk-GD-dD8"/>
-                                                <segue destination="uPO-c7-cy4" kind="modal" identifier="" modalTransitionStyle="crossDissolve" id="vIZ-eo-a7q"/>
+                                                <segue destination="iB5-mu-DGo" kind="modal" id="sci-vy-crj"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Edit" id="G3U-Tt-7Xh">
@@ -350,7 +348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O9y-1a-aXP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="-709"/>
+            <point key="canvasLocation" x="1818" y="-1536"/>
         </scene>
         <!--My Trip View Controller-->
         <scene sceneID="vCn-Gn-5Mn">
@@ -377,7 +375,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="uPO-c7-cy4" kind="modal" identifier="backToTripSegue" modalTransitionStyle="crossDissolve" id="rJ3-ZE-tVO"/>
+                                                    <segue destination="iB5-mu-DGo" kind="modal" identifier="backToTripSegue" id="9Uw-5w-ozq"/>
                                                 </connections>
                                             </button>
                                             <connections>
@@ -388,7 +386,7 @@
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="saveTrip:" destination="cb2-LZ-hCL" id="Up8-hv-TFz"/>
-                                                <segue destination="uPO-c7-cy4" kind="modal" identifier="saveSegue" modalTransitionStyle="crossDissolve" id="MiI-88-6o5"/>
+                                                <segue destination="iB5-mu-DGo" kind="modal" identifier="saveSegue" id="gY8-Kk-JiZ"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -480,7 +478,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xf8-nA-enH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="kXJ-Zs-Mw4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1400" y="-704"/>
+            <point key="canvasLocation" x="2950" y="-1552"/>
         </scene>
         <!--Welcome View Controller - Welcome-->
         <scene sceneID="3d4-Ob-N1B">
@@ -514,19 +512,20 @@
                     <navigationItem key="navigationItem" title="Welcome" id="sMO-4a-hVo">
                         <barButtonItem key="rightBarButtonItem" title="Start" id="CwA-UE-70o">
                             <connections>
-                                <segue destination="uPO-c7-cy4" kind="modal" modalTransitionStyle="crossDissolve" id="8MO-vw-P09"/>
+                                <segue destination="iB5-mu-DGo" kind="modal" id="wXT-BH-Ijv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sgC-hu-HhE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="123" y="-691"/>
+            <point key="canvasLocation" x="172" y="-787"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Trips-->
         <scene sceneID="BPR-QR-Ufn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="uPO-c7-cy4" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Trips" image="Transport-Train-icon-1.png" id="XNH-qZ-ng1"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="DVO-Pg-bzK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PtE-YN-4fG">
@@ -540,7 +539,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9tm-eY-qbe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="521" y="456"/>
+            <point key="canvasLocation" x="1803" y="696"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WB8-tC-ySj">
@@ -558,7 +557,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lg6-My-N6E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-543" y="-691"/>
+            <point key="canvasLocation" x="-567" y="-779"/>
         </scene>
         <!--Splash Screen View Controller-->
         <scene sceneID="bWj-XB-RlU">
@@ -575,8 +574,8 @@
                     </view>
                     <connections>
                         <segue destination="MVt-cq-Q0y" kind="modal" identifier="SplashToWelcomeSegue" modalTransitionStyle="crossDissolve" id="HIk-0s-d3Q"/>
-                        <segue destination="uPO-c7-cy4" kind="modal" identifier="SplashToTripsSegue" modalTransitionStyle="crossDissolve" id="QpA-BK-GbL"/>
                         <segue destination="M0c-i7-0ug" kind="modal" identifier="SplashToTimerSegue" modalTransitionStyle="crossDissolve" id="0MI-JX-Kt9"/>
+                        <segue destination="iB5-mu-DGo" kind="modal" identifier="SplashToTripsSegue" id="SMD-8l-sXf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3S-GT-0zk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -599,7 +598,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8mZ-AG-LOF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1629" y="257"/>
+            <point key="canvasLocation" x="4131" y="656"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sHA-gY-DNR">
@@ -617,17 +616,83 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Jc-Mk-aev" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1350" y="1544"/>
+            <point key="canvasLocation" x="-354" y="1872"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="mOW-jY-o4P">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="iB5-mu-DGo" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" itemPositioning="centered" id="Pkt-Yl-Hpl">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="selectedImageTintColor" red="0.43730507769999999" green="0.95717256839999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="uPO-c7-cy4" kind="relationship" relationship="viewControllers" id="1av-Rh-15Z"/>
+                        <segue destination="Pmf-eY-RIm" kind="relationship" relationship="viewControllers" id="yQa-jK-Ofz"/>
+                        <segue destination="nXq-oj-hrl" kind="relationship" relationship="viewControllers" id="CvV-tY-n39"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FsM-8O-EhB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1229" y="680"/>
+        </scene>
+        <!--View Controller - Advisories-->
+        <scene sceneID="xXJ-4z-Mhf">
+            <objects>
+                <viewController id="Pmf-eY-RIm" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="u2c-bz-ypr"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rt2-gU-SWU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Siq-c3-dCz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.43730507769999999" green="0.95717256839999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Advisories" image="alert-icon.png" id="Inh-ja-Ieg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="URn-5g-B6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1759" y="1677"/>
+        </scene>
+        <!--View Controller - Settings-->
+        <scene sceneID="rMb-Qh-Yau">
+            <objects>
+                <viewController id="nXq-oj-hrl" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jMk-L3-kqK"/>
+                        <viewControllerLayoutGuide type="bottom" id="lrn-Ic-WVG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="95i-fQ-2Uj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="1" green="0.5102761951" blue="0.4210555373" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="08-Wrench-icon.png" id="KNO-UW-Qss"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nn8-xO-TEk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1765" y="2503"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="08-Wrench-icon.png" width="24" height="24"/>
+        <image name="Transport-Train-icon-1.png" width="24" height="24"/>
+        <image name="alert-icon.png" width="24" height="24"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vIZ-eo-a7q"/>
+        <segue reference="olF-tK-ynx"/>
+        <segue reference="xtc-AN-PFk"/>
         <segue reference="wSy-hu-SrE"/>
-        <segue reference="0MI-JX-Kt9"/>
     </inferredMetricsTieBreakers>
 </document>

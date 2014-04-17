@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		83E0BC7518DCDF9A00ACBEA7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */; };
+		8B70DB3918FF848E000C6CCE /* Transport-Train-icon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3818FF848E000C6CCE /* Transport-Train-icon-1.png */; };
+		8B70DB3B18FF8552000C6CCE /* alert-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3A18FF8552000C6CCE /* alert-icon.png */; };
+		8B70DB3D18FF85C0000C6CCE /* 08-Wrench-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3C18FF85C0000C6CCE /* 08-Wrench-icon.png */; };
 		8B7451C118D4BE62002ED7A0 /* TripProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */; };
 		8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7451C318D4CDBA002ED7A0 /* StopModel.m */; };
 		8B7451C518D4E1CA002ED7A0 /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6A17A718D4BFDD001F0E8B /* TripDetailViewController.m */; };
@@ -49,6 +52,9 @@
 
 /* Begin PBXFileReference section */
 		83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8B70DB3818FF848E000C6CCE /* Transport-Train-icon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Transport-Train-icon-1.png"; sourceTree = "<group>"; };
+		8B70DB3A18FF8552000C6CCE /* alert-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-icon.png"; sourceTree = "<group>"; };
+		8B70DB3C18FF85C0000C6CCE /* 08-Wrench-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "08-Wrench-icon.png"; sourceTree = "<group>"; };
 		8B7451BF18D4BE62002ED7A0 /* TripProfileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripProfileModel.h; sourceTree = "<group>"; };
 		8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripProfileModel.m; sourceTree = "<group>"; };
 		8B7451C218D4CDBA002ED7A0 /* StopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopModel.h; sourceTree = "<group>"; };
@@ -156,6 +162,9 @@
 		FB5EC8A118C290A100AAA8AE /* CanIMakeIt */ = {
 			isa = PBXGroup;
 			children = (
+				8B70DB3C18FF85C0000C6CCE /* 08-Wrench-icon.png */,
+				8B70DB3A18FF8552000C6CCE /* alert-icon.png */,
+				8B70DB3818FF848E000C6CCE /* Transport-Train-icon-1.png */,
 				8B7451C218D4CDBA002ED7A0 /* StopModel.h */,
 				8B7451C318D4CDBA002ED7A0 /* StopModel.m */,
 				FB6A17A318D4B657001F0E8B /* Utility.h */,
@@ -295,8 +304,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB5EC8A618C290A100AAA8AE /* InfoPlist.strings in Resources */,
+				8B70DB3D18FF85C0000C6CCE /* 08-Wrench-icon.png in Resources */,
+				8B70DB3918FF848E000C6CCE /* Transport-Train-icon-1.png in Resources */,
 				FB5EC8CF18C2919500AAA8AE /* main.storyboard in Resources */,
 				FB5EC8B118C290A100AAA8AE /* Images.xcassets in Resources */,
+				8B70DB3B18FF8552000C6CCE /* alert-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
