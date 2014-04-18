@@ -468,6 +468,30 @@
     return agencyArray;
 }
 
+- (NSDictionary*) getAgencyData{
+    
+    
+    
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Agency"];
+    NSError *error = nil;
+    NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    NSMutableArray *agencyIdArray = [[NSMutableArray alloc] init];
+    NSMutableArray *agencyNameArray = [[NSMutableArray alloc] init];
+    
+    for(int i=0; i< [array count]; i++){
+        NSManagedObject* agencyData = [array objectAtIndex:i];
+        [agencyIdArray addObject:[agencyData valueForKey:@"agencyId"]];
+        [agencyNameArray addObject:[agencyData valueForKey:@"agencyName"]];
+    }
+    
+    NSDictionary* agencyModel =[NSDictionary dictionaryWithObjects:agencyNameArray forKeys:agencyIdArray];
+    
+    return agencyModel;
+}
+
+
 - (NSArray *) getTripRealTimes:(NSString*) tripId{
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSError* error;

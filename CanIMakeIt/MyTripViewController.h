@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *fromStation;
 @property (strong, nonatomic) IBOutlet UITextField *toStation;
 @property (strong, nonatomic) IBOutlet UITextField *transferStation;
+@property (strong, nonatomic) IBOutlet UILabel *agencyLabel;
 
 @property (strong, nonatomic) IBOutlet UITextField *tripTime;
 @property (strong, nonatomic) IBOutlet UITextField *startTime;
@@ -22,7 +23,10 @@
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveTripButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+
 @property NSString *agencyName;
+@property NSString *agencyId;
+@property NSDictionary *agencyModel;
 
 
 @property (strong) NSManagedObject *contactdb;

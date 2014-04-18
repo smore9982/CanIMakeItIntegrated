@@ -24,6 +24,7 @@
         <attribute name="tripTime" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="Trips" syncable="YES">
+        <attribute name="agencyId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fromStation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toStation" optional="YES" attributeType="String" syncable="YES"/>
@@ -38,8 +39,8 @@
         <element name="Agency" positionX="0" positionY="0" width="128" height="75"/>
         <element name="DepartureTimes" positionX="0" positionY="0" width="128" height="105"/>
         <element name="Stops" positionX="0" positionY="0" width="128" height="135"/>
-        <element name="Trips" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="UserData" positionX="0" positionY="0" width="128" height="75"/>
         <element name="TripRealTimes" positionX="9" positionY="54" width="128" height="90"/>
+        <element name="Trips" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="UserData" positionX="0" positionY="0" width="128" height="75"/>
     </elements>
 </model>

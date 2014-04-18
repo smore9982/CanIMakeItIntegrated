@@ -13,10 +13,17 @@
 
 @interface TripDetailViewController ()
 
+@property NSDictionary *agencyModel;
+@property NSString *agencyId;
+@property DataHelper *dataHelp;
+
 @end
 
 @implementation TripDetailViewController
 @synthesize contactdb;
+@synthesize agencyModel;
+@synthesize dataHelp;
+@synthesize agencyId;
 
 
 -(NSManagedObjectContext *) managedObjectContext
@@ -47,6 +54,11 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
 	// Do any additional setup after loading the view.
     
+    //Get all agency information
+    self.dataHelp = [[DataHelper alloc] init];
+    self.agencyModel = [[NSDictionary alloc] init];
+    self.agencyModel = [self.dataHelp getAgencyData];
+    
     if(self.contactdb)
     {
         [self.fromStationLabel setText:[self.contactdb valueForKey:@"fromStation"]];
@@ -60,7 +72,9 @@
         NSString *timeMerd = [Utility convertTimeto12Hour:[self.contactdb valueForKey:@"startTime"]];
         [self.startTimeLabel setText:timeMerd];
         
-        
+        //Set Agency label
+        self.agencyId = [self.contactdb valueForKey:@"agencyId"];
+        self.agencyLabel.text = [NSString stringWithFormat:@"* %@", self.agencyModel[self.agencyId]];
         
     }
 }

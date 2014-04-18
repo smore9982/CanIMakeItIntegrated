@@ -19,7 +19,7 @@
 @property (strong, nonatomic) NSArray *pickMeridiem;
 @property (strong, nonatomic) NSArray *tripHour;
 @property DataHelper *stopDataHelper;
-@property NSString *matchAgencyName;
+
 
 @property (nonatomic, retain) UITableView *stationTableViewOne;
 @property (nonatomic, retain) UITableView *stationTableViewTwo;
@@ -36,6 +36,8 @@
 @synthesize stationTableViewTwo;
 @synthesize transferStationTable;
 @synthesize agencyName;
+@synthesize agencyId;
+@synthesize agencyModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,20 +66,46 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
 	// Do any additional setup after loading the view.
     
-    //Getting all Initial Data that will be displayed to User for selection
+    //Initialize DataHelper
+    self.stopDataHelper = [[DataHelper alloc] init];
+    self.agencyModel = [self.stopDataHelper getAgencyData];
     
-    //Get Stop Names for agency
-    if ([self.agencyName isEqualToString:@"Long Island Rail Road"]){
-        self.matchAgencyName = @"LI";
-    } else if( [self.agencyName isEqualToString:@"New Jersey Transit Rail Road"] ){
-        self.matchAgencyName = @"NJT";
+    //Display Data in TextFields if on EDIT MODE
+    if(self.contactdb)
+    {
+        [self.fromStation setText:[self.contactdb valueForKey:@"fromStation"]];
+        [self.toStation setText:[self.contactdb valueForKey:@"toStation"]];
+        [self.transferStation setText:[self.contactdb valueForKey:@"transferStation"]];
+        
+        NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
+        [self.tripTime setText:tripMin];
+        
+        
+        NSString *timeMerd = [Utility convertTimeto12Hour:[self.contactdb valueForKey:@"startTime"]];
+        [self.startTime setText:timeMerd];
+        
+        //Get Agency Name in Edit mode from agency ID stored in table
+        self.agencyId = [self.contactdb valueForKey:@"agencyId" ];
+        self.agencyName = self.agencyModel[self.agencyId];
+    }
+    else
+    {
+        //ON ADD MODE
+        //Get Agency Id for a selected agency name from dictionary
+        NSLog(@"agency - %@", self.agencyName);
+        self.agencyId = [self.agencyModel allKeysForObject:self.agencyName][0];
+        NSLog(@"match - %@", self.agencyId);
     }
     
-    self.stopDataHelper = [[DataHelper alloc] init];
-    self.stopNames = [[self.stopDataHelper getStopsForAgency:self.matchAgencyName] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    //Display Agency Name
+    [self.agencyLabel setText:[NSString stringWithFormat:@"* %@",self.agencyName]];
+    
+    
+    //Getting all Initial Data that will be displayed to User for selection in EITHER MODES
+    self.stopNames = [[self.stopDataHelper getStopsForAgency:self.agencyId] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     //Get Transfer Stop Names
-    self.transferStops = [[self.stopDataHelper getTransferStopsForAgency:self.matchAgencyName] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.transferStops = [[self.stopDataHelper getTransferStopsForAgency:self.agencyId] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     
     //Set Time - hour, min, seconds for Picker View
@@ -125,22 +153,6 @@
     self.tripTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Approx. Time to Station" attributes:@{NSForegroundColorAttributeName: [UIColor yellowColor]}];
     self.startTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Time to Start Timer" attributes:@{NSForegroundColorAttributeName: [UIColor yellowColor]}];
     
-    
-    //Display Data in TextFields if on Edit Mode
-    if(self.contactdb)
-    {
-        [self.fromStation setText:[self.contactdb valueForKey:@"fromStation"]];
-        [self.toStation setText:[self.contactdb valueForKey:@"toStation"]];
-        [self.transferStation setText:[self.contactdb valueForKey:@"transferStation"]];
-        
-        NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
-        [self.tripTime setText:tripMin];
-        
-        
-        NSString *timeMerd = [Utility convertTimeto12Hour:[self.contactdb valueForKey:@"startTime"]];
-        [self.startTime setText:timeMerd];
-    }
-    
     //Hide ProgressIcon and Picker View
     [self.progressIcon setHidden:YES];
     [self.currentPicker setHidden:YES];
@@ -162,6 +174,7 @@
     {
         [self.currentTextField resignFirstResponder];
         self.currentTextField.placeholder = nil;
+        self.currentTextField.text = nil;
         [self.view addSubview:self.stationTableViewOne];
         
         [self.stationTableViewOne reloadData];
@@ -170,6 +183,7 @@
     {
         [self.currentTextField resignFirstResponder];
         self.currentTextField.placeholder = nil;
+        self.currentTextField.text = nil;
         [self.view addSubview:self.stationTableViewTwo];
         [self.stationTableViewTwo reloadData];
     }
@@ -177,6 +191,7 @@
     {
         [self.currentTextField resignFirstResponder];
         self.currentTextField.placeholder = nil;
+        self.currentTextField.text = nil;
         [self.view addSubview:self.transferStationTable];
         [self.transferStationTable reloadData];
 
@@ -479,6 +494,7 @@
             if (self.contactdb)
             {
                 //Update existing device
+                
                 [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
                 [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
                 [self.contactdb setValue:self.transferStation.text forKey:@"transferStation"];
@@ -489,6 +505,7 @@
             {
                 //Create new device
                 NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
+                [newDevice setValue:self.agencyId forKey:@"agencyId"];
                 [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
                 [newDevice setValue:self.toStation.text forKey:@"toStation"];
                 [newDevice setValue:self.transferStation.text forKey:@"transferStation"];
