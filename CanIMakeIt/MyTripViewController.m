@@ -2,7 +2,7 @@
 //  MyTripViewController.m
 //  CanIMakeIt
 //
-//  Created by YOGESH PADMAN on 3/1/14.
+//  Created by DAKSHAYANI PADMAN on 3/1/14.
 //  Copyright (c) 2014 Dakshayani Padman. All rights reserved.
 //
 
