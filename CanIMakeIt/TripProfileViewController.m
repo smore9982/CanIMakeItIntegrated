@@ -45,6 +45,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+
     //Initialize DataHelper
     self.getDataHelper = [[DataHelper alloc] init];
     
@@ -53,7 +54,6 @@
     
     //Get ObjectID of default Trip profile
     savedDefaultTripID = [self.getDataHelper getUserData:@"defaultTripID"];
-    
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -83,7 +83,6 @@
     }
     else
     {
-        
         //Get Trip Profiles for each agency
         for (int i = 0; i < self.allAgencyId.count; i++)
         {
@@ -164,7 +163,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     static NSString *CellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -198,7 +196,7 @@
         if(![retrievedObjectUrlString compare:savedDefaultTripID])
         {
             cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:19.0];
-            cell.textLabel.textColor = [UIColor orangeColor];
+            cell.textLabel.textColor = [UIColor greenColor];
         }
     }
     
@@ -229,10 +227,12 @@
     {
         
         NSArray *trip = self.agencySplitModel[self.allAgencyNames[[[self.tableView indexPathForSelectedRow] section]]];
+        
+        //NSLog(@"section - %d, row - %d", [[self.tableView indexPathForSelectedRow] section], [[self.tableView indexPathForSelectedRow] row]);
     
         if([trip count] > 0 )
         {
-        
+            
             NSManagedObject *selectedTrip = [trip objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
         
             NSManagedObjectID *tripObject = [selectedTrip objectID];
@@ -242,6 +242,7 @@
             //Saving Default Trip object url to database context
             DataHelper *saveDataHelper = [[DataHelper alloc] init];
             [saveDataHelper saveUserData:@"defaultTripID" withValue:objectUrlString];
+            
         }
     }
 }
