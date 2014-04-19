@@ -505,6 +505,7 @@
             {
                 //Create new device
                 NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
+                NSLog(@"NEw add agency - %@", self.agencyId);
                 [newDevice setValue:self.agencyId forKey:@"agencyId"];
                 [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
                 [newDevice setValue:self.toStation.text forKey:@"toStation"];
