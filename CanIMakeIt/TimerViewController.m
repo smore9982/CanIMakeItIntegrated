@@ -215,7 +215,7 @@
     _currentLat = lat;
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     _currentLongt = longt;
-    _distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000;
+    _distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000 * 0.000621371;
     double time = _distance / 2.235;
     double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
     double suggesttime = nexttraintime - time;
@@ -227,7 +227,7 @@
     int suggesthour = suggesttime / 3600;
     int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
     int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
-    _DTS = [NSString stringWithFormat:@"%.02f meters", _distance];
+    _DTS = [NSString stringWithFormat:@"%.02f miles", _distance];
     _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];
 }
 
@@ -546,8 +546,9 @@
              int suggesthour = suggesttime / 3600;
              int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
              int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
-             _DTS = [NSString stringWithFormat:@"%.02f meters", _distance];
+             _DTS = [NSString stringWithFormat:@"%.02f miles", _distance];
              _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];
+             _Recommended.text = @"Recommanded departure time:";
              _distanceToStop.text = _DTS;
              _distanceToStop.textColor = [UIColor lightGrayColor];
              _distanceToStop.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:20];
