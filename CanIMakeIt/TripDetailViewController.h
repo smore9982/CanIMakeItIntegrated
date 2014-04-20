@@ -2,7 +2,7 @@
 //  TripDetailViewController.h
 //  CanIMakeIt
 //
-//  Created by YOGESH PADMAN on 3/15/14.
+//  Created by DAKSHAYANI PADMAN on 3/15/14.
 //  Copyright (c) 2014 Dakshayani Padman. All rights reserved.
 //
 
@@ -12,6 +12,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *fromStationLabel;
 @property (strong, nonatomic) IBOutlet UILabel *toStationLabel;
 @property (strong, nonatomic) IBOutlet UILabel *transferStationLabel;
+@property (strong, nonatomic) IBOutlet UILabel *agencyLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *startTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tripTimeLabel;

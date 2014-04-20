@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  CanIMakeIt
 //
-//  Created by YOGESH PADMAN on 3/1/14.
+//  Created by DAKSHAYANI PADMAN on 3/1/14.
 //  Copyright (c) 2014 Dakshayani Padman. All rights reserved.
 //
 
@@ -28,7 +28,9 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont fontWithName:@"AvenirNext-Heavy" size:20.0], NSFontAttributeName, nil]];
     
-    
+    //Set Section Header Text color
+    [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setTextColor:[UIColor orangeColor]];
+    [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:14.0]];
     
     return YES;
 }

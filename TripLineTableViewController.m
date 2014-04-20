@@ -2,7 +2,7 @@
 //  TripLineTableViewController.m
 //  CanIMakeIt
 //
-//  Created by YOGESH PADMAN on 4/4/14.
+//  Created by DAKSHAYANI PADMAN on 4/4/14.
 //  Copyright (c) 2014 Dakshayani Padman. All rights reserved.
 //
 
@@ -14,10 +14,12 @@
 
 @property NSManagedObjectContext *context;
 @property DataHelper *dataHelp;
+@property NSDictionary *agencyModel;
 
 @end
 
 @implementation TripLineTableViewController
+@synthesize agencyModel;
 @synthesize agencyArray;
 @synthesize context;
 @synthesize dataHelp;
@@ -45,7 +47,9 @@
     self.dataHelp = [[DataHelper alloc] init];
     
     //Initialize the agency names into array
-    self.agencyArray = [self.dataHelp getAgencyNames];
+    self.agencyModel = [self.dataHelp getAgencyData];
+    self.agencyArray = [[self.agencyModel allValues] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -137,6 +141,7 @@
     
         MyTripViewController *destController = segue.destinationViewController;
         destController.agencyName = selectedAgency;
+        destController.agencyId = [self.agencyModel allKeysForObject:selectedAgency][0];
     }
     
 }

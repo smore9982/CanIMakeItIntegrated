@@ -2,7 +2,7 @@
 //  TripProfileViewController.m
 //  CanIMakeIt
 //
-//  Created by YOGESH PADMAN on 3/1/14.
+//  Created by DAKSHAYANI PADMAN on 3/1/14.
 //  Copyright (c) 2014 Dakshayani Padman. All rights reserved.
 //
 
@@ -15,6 +15,11 @@
 
 @property DataHelper *getDataHelper;
 @property NSManagedObjectContext *managedObjectContext;
+@property NSArray *allAgencyNames;
+@property NSArray *allAgencyId;
+@property NSDictionary *agencyModel;
+@property NSMutableDictionary *agencySplitModel;
+@property NSString *savedDefaultTripID;
 
 
 @end
@@ -23,6 +28,11 @@
 @synthesize getDataHelper;
 @synthesize contactdb;
 @synthesize managedObjectContext;
+@synthesize allAgencyNames;
+@synthesize allAgencyId;
+@synthesize agencyModel;
+@synthesize agencySplitModel;
+@synthesize savedDefaultTripID;
 
 - (void)viewDidLoad
 {
@@ -35,29 +45,68 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    
+
     //Initialize DataHelper
     self.getDataHelper = [[DataHelper alloc] init];
     
     //fetch from persistent data store
     self.managedObjectContext = [self.getDataHelper managedObjectContext];
     
-    
+    //Get ObjectID of default Trip profile
+    savedDefaultTripID = [self.getDataHelper getUserData:@"defaultTripID"];
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
+    //Get Agency Information
+    self.agencyModel = [self.getDataHelper getAgencyData];
+    self.allAgencyId = [self.agencyModel allKeys];
+    self.allAgencyNames = [self.agencyModel allValues];
+    
+    
+    self.agencySplitModel = [[NSMutableDictionary alloc] initWithObjects:self.allAgencyNames forKeys:self.allAgencyNames];
+    
+    
+    NSError *error= nil;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Trips"];
-        
-    self.tripArray = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+    
+    self.tripArray = [[self.managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
     
     if (self.tripArray.count == 0)
     {
         UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"0 Trips" message:@"No Trip has been created yet!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertUser show];
         [alertUser reloadInputViews];
+    }
+    else
+    {
+        //Get Trip Profiles for each agency
+        for (int i = 0; i < self.allAgencyId.count; i++)
+        {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat: @"agencyId = %@",self.allAgencyId[i]];
+            [fetchRequest setPredicate:predicate];
+            
+            NSError *error1= nil;
+            NSArray *array = [managedObjectContext executeFetchRequest:fetchRequest error:&error1];
+            
+            //No trips for a particular agency. Hence object remains same as key.
+            if(array==nil || [array count] <=0){
+                continue;
+            }
+            
+            NSArray *splitTrips = [[NSArray alloc] init];
+            splitTrips = array;
+            
+            //Add trip array as object only trips exist.
+            if(splitTrips.count > 0)
+            {
+                [self.agencySplitModel setObject:splitTrips forKey:self.allAgencyNames[i]];
+            }
+        }
+        
     }
     
     [self.tableView reloadData];
@@ -72,46 +121,83 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    //0 Trips
+    if (self.tripArray.count == 0)
+        return 0;
+    
+    
+    return self.allAgencyNames.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.tripArray.count;
+    if (self.tripArray.count == 0)
+        return 0;
+    
+    NSArray *tArray = [self.agencySplitModel objectForKey:self.allAgencyNames[section]];
+    
+    //Return 0 if key == object. no trips for an agency
+    if ([tArray isEqual:self.allAgencyNames[section]]) {
+        return 0;
+    }
+    
+    return tArray.count;
+
 }
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (self.tripArray.count == 0)
+        return nil;
+    
+    NSArray *tArray = [self.agencySplitModel objectForKey:self.allAgencyNames[section]];
+    
+    //Return nil if key is same as object. It is supposed to be a trip array
+    if ([tArray isEqual:self.allAgencyNames[section]]) {
+        return nil;
+    }
+    
+    return self.allAgencyNames[section];
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-     self.contactdb = [self.tripArray objectAtIndex:indexPath.row];
+    //Retrieve trips for each agency in an array
+    NSArray *trip = self.agencySplitModel[self.allAgencyNames[indexPath.section]];
     
     
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@",[self.contactdb valueForKey:@"fromStation"], [self.contactdb valueForKey:@"toStation"]]];
-    
-    //Trip Detail disclosure
-    cell.accessoryType = UITableViewCellAccessoryDetailButton;
-    
-    //Set font size, color and type
-    cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    
-    
-    //Below code checks for the default trip id, and sets the checkmark appropriately.
-    NSManagedObjectID *tripurl = [self.contactdb objectID];
-    //Gets the object ID that uniquely identifies a row in table - Trips
-    NSURL *objecturl = [tripurl URIRepresentation];
-    NSString *retrievedObjectUrlString = [objecturl absoluteString];
-    
-    DataHelper *getTripIDHelper = [[DataHelper alloc] init];
-    NSString *savedDefaultTripID = [getTripIDHelper getUserData:@"defaultTripID"];
-
-        
-    if(![retrievedObjectUrlString compare:savedDefaultTripID])
+    //If no trips were created, key is same as object
+    if(![trip isEqual:self.allAgencyNames[indexPath.section]])
     {
-        cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:19.0];
-        cell.textLabel.textColor = [UIColor orangeColor];
+        //Retrieve each trip for each cell
+        self.contactdb = [trip objectAtIndex:indexPath.row];
+        
+        [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@", [self.contactdb valueForKey:@"fromStation"], [self.contactdb valueForKey:@"toStation"]]];
+        
+        
+        //Below code checks for the default trip id, and sets the checkmark appropriately.
+        //Gets the object ID that uniquely identifies a row in table - Trips
+        NSManagedObjectID *tripurl = [self.contactdb objectID];
+        NSURL *objecturl = [tripurl URIRepresentation];
+        NSString *retrievedObjectUrlString = [objecturl absoluteString];
+
+    
+        //Trip Detail disclosure
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+    
+        //Set font size, color and type
+        cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0];
+        cell.textLabel.textColor = [UIColor whiteColor];
+    
+        if(![retrievedObjectUrlString compare:savedDefaultTripID])
+        {
+            cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:19.0];
+            cell.textLabel.textColor = [UIColor greenColor];
+        }
     }
     
     return cell;
@@ -122,7 +208,10 @@
     
     TripDetailViewController *destViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"TripDetailViewController"];
     
-    NSManagedObject *selectedDevice = [self.tripArray objectAtIndex:indexPath.row];
+
+    NSArray *trip = self.agencySplitModel[self.allAgencyNames[indexPath.section]];
+    
+    NSManagedObject *selectedDevice = [trip objectAtIndex:indexPath.row];
     destViewController.contactdb = selectedDevice;
     
     
@@ -133,17 +222,28 @@
 //#pragma mark - Navigation
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([self.tripArray count] > 0 ){
+    
+    if ([segue.identifier isEqualToString:@"ToTimerSegue"])
+    {
         
-        NSManagedObject *selectedTrip = [self.tripArray objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
+        NSArray *trip = self.agencySplitModel[self.allAgencyNames[[[self.tableView indexPathForSelectedRow] section]]];
         
-        NSManagedObjectID *tripObject = [selectedTrip objectID];
-        NSURL *objecturl = [tripObject URIRepresentation];
-        NSString *objectUrlString = [objecturl absoluteString];
+        //NSLog(@"section - %d, row - %d", [[self.tableView indexPathForSelectedRow] section], [[self.tableView indexPathForSelectedRow] row]);
+    
+        if([trip count] > 0 )
+        {
+            
+            NSManagedObject *selectedTrip = [trip objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
         
-        //Saving Default Trip object url to database context
-        DataHelper *saveDataHelper = [[DataHelper alloc] init];
-        [saveDataHelper saveUserData:@"defaultTripID" withValue:objectUrlString];
+            NSManagedObjectID *tripObject = [selectedTrip objectID];
+            NSURL *objecturl = [tripObject URIRepresentation];
+            NSString *objectUrlString = [objecturl absoluteString];
+        
+            //Saving Default Trip object url to database context
+            DataHelper *saveDataHelper = [[DataHelper alloc] init];
+            [saveDataHelper saveUserData:@"defaultTripID" withValue:objectUrlString];
+            
+        }
     }
 }
 

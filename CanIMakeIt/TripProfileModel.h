@@ -10,6 +10,7 @@
 
 @interface TripProfileModel : NSObject
 @property NSString* tripObjectId;
+@property NSString* agencyId;
 @property NSString* departureId;
 @property NSString* destinationId;
 @property NSString* departureTime;

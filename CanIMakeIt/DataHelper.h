@@ -30,6 +30,7 @@
 
 - (void) loadAgencies:(void (^)(NSString*))completionBlock error:(void (^)(NSString*))errorBlock;
 - (NSArray*) getAgencyNames;
+- (NSDictionary*) getAgencyData;
 
 - (TripProfileModel* )getDefaultProfileData;
 
