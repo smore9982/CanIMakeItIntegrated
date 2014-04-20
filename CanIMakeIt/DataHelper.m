@@ -8,6 +8,7 @@
 
 #import "DataHelper.h"
 #import "Utility.h"
+#import "AdvisoryModel.h"
 
 @implementation DataHelper
 - (id) init {
@@ -532,7 +533,49 @@
     }
     
     return;
+}
+
+- (int) getAdvisoryCount{
+    return 10;
+}
+
+- (NSMutableDictionary *) getAdvisories{
+    NSMutableDictionary* advisoryDict = [[NSMutableDictionary alloc]init];
     
+    AdvisoryModel* model = [[AdvisoryModel alloc]init];
+    model.advisoryLine = @"LIRR";
+    model.advisoryText = @"THIS IS SOME TEST TEXT FOR ADVISORIES 1. huuawdhoiaw aidaj pdwopd  hiqpd pq qiopwp oqwq qwi jpqwejq  qoepoqwei qp qow   qoe p   oqei poqwie qwe qep qo";
+    
+    AdvisoryModel* model1 = [[AdvisoryModel alloc]init];
+    model1.advisoryLine = @"LIRR";
+    model1.advisoryText = @"THIS IS SOME TEST TEXT FOR ADVISORIES 2";
+    
+    NSMutableArray* lirrTrips = [[NSMutableArray alloc]init];
+    [lirrTrips addObject:model];
+    [lirrTrips addObject:model1];
+    
+    
+    AdvisoryModel* model2 = [[AdvisoryModel alloc]init];
+    model2.advisoryLine = @"NJT";
+    model2.advisoryText = @"THIS IS SOME TEST TEXT FOR ADVISORIES 3";
+    
+    AdvisoryModel* model3 = [[AdvisoryModel alloc]init];
+    model3.advisoryLine = @"NJT";
+    model3.advisoryText = @"THIS IS SOME TEST TEXT FOR ADVISORIES 4";
+    
+    AdvisoryModel* model4 = [[AdvisoryModel alloc]init];
+    model4.advisoryLine = @"NJT";
+    model4.advisoryText = @"THIS IS SOME TEST TEXT FOR ADVISORIES 5";
+    
+    NSMutableArray* njtTrips = [[NSMutableArray alloc]init];
+    [njtTrips addObject:model2];
+    [njtTrips addObject:model3];
+    [njtTrips addObject:model4];
+    
+    [advisoryDict setValue:lirrTrips forKey:@"LIRR"];
+    
+    [advisoryDict setValue:njtTrips forKey:@"NJT"];
+    return advisoryDict;
 }
 
 @end

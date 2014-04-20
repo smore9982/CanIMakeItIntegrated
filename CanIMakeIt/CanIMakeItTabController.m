@@ -7,6 +7,7 @@
 //
 
 #import "CanIMakeItTabController.h"
+#import "DataHelper.h"
 
 @interface CanIMakeItTabController ()
 
@@ -26,8 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[[[self tabBar] items]objectAtIndex:1]setBadgeValue:@"3"];
-	
+    DataHelper* dataHelper = [[DataHelper alloc] init];
+    int count = [dataHelper getAdvisoryCount];
+    [[[[self tabBar] items] objectAtIndex:1] setBadgeValue:[NSString stringWithFormat:@"%d",count]];
 }
 
 - (void)didReceiveMemoryWarning
