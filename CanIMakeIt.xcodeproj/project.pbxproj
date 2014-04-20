@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		83E0BC7518DCDF9A00ACBEA7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */; };
+		8B6268EE19033A9900A91D75 /* CanIMakeItTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6268ED19033A9900A91D75 /* CanIMakeItTabController.m */; };
 		8B70DB3918FF848E000C6CCE /* Transport-Train-icon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3818FF848E000C6CCE /* Transport-Train-icon-1.png */; };
 		8B70DB3B18FF8552000C6CCE /* alert-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3A18FF8552000C6CCE /* alert-icon.png */; };
 		8B70DB3D18FF85C0000C6CCE /* 08-Wrench-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3C18FF85C0000C6CCE /* 08-Wrench-icon.png */; };
@@ -54,6 +55,8 @@
 
 /* Begin PBXFileReference section */
 		83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8B6268EC19033A9900A91D75 /* CanIMakeItTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanIMakeItTabController.h; sourceTree = "<group>"; };
+		8B6268ED19033A9900A91D75 /* CanIMakeItTabController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanIMakeItTabController.m; sourceTree = "<group>"; };
 		8B70DB3818FF848E000C6CCE /* Transport-Train-icon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Transport-Train-icon-1.png"; sourceTree = "<group>"; };
 		8B70DB3A18FF8552000C6CCE /* alert-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-icon.png"; sourceTree = "<group>"; };
 		8B70DB3C18FF85C0000C6CCE /* 08-Wrench-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "08-Wrench-icon.png"; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 				8B74541518D149E200EB308E /* Utility.m */,
 				8B7451BF18D4BE62002ED7A0 /* TripProfileModel.h */,
 				8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */,
+				8B6268EC19033A9900A91D75 /* CanIMakeItTabController.h */,
+				8B6268ED19033A9900A91D75 /* CanIMakeItTabController.m */,
 			);
 			path = CanIMakeIt;
 			sourceTree = "<group>";
@@ -343,6 +348,7 @@
 				8B70DB4318FF8795000C6CCE /* SettingsViewController.m in Sources */,
 				8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */,
 				8B7451C518D4E1CA002ED7A0 /* TripDetailViewController.m in Sources */,
+				8B6268EE19033A9900A91D75 /* CanIMakeItTabController.m in Sources */,
 				8B74541618D149E200EB308E /* Utility.m in Sources */,
 				8B7451C118D4BE62002ED7A0 /* TripProfileModel.m in Sources */,
 				FB5EC8AC18C290A100AAA8AE /* AppDelegate.m in Sources */,

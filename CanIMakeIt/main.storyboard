@@ -618,10 +618,10 @@
             </objects>
             <point key="canvasLocation" x="-354" y="1872"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--CanI Make It Tab Controller-->
         <scene sceneID="mOW-jY-o4P">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="iB5-mu-DGo" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="iB5-mu-DGo" customClass="CanIMakeItTabController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" itemPositioning="centered" id="Pkt-Yl-Hpl">
@@ -652,9 +652,46 @@
                     <view key="view" contentMode="scaleToFill" id="Siq-c3-dCz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.43730507769999999" green="0.95717256839999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="FUp-LQ-Y8B">
+                                <rect key="frame" x="0.0" y="64" width="320" height="460"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="separatorColor" red="0.47422724184782605" green="0.47422724184782605" blue="0.47422724184782605" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexTrackingBackgroundColor" red="0.010113598709999999" green="0.022411779180000001" blue="0.023522418480000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="hpX-Vp-kkY">
+                                        <rect key="frame" x="0.0" y="55" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hpX-Vp-kkY" id="WKB-On-StT">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.010113598709999999" green="0.022411779180000001" blue="0.023522418480000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Pmf-eY-RIm" id="COv-4V-lb2"/>
+                                    <outlet property="delegate" destination="Pmf-eY-RIm" id="96f-Nu-Rdl"/>
+                                </connections>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9yu-hd-f8F">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.010113598709999999" green="0.022411779180000001" blue="0.023522418480000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <navigationItem title="Advisories" id="XcT-iz-gwZ"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Advisories" image="alert-icon.png" id="Inh-ja-Ieg"/>
+                    <connections>
+                        <outlet property="AdvisoryTable" destination="FUp-LQ-Y8B" id="ilm-5K-JUj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="URn-5g-B6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -704,6 +741,7 @@
         <image name="Transport-Train-icon-1.png" width="24" height="24"/>
         <image name="alert-icon.png" width="24" height="24"/>
     </resources>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
