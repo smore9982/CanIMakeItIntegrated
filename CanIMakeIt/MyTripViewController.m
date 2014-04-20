@@ -493,17 +493,15 @@
             
             if (self.contactdb)
             {
-                //Update existing device
-                
                 [self.contactdb setValue:self.fromStation.text forKey:@"fromStation"];
                 [self.contactdb setValue:self.toStation.text forKey:@"toStation"];
                 [self.contactdb setValue:self.transferStation.text forKey:@"transferStation"];
                 [self.contactdb setValue:timein24 forKey:@"startTime"];
                 [self.contactdb setValue:totalMins forKey:@"tripTime"];
+                [self.contactdb setValue:[NSDate date] forKey:@"dateAdded"];
             }
             else
             {
-                //Create new device
                 NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
                 NSLog(@"NEw add agency - %@", self.agencyId);
                 [newDevice setValue:self.agencyId forKey:@"agencyId"];
@@ -512,6 +510,7 @@
                 [newDevice setValue:self.transferStation.text forKey:@"transferStation"];
                 [newDevice setValue:timein24 forKey:@"startTime"];
                 [newDevice setValue:totalMins forKey:@"tripTime"];
+                [newDevice setValue:[NSDate date] forKey:@"dateAdded"];
             }
             NSError *error = nil;
             //Save the object to persistent store

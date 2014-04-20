@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "DataHelper.h"
 
 @interface SettingsViewController ()
 
@@ -35,4 +36,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)updateData:(id)sender {
+    DataHelper* dataHelper = [[DataHelper alloc]init];
+    [dataHelper loadAgencies:^(NSString* str){
+        [dataHelper loadStops:^(NSString* str){
+            NSLog(@"Finished loading stops");
+            return;
+        }error:^(NSString * str) {
+            NSLog(@"Inside Completion Handler");
+            return;
+        }];
+    }error:^(NSString* str){
+        return;
+    }];
+}
 @end

@@ -16,10 +16,10 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *startTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tripTimeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *updateButton;
 
 - (IBAction)setDefaultTripButton:(id)sender;
-
-
+- (IBAction)updateTrip:(id)sender;
 
 @property (strong) NSManagedObject *contactdb;
 

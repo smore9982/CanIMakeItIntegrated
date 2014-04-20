@@ -390,6 +390,7 @@
     tripModel.approxTimeToStation =[tripData valueForKey:@"tripTime"];
     tripModel.stopLat = destinationStop.stopLat;
     tripModel.stopLon = destinationStop.stopLon;
+    tripModel.dateAdded = [tripData valueForKey:@"dateAdded"];
     return tripModel;
 }
 

@@ -16,6 +16,7 @@
 @property NSDictionary *agencyModel;
 @property NSString *agencyId;
 @property DataHelper *dataHelp;
+@property NSDate *dateAdded;
 
 @end
 
@@ -76,6 +77,13 @@
         self.agencyId = [self.contactdb valueForKey:@"agencyId"];
         self.agencyLabel.text = [NSString stringWithFormat:@"* %@", self.agencyModel[self.agencyId]];
         
+        self.dateAdded = [self.contactdb valueForKey:@"dateAdded"];
+        double interval = [self.dateAdded timeIntervalSinceNow];
+        double intervalToDays = [Utility secondsToDays:(-1*interval)];
+        if(intervalToDays < 1 ){
+            self.updateButton.hidden = YES;
+        }
+        
     }
 }
 
@@ -104,6 +112,23 @@
     //Saving Default Trip object url to database context
     DataHelper *saveDataHelper = [[DataHelper alloc] init];
     [saveDataHelper saveUserData:@"defaultTripID" withValue:objectUrlString];
+}
+
+- (IBAction)updateTrip:(id)sender {
+    NSString* departureStationName = [self.contactdb valueForKey:@"fromStation"];
+    NSString* desinationStationName = [self.contactdb valueForKey:@"toStation"];
+    NSString* transferStationName = [self.contactdb valueForKey:@"transferStation"];
+    
+    StopModel* departureStation=[self.dataHelp getStopModelWithName:departureStationName];
+    StopModel* destinationStation=[self.dataHelp getStopModelWithName:desinationStationName];
+    StopModel* transferStation=[self.dataHelp getStopModelWithName:transferStationName];
+    
+    [self.dataHelp saveTripDepartureTimesWithDepartureId:departureStation.stopId DestionstionID:destinationStation.stopId TransferID:transferStation.stopId completion:^(NSString *onComp){
+            return YES;
+        }
+        error:^(NSString *onErr){
+            return NO;
+        }];
 }
 
 

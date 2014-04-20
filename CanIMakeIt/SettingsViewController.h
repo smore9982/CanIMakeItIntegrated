@@ -10,6 +10,6 @@
 
 @interface SettingsViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *updateLabel;
-@property (weak, nonatomic) IBOutlet UIButton *updateButton;
+- (IBAction)updateData:(id)sender;
 
 @end

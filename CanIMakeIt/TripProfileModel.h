@@ -17,4 +17,5 @@
 @property NSString* approxTimeToStation;
 @property NSString* stopLat;
 @property NSString* stopLon;
+@property NSDate* dateAdded;
 @end

@@ -109,4 +109,8 @@
     return retTimeMerd;
 }
 
++ (double) secondsToDays:(double) seconds{
+    return (seconds)/86400;
+}
+
 @end
