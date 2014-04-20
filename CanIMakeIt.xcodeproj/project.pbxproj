@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		83E0BC7518DCDF9A00ACBEA7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */; };
 		8B6268EE19033A9900A91D75 /* CanIMakeItTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6268ED19033A9900A91D75 /* CanIMakeItTabController.m */; };
+		8B6268F11903492700A91D75 /* AdvisoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6268F01903492700A91D75 /* AdvisoryModel.m */; };
 		8B70DB3918FF848E000C6CCE /* Transport-Train-icon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3818FF848E000C6CCE /* Transport-Train-icon-1.png */; };
 		8B70DB3B18FF8552000C6CCE /* alert-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3A18FF8552000C6CCE /* alert-icon.png */; };
 		8B70DB3D18FF85C0000C6CCE /* 08-Wrench-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B70DB3C18FF85C0000C6CCE /* 08-Wrench-icon.png */; };
@@ -57,6 +58,8 @@
 		83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8B6268EC19033A9900A91D75 /* CanIMakeItTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanIMakeItTabController.h; sourceTree = "<group>"; };
 		8B6268ED19033A9900A91D75 /* CanIMakeItTabController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanIMakeItTabController.m; sourceTree = "<group>"; };
+		8B6268EF1903492700A91D75 /* AdvisoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvisoryModel.h; sourceTree = "<group>"; };
+		8B6268F01903492700A91D75 /* AdvisoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvisoryModel.m; sourceTree = "<group>"; };
 		8B70DB3818FF848E000C6CCE /* Transport-Train-icon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Transport-Train-icon-1.png"; sourceTree = "<group>"; };
 		8B70DB3A18FF8552000C6CCE /* alert-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-icon.png"; sourceTree = "<group>"; };
 		8B70DB3C18FF85C0000C6CCE /* 08-Wrench-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "08-Wrench-icon.png"; sourceTree = "<group>"; };
@@ -210,6 +213,8 @@
 				8B7451C018D4BE62002ED7A0 /* TripProfileModel.m */,
 				8B6268EC19033A9900A91D75 /* CanIMakeItTabController.h */,
 				8B6268ED19033A9900A91D75 /* CanIMakeItTabController.m */,
+				8B6268EF1903492700A91D75 /* AdvisoryModel.h */,
+				8B6268F01903492700A91D75 /* AdvisoryModel.m */,
 			);
 			path = CanIMakeIt;
 			sourceTree = "<group>";
@@ -356,6 +361,7 @@
 				FB5EC8D518C292FD00AAA8AE /* MyTripViewController.m in Sources */,
 				FB5EC8D218C2927000AAA8AE /* TripProfileViewController.m in Sources */,
 				FB5EC8A818C290A100AAA8AE /* main.m in Sources */,
+				8B6268F11903492700A91D75 /* AdvisoryModel.m in Sources */,
 				FB5EC8AF18C290A100AAA8AE /* CanIMakeIt.xcdatamodeld in Sources */,
 				8BD137B618CB8FBC0089FD4D /* WelcomeViewController.m in Sources */,
 				8BD137B318CB8D6F0089FD4D /* SplashScreenViewController.m in Sources */,
