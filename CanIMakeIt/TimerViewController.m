@@ -515,6 +515,12 @@
                                                                 repeats:YES];
                  _recording = false;
              }
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                             message:@"Start Recording"
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles:nil];
+             [alert show];
          }
              break;
          case 1:
