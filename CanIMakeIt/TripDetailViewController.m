@@ -179,6 +179,10 @@
         if (self.contactdb)
         {
             [self.contactdb setValue:self.recordedTripTime forKeyPath:@"tripTime"];
+            
+            //Update Trip Time
+            NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
+            [self.tripTimeLabel setText:tripMin];
         }
     }
     
