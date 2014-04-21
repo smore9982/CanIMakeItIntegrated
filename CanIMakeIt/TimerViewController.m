@@ -158,7 +158,7 @@
 -(void)RecordingTime
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Time Stored"
-                                                    message:@"You are close to departure station, and your travel time have been stored."
+                                                    message:@"You are close to departure station, and your travel time has been stored."
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
@@ -548,7 +548,7 @@
              int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
              _DTS = [NSString stringWithFormat:@"%.02f miles", _distance];
              _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];
-             _Recommended.text = @"Recommanded departure time:";
+             _Recommended.text = @"Recommended departure time:";
              _distanceToStop.text = _DTS;
              _distanceToStop.textColor = [UIColor lightGrayColor];
              _distanceToStop.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:20];

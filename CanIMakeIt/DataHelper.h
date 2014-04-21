@@ -34,7 +34,7 @@
 
 - (TripProfileModel* )getDefaultProfileData;
 
-- (NSArray *) getTripRealTimes:(NSString*) tripId;
+- (NSString *) getTripRealTimes:(NSString*) tripId;
 -(void) saveTripRealTime: (NSInteger) realTimeinSec withTripId: (NSString *)tripId;
 
 - (int) getAdvisoryCount;

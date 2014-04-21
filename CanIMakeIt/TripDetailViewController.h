@@ -13,9 +13,15 @@
 @property (strong, nonatomic) IBOutlet UILabel *toStationLabel;
 @property (strong, nonatomic) IBOutlet UILabel *transferStationLabel;
 @property (strong, nonatomic) IBOutlet UILabel *agencyLabel;
-
 @property (strong, nonatomic) IBOutlet UILabel *startTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tripTimeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *recordedtripTimeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *useTripTimeLabel;
+@property (strong, nonatomic) IBOutlet UISwitch *useRecTripTimeSwitch;
+
+
+@property (strong, nonatomic) IBOutlet UIButton *updateTripTimeButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *updateButton;
 
 - (IBAction)setDefaultTripButton:(id)sender;

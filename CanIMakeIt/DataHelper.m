@@ -494,25 +494,31 @@
 }
 
 
-- (NSArray *) getTripRealTimes:(NSString*) tripId{
+- (NSString *) getTripRealTimes:(NSString*) tripId{
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSError* error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"TripRealTime"];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"TripRealTimes"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat: @"tripID = %@",tripId];
     [fetchRequest setPredicate:predicate];
     NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
-    NSMutableArray* tripArray = [[NSMutableArray alloc]init];
+    if(array==nil || [array count] <=0)
+        return nil;
+    
+    NSString *recordedTime = [[NSString alloc] init];
+    NSInteger totalTripTime = 0;
     for(int i=0; i< [array count]; i++){
         NSManagedObject* tripData = [array objectAtIndex:i];
         NSString* tripTime = [tripData valueForKey:@"tripTime"];
-        NSString* tripDate = [tripData valueForKey:@"tripDate"];
+        //NSString* tripDate = [tripData valueForKey:@"tripDate"];
+
+        totalTripTime += [tripTime integerValue];
         
-        [tripArray addObject:tripTime];
-        [tripArray addObject:tripDate];
     }
     
-    return tripArray;
+    recordedTime = [NSString stringWithFormat:@"%i", totalTripTime/array.count];
+    
+    return recordedTime;
 }
 
 -(void) saveTripRealTime: (NSInteger) realTimeinSec withTripId: (NSString *)tripId{
@@ -520,6 +526,7 @@
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     
     NSManagedObject *tripTime = [NSEntityDescription insertNewObjectForEntityForName:@"TripRealTimes" inManagedObjectContext:managedObjectContext];
+    
     
     //Always insert trip time information with current timestamp
     [tripTime setValue:tripId forKeyPath:@"tripID"];

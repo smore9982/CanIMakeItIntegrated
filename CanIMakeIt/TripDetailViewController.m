@@ -17,6 +17,7 @@
 @property NSString *agencyId;
 @property DataHelper *dataHelp;
 @property NSDate *dateAdded;
+@property NSString *recordedTripTime;
 
 @end
 
@@ -25,6 +26,9 @@
 @synthesize agencyModel;
 @synthesize dataHelp;
 @synthesize agencyId;
+@synthesize useTripTimeLabel;
+@synthesize useRecTripTimeSwitch;
+@synthesize recordedTripTime;
 
 
 -(NSManagedObjectContext *) managedObjectContext
@@ -60,6 +64,10 @@
     self.agencyModel = [[NSDictionary alloc] init];
     self.agencyModel = [self.dataHelp getAgencyData];
     
+    //IF no trip time is recorded, hide the label and switch
+    [self.useTripTimeLabel setHidden:YES];
+    [self.useRecTripTimeSwitch setHidden:YES];
+    
     if(self.contactdb)
     {
         [self.fromStationLabel setText:[self.contactdb valueForKey:@"fromStation"]];
@@ -76,6 +84,39 @@
         //Set Agency label
         self.agencyId = [self.contactdb valueForKey:@"agencyId"];
         self.agencyLabel.text = [NSString stringWithFormat:@"* %@", self.agencyModel[self.agencyId]];
+        
+        //Show Average Recorded Time to Departure Station
+        NSManagedObjectID *tripObject = [self.contactdb objectID];
+        
+        //Gets the object ID that uniquely identifies a row in table - Trips
+        NSURL *objecturl = [tripObject URIRepresentation];
+        
+        NSString *objectUrlString = [objecturl absoluteString];
+        
+        
+        self.recordedTripTime = [self.dataHelp getTripRealTimes:objectUrlString];
+        if (self.recordedTripTime != nil)
+        {
+            int rec_sec = [self.recordedTripTime integerValue];
+            NSString *recordedTime = [[NSString alloc] init];
+            
+            if (rec_sec > 60)
+                recordedTime = [Utility convertMinutesToTripTimeStr:[NSString stringWithFormat:@"%d", rec_sec/60]];
+            else
+                recordedTime = [NSString stringWithFormat:@"%@ secs",self.recordedTripTime];
+                //If trip time is less than a minute, the trip time is rounded off to a Minute.
+            
+            //NSLog(@"recorded tiem %@", recordedTime);
+    
+            [self.recordedtripTimeLabel setText:[NSString stringWithFormat:@"*Average recorded time to the departure station is %@", recordedTime]];
+        
+            self.recordedtripTimeLabel.numberOfLines = 0;
+            self.recordedtripTimeLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            
+            [self.useTripTimeLabel setHidden:NO];
+            [self.useRecTripTimeSwitch setHidden:NO];
+
+        }
         
         self.dateAdded = [self.contactdb valueForKey:@"dateAdded"];
         double interval = [self.dateAdded timeIntervalSinceNow];
@@ -131,7 +172,17 @@
         }];
 }
 
-
+-(IBAction)YesNoSwitch:(id)sender
+{
+    if (useRecTripTimeSwitch.on)
+    {
+        if (self.contactdb)
+        {
+            [self.contactdb setValue:self.recordedTripTime forKeyPath:@"tripTime"];
+        }
+    }
+    
+}
 
 #pragma mark-
 #pragma Navigation
