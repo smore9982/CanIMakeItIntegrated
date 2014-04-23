@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="lcZ-db-bmj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="lcZ-db-bmj">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Trip Profile View Controller - Trips-->
@@ -182,7 +182,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Stop" id="5dc-0g-jH9">
                             <connections>
                                 <action selector="Stop:" destination="wgn-fh-rXW" id="vg7-Be-Pbb"/>
-                                <segue destination="iB5-mu-DGo" kind="modal" id="olF-tK-ynx"/>
+                                <segue destination="iB5-mu-DGo" kind="modal" identifier="" id="olF-tK-ynx"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Reset" id="Gey-6h-bI4">
@@ -200,6 +200,7 @@
                         <outlet property="TripDetailLabel" destination="oEM-e3-4m3" id="q7E-qd-564"/>
                         <outlet property="WatchLabel" destination="TbZ-fP-vWg" id="whJ-4G-Ui6"/>
                         <outlet property="distanceToStop" destination="EPN-Bi-Rz2" id="QV3-B9-Eyi"/>
+                        <segue destination="iB5-mu-DGo" kind="push" identifier="TimerToTripsSegue" id="jrk-eN-8le"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6gb-ES-vxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -712,6 +713,7 @@
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="iB5-mu-DGo" customClass="CanIMakeItTabController" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="fLu-Cy-eul"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" itemPositioning="centered" id="Pkt-Yl-Hpl">
                         <autoresizingMask key="autoresizingMask"/>
@@ -751,7 +753,7 @@
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.010113598709999999" green="0.022411779180000001" blue="0.023522418480000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="hpX-Vp-kkY">
-                                        <rect key="frame" x="0.0" y="55" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hpX-Vp-kkY" id="WKB-On-StT">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -801,7 +803,7 @@
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ls-eo-3lw">
                                 <rect key="frame" x="0.0" y="19" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" patternImage="BDCE477B-D4D8-4F09-B091-00A03DD2B0DA" colorSpace="pattern"/>
+                                <color key="backgroundColor" patternImage="D906DEB7-A2E6-47B2-8412-79ED3A4AFEE1" colorSpace="pattern"/>
                                 <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <navigationItem title="Settings" id="FYP-8z-VfT"/>
@@ -847,7 +849,7 @@
     </scenes>
     <resources>
         <image name="08-Wrench-icon.png" width="24" height="24"/>
-        <image name="BDCE477B-D4D8-4F09-B091-00A03DD2B0DA" width="256" height="256">
+        <image name="D906DEB7-A2E6-47B2-8412-79ED3A4AFEE1" width="256" height="256">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -5299,8 +5301,8 @@ AAAAAAAEAQAAAAAAAABCAAAAAAAAAAAAAAAAAAQO4w
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="jrk-eN-8le"/>
         <segue reference="xtc-AN-PFk"/>
-        <segue reference="sci-vy-crj"/>
         <segue reference="wSy-hu-SrE"/>
     </inferredMetricsTieBreakers>
 </document>

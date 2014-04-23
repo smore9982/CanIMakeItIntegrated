@@ -163,7 +163,7 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
 
-        if (_distance < 0.621371) {
+        if (_distance < 4000) {
             NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
             [outputFormatter setDateFormat:@"HH:mm:ss"];
             NSDate * today1 = [NSDate date];
@@ -242,7 +242,7 @@
     
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     if(tripProfileModel == nil){
-        [self performSegueWithIdentifier:@"SplashToTripsSegue" sender:self];
+        [self performSegueWithIdentifier:@"TimerToTripsSegue" sender:self];
         return;
     }
     _counter = _counter - 1;
