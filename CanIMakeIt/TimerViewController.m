@@ -163,7 +163,7 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
 
-        if (_distance < 100) {
+        if (_distance < 0.621371) {
             NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
             [outputFormatter setDateFormat:@"HH:mm:ss"];
             NSDate * today1 = [NSDate date];
