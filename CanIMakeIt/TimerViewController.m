@@ -162,8 +162,8 @@
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
-
-        if (_distance < 4000) {
+        // .0621371 mi = 1000 meters.
+        if (_distance < 0.621371) {
             NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
             [outputFormatter setDateFormat:@"HH:mm:ss"];
             NSDate * today1 = [NSDate date];
