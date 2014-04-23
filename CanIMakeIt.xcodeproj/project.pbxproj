@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83B4505719087696004E0CD1 /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B4505419087696004E0CD1 /* ECSlidingViewController.m */; };
+		83B4505819087696004E0CD1 /* UIImage+ImageWithUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B4505619087696004E0CD1 /* UIImage+ImageWithUIView.m */; };
+		83B4505B1908770E004E0CD1 /* SlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B4505A1908770E004E0CD1 /* SlidingViewController.m */; };
 		83E0BC7518DCDF9A00ACBEA7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */; };
 		8B6268EE19033A9900A91D75 /* CanIMakeItTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6268ED19033A9900A91D75 /* CanIMakeItTabController.m */; };
 		8B6268F11903492700A91D75 /* AdvisoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6268F01903492700A91D75 /* AdvisoryModel.m */; };
@@ -55,6 +58,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		83B4505319087696004E0CD1 /* ECSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingViewController.h; sourceTree = "<group>"; };
+		83B4505419087696004E0CD1 /* ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingViewController.m; sourceTree = "<group>"; };
+		83B4505519087696004E0CD1 /* UIImage+ImageWithUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithUIView.h"; sourceTree = "<group>"; };
+		83B4505619087696004E0CD1 /* UIImage+ImageWithUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithUIView.m"; sourceTree = "<group>"; };
+		83B450591908770E004E0CD1 /* SlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlidingViewController.h; sourceTree = "<group>"; };
+		83B4505A1908770E004E0CD1 /* SlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlidingViewController.m; sourceTree = "<group>"; };
 		83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8B6268EC19033A9900A91D75 /* CanIMakeItTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanIMakeItTabController.h; sourceTree = "<group>"; };
 		8B6268ED19033A9900A91D75 /* CanIMakeItTabController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanIMakeItTabController.m; sourceTree = "<group>"; };
@@ -139,6 +148,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		83B4505119087696004E0CD1 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				83B4505219087696004E0CD1 /* ECSlidingViewController */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		83B4505219087696004E0CD1 /* ECSlidingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				83B4505319087696004E0CD1 /* ECSlidingViewController.h */,
+				83B4505419087696004E0CD1 /* ECSlidingViewController.m */,
+				83B4505519087696004E0CD1 /* UIImage+ImageWithUIView.h */,
+				83B4505619087696004E0CD1 /* UIImage+ImageWithUIView.m */,
+			);
+			path = ECSlidingViewController;
+			sourceTree = "<group>";
+		};
 		FB5EC88D18C290A100AAA8AE = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +202,7 @@
 		FB5EC8A118C290A100AAA8AE /* CanIMakeIt */ = {
 			isa = PBXGroup;
 			children = (
+				83B4505119087696004E0CD1 /* Vendor */,
 				8B70DB4118FF8795000C6CCE /* SettingsViewController.h */,
 				8B70DB4218FF8795000C6CCE /* SettingsViewController.m */,
 				8B70DB3E18FF8773000C6CCE /* AdvisoryViewController.h */,
@@ -215,6 +244,8 @@
 				8B6268ED19033A9900A91D75 /* CanIMakeItTabController.m */,
 				8B6268EF1903492700A91D75 /* AdvisoryModel.h */,
 				8B6268F01903492700A91D75 /* AdvisoryModel.m */,
+				83B450591908770E004E0CD1 /* SlidingViewController.h */,
+				83B4505A1908770E004E0CD1 /* SlidingViewController.m */,
 			);
 			path = CanIMakeIt;
 			sourceTree = "<group>";
@@ -347,11 +378,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B4505819087696004E0CD1 /* UIImage+ImageWithUIView.m in Sources */,
 				8BD137BC18CBCEB30089FD4D /* DataHelper.m in Sources */,
 				8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */,
+				83B4505719087696004E0CD1 /* ECSlidingViewController.m in Sources */,
 				FB544E8A18EF0F290037CD0B /* TripLineTableViewController.m in Sources */,
 				8B70DB4318FF8795000C6CCE /* SettingsViewController.m in Sources */,
 				8BD137B918CB97CD0089FD4D /* TimerViewController.m in Sources */,
+				83B4505B1908770E004E0CD1 /* SlidingViewController.m in Sources */,
 				8B7451C518D4E1CA002ED7A0 /* TripDetailViewController.m in Sources */,
 				8B6268EE19033A9900A91D75 /* CanIMakeItTabController.m in Sources */,
 				8B74541618D149E200EB308E /* Utility.m in Sources */,

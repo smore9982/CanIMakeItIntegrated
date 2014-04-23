@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="lcZ-db-bmj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="lcZ-db-bmj">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Trip Profile View Controller - Trips-->
@@ -182,7 +182,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Stop" id="5dc-0g-jH9">
                             <connections>
                                 <action selector="Stop:" destination="wgn-fh-rXW" id="vg7-Be-Pbb"/>
-                                <segue destination="iB5-mu-DGo" kind="modal" id="olF-tK-ynx"/>
+                                <segue destination="iB5-mu-DGo" kind="modal" identifier="" id="olF-tK-ynx"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Reset" id="Gey-6h-bI4">
@@ -200,6 +200,7 @@
                         <outlet property="TripDetailLabel" destination="oEM-e3-4m3" id="q7E-qd-564"/>
                         <outlet property="WatchLabel" destination="TbZ-fP-vWg" id="whJ-4G-Ui6"/>
                         <outlet property="distanceToStop" destination="EPN-Bi-Rz2" id="QV3-B9-Eyi"/>
+                        <segue destination="iB5-mu-DGo" kind="push" identifier="TimerToTripsSegue" id="jrk-eN-8le"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6gb-ES-vxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -669,13 +670,50 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Jc-Mk-aev" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-354" y="1872"/>
+            <point key="canvasLocation" x="-1042" y="1888"/>
+        </scene>
+        <!--Sliding View Controller-->
+        <scene sceneID="2Hu-Dd-8WG">
+            <objects>
+                <viewController id="56z-TX-iwf" customClass="ECSlidingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WUX-hr-lkt"/>
+                        <viewControllerLayoutGuide type="bottom" id="AVC-rM-lMz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XRW-42-hcB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5iz-JO-VBo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-523" y="2511"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Iis-94-6ds">
+            <objects>
+                <viewController id="2dV-Yf-udx" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fmx-4q-42W"/>
+                        <viewControllerLayoutGuide type="bottom" id="yVS-Fl-HRH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9UW-zd-6ey">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YhX-lX-xvV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="177" y="2511"/>
         </scene>
         <!--CanI Make It Tab Controller-->
         <scene sceneID="mOW-jY-o4P">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="iB5-mu-DGo" customClass="CanIMakeItTabController" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="fLu-Cy-eul"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" itemPositioning="centered" id="Pkt-Yl-Hpl">
                         <autoresizingMask key="autoresizingMask"/>
@@ -717,7 +755,7 @@
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.010113598709999999" green="0.022411779180000001" blue="0.023522418480000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="hpX-Vp-kkY">
-                                        <rect key="frame" x="0.0" y="55" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hpX-Vp-kkY" id="WKB-On-StT">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -5265,8 +5303,8 @@ AAAAAAAEAQAAAAAAAABCAAAAAAAAAAAAAAAAAAQO4w
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="jrk-eN-8le"/>
         <segue reference="xtc-AN-PFk"/>
-        <segue reference="sci-vy-crj"/>
         <segue reference="wSy-hu-SrE"/>
     </inferredMetricsTieBreakers>
 </document>

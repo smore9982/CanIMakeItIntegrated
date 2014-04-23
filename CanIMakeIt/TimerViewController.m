@@ -162,7 +162,7 @@
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
-
+        // .0621371 mi = 1000 meters.
         if (_distance < 0.621371) {
             NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
             [outputFormatter setDateFormat:@"HH:mm:ss"];
@@ -242,7 +242,7 @@
     
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     if(tripProfileModel == nil){
-        [self performSegueWithIdentifier:@"SplashToTripsSegue" sender:self];
+        [self performSegueWithIdentifier:@"TimerToTripsSegue" sender:self];
         return;
     }
     _counter = _counter - 1;
