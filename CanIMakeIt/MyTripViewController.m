@@ -77,7 +77,7 @@
         [self.toStation setText:[self.contactdb valueForKey:@"toStation"]];
         [self.transferStation setText:[self.contactdb valueForKey:@"transferStation"]];
         
-        NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
+        NSString *tripMin = [Utility convertSecondsToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
         [self.tripTime setText:tripMin];
         
         
@@ -485,7 +485,7 @@
             NSManagedObjectContext *context = [self managedObjectContext];
             
             //Function to convert tripTime to minutes
-            NSString *totalMins = [Utility convertTripTimeToMinutes:self.tripTime.text];
+            NSString *totalMins = [Utility convertTripTimeToSeconds:self.tripTime.text];
             
             //Function to convert meridiem to 24 hour
             NSString *timein24 = [Utility convertTimeto24Hour:self.startTime.text];

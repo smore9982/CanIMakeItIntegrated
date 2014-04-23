@@ -74,7 +74,7 @@
         [self.toStationLabel setText:[self.contactdb valueForKey:@"toStation"]];
         [self.transferStationLabel setText:[self.contactdb valueForKey:@"transferStation"]];
         
-        NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
+        NSString *tripMin = [Utility convertSecondsToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
         [self.tripTimeLabel setText:tripMin];
         
         
@@ -172,7 +172,7 @@
             [self.contactdb setValue:self.recordedTripTime forKeyPath:@"tripTime"];
             
             //Update Trip Time
-            NSString *tripMin = [Utility convertMinutesToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
+            NSString *tripMin = [Utility convertSecondsToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
             [self.tripTimeLabel setText:tripMin];
         }
     }

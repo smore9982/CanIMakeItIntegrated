@@ -250,7 +250,7 @@
     int hours = _counter / 3600;
     int minutes = (_counter - (hours * 3600)) / 60;
     int seconds = _counter - (hours * 3600) - (minutes * 60);
-    int walktime = [tripProfileModel.approxTimeToStation intValue] * 60;
+    int walktime = [tripProfileModel.approxTimeToStation intValue];
     self.WatchLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes,seconds];
     if (_counter == 0) {
         self.dataHelper = [[DataHelper alloc] init];
@@ -465,7 +465,7 @@
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet
 {
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
-    int walktime = [tripProfileModel.approxTimeToStation intValue] * 60;
+    int walktime = [tripProfileModel.approxTimeToStation intValue];
     for (UIView *subview in actionSheet.subviews) {
         if ([subview isKindOfClass:[UIButton class]]) {
             UIButton *button = (UIButton *)subview;

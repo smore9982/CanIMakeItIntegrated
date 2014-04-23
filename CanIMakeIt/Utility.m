@@ -21,7 +21,7 @@
     
 }
 
-+ (NSString *) convertTripTimeToMinutes:(NSString *)tripTimeStr
++ (NSString *) convertTripTimeToSeconds:(NSString *)tripTimeStr
 {
     if (tripTimeStr == nil) return nil;
     
@@ -29,23 +29,24 @@
     
     int min = (int)[hourMin[2] intValue];
     int hour = (int) [hourMin[0] intValue];
-    int total = min + (hour * 60);
+    int seconds = (min + (hour * 60)) * 60;
     
-    NSString *retMinutes = [NSString stringWithFormat:@"%d", total];
+    NSString *retSeconds = [NSString stringWithFormat:@"%d", seconds];
     
-    return retMinutes;
+    return retSeconds;
 }
 
-+ (NSString *) convertMinutesToTripTimeStr:(NSString *)tripMins
++ (NSString *) convertSecondsToTripTimeStr:(NSString *)tripSecs
 {
-    if(tripMins == nil) return nil;
+    if(tripSecs == nil) return nil;
     
-    int total = (int)[tripMins intValue];
+    int sec = (int)[tripSecs intValue];
     
     int min = 0, hour = 0;
     
-    hour = total / 60;
-    min = total - (hour * 60);
+    hour = sec / 3600;
+    min = (sec - (hour * 3600)) / 60;
+    
     
     NSString *retTripTime = [NSString stringWithFormat:@"%d hour %02d minutes", hour, min];
     
