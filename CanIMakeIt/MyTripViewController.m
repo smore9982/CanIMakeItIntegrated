@@ -12,8 +12,8 @@
 
 @interface MyTripViewController ()
 
-@property (strong, nonatomic) NSArray *stopNames;
-@property (strong, nonatomic) NSArray *transferStops;
+@property (strong, nonatomic) NSMutableArray *stopNames;
+@property (strong, nonatomic) NSMutableArray *transferStops;
 @property (strong, nonatomic) NSArray *pickHour;
 @property (strong, nonatomic) NSArray *pickMinute;
 @property (strong, nonatomic) NSArray *pickMeridiem;
@@ -102,10 +102,12 @@
     
     
     //Getting all Initial Data that will be displayed to User for selection in EITHER MODES
-    self.stopNames = [[self.stopDataHelper getStopsForAgency:self.agencyId] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.stopNames = [[NSMutableArray alloc] initWithArray:[[self.stopDataHelper getStopsForAgency:self.agencyId] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+    [self.stopNames insertObject:@"N/A" atIndex:0];
     
     //Get Transfer Stop Names
-    self.transferStops = [[self.stopDataHelper getTransferStopsForAgency:self.agencyId] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.transferStops = [[NSMutableArray alloc] initWithArray:[[self.stopDataHelper getTransferStopsForAgency:self.agencyId] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+    [self.transferStops insertObject:@"N/A" atIndex:0];
     
     
     //Set Time - hour, min, seconds for Picker View
