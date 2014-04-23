@@ -97,18 +97,11 @@
         self.recordedTripTime = [self.dataHelp getTripRealTimes:objectUrlString];
         if (self.recordedTripTime != nil)
         {
-            int rec_sec = [self.recordedTripTime integerValue];
-            NSString *recordedTime = [[NSString alloc] init];
-            
-            if (rec_sec > 60)
-                recordedTime = [Utility convertMinutesToTripTimeStr:[NSString stringWithFormat:@"%d", rec_sec/60]];
-            else
-                recordedTime = [NSString stringWithFormat:@"%@ secs",self.recordedTripTime];
-                //If trip time is less than a minute, the trip time is rounded off to a Minute.
-            
-            //NSLog(@"recorded tiem %@", recordedTime);
+            int rec_hr = [self.recordedTripTime integerValue] / 3600;
+            int rec_min = ([self.recordedTripTime integerValue] / 60) % 60;
+            int rec_sec = [self.recordedTripTime integerValue] % 60 ;
     
-            [self.recordedtripTimeLabel setText:[NSString stringWithFormat:@"*Average recorded time to the departure station is %@", recordedTime]];
+            [self.recordedtripTimeLabel setText:[NSString stringWithFormat:@"*Average recorded time to the departure station is %02d:%02d:%02d", rec_hr, rec_min, rec_sec]];
         
             self.recordedtripTimeLabel.numberOfLines = 0;
             self.recordedtripTimeLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -147,8 +140,6 @@
     NSURL *objecturl = [tripObject URIRepresentation];
     
     NSString *objectUrlString = [objecturl absoluteString];
-    
-    NSLog(@"the url -%@", objectUrlString);
     
     //Saving Default Trip object url to database context
     DataHelper *saveDataHelper = [[DataHelper alloc] init];

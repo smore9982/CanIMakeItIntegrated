@@ -15,7 +15,8 @@
 
 - (NSString *) getUserData : (NSString*) key;
 - (BOOL) saveUserData : (NSString*) key withValue: (NSString*) value;
-
+-(BOOL) deleteUserData : (NSString*) key;
+    
 - (BOOL) isFirstLaunch;
 - (BOOL) setFirstLaunch : (BOOL) isFirstLaunch;
 

@@ -56,6 +56,35 @@
     return nil;
 }
 
+
+-(BOOL) deleteUserData : (NSString*) key{
+    //Create new device
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"UserData"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"key = %@",key];
+    [fetchRequest setPredicate:predicate];
+    NSError *error = nil;
+    NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if(array.count > 0){
+        NSLog(@"Found Value. Delete");
+        
+        [managedObjectContext deleteObject:[array objectAtIndex:0]];
+        if(![managedObjectContext save:&error])
+        {
+            NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+            return false;
+        }
+        return true;
+    }
+    else{
+        NSLog(@"Did not find value. Return");
+        return true;
+    }
+}
+
+
 - (BOOL) saveUserData : (NSString*) key withValue: (NSString*) value{
     //Create new device
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
@@ -86,6 +115,7 @@
         return true;
     }
 }
+
 
 
 - (BOOL) isFirstLaunch{

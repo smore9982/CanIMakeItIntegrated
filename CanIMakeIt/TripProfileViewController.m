@@ -54,11 +54,6 @@
     
     //Get ObjectID of default Trip profile
     savedDefaultTripID = [self.getDataHelper getUserData:@"defaultTripID"];
-}
-
--(void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     //Get Agency Information
     self.agencyModel = [self.getDataHelper getAgencyData];
@@ -97,8 +92,7 @@
                 continue;
             }
             
-            NSArray *splitTrips = [[NSArray alloc] init];
-            splitTrips = array;
+            NSMutableArray *splitTrips = [[NSMutableArray alloc] initWithArray:array];
             
             //Add trip array as object only trips exist.
             if(splitTrips.count > 0)
@@ -108,6 +102,13 @@
         }
         
     }
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
     
     [self.tableView reloadData];
 }
@@ -121,11 +122,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //0 Trips
-    if (self.tripArray.count == 0)
-        return 0;
-    
-    
     return self.allAgencyNames.count;
 }
 
@@ -153,7 +149,7 @@
     NSArray *tArray = [self.agencySplitModel objectForKey:self.allAgencyNames[section]];
     
     //Return nil if key is same as object. It is supposed to be a trip array
-    if ([tArray isEqual:self.allAgencyNames[section]]) {
+    if ((tArray == nil) ||([tArray isEqual:self.allAgencyNames[section]])) {
         return nil;
     }
     
@@ -264,8 +260,15 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
+        //Get the objectid of the trip that should be deleted.
+        NSString *key =self.allAgencyNames[indexPath.section];
+        
+        NSMutableArray *trip = self.agencySplitModel[key];
+        
+        NSManagedObject *selectedTrip = [trip objectAtIndex:indexPath.row];
+        
         //Delete object from database
-        [self.managedObjectContext deleteObject:[self.tripArray objectAtIndex:indexPath.row]];
+        [self.managedObjectContext deleteObject:selectedTrip];
         
         NSError *error = nil;
         if(![self.managedObjectContext save:&error])
@@ -275,10 +278,28 @@
         }
         
         // Delete the row from the data source
-        [self.tripArray removeObjectAtIndex:indexPath.row];
+        //From self.tripArray
+        [self.tripArray removeObject:selectedTrip];
+        //From Dictionary
+        [trip removeObjectAtIndex:indexPath.row];
+        
+        //Remove the section if there are no associated trips for an agency
+        if (trip.count == 0)
+        {
+            [self.agencySplitModel removeObjectForKey:key];
+        }
+        else
+        {
+            //Replace the trip array as object in dictionary after deletion
+            [self.agencySplitModel setObject:trip forKey:key];
+        }
+        //Delete the trip ID from UserTable if the trip is a default Trip
+        [self.getDataHelper deleteUserData:@"defaultTripID"];
         //Delete row from table view
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+        
+        [self.tableView reloadData];
+    }
     
 }
 
