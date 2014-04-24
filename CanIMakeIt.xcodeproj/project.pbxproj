@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		832AFB711908B0D600C0E583 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 832AFB701908B0D600C0E583 /* ScheduleViewController.m */; };
+		832AFB731908B1AB00C0E583 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832AFB721908B1AB00C0E583 /* QuartzCore.framework */; };
 		83B4505719087696004E0CD1 /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B4505419087696004E0CD1 /* ECSlidingViewController.m */; };
 		83B4505819087696004E0CD1 /* UIImage+ImageWithUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B4505619087696004E0CD1 /* UIImage+ImageWithUIView.m */; };
 		83B4505B1908770E004E0CD1 /* SlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B4505A1908770E004E0CD1 /* SlidingViewController.m */; };
@@ -58,6 +60,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		832AFB6F1908B0D600C0E583 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
+		832AFB701908B0D600C0E583 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
+		832AFB721908B1AB00C0E583 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		83B4505319087696004E0CD1 /* ECSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingViewController.h; sourceTree = "<group>"; };
 		83B4505419087696004E0CD1 /* ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingViewController.m; sourceTree = "<group>"; };
 		83B4505519087696004E0CD1 /* UIImage+ImageWithUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithUIView.h"; sourceTree = "<group>"; };
@@ -126,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				832AFB731908B1AB00C0E583 /* QuartzCore.framework in Frameworks */,
 				83E0BC7518DCDF9A00ACBEA7 /* CoreLocation.framework in Frameworks */,
 				FB5EC89C18C290A100AAA8AE /* CoreGraphics.framework in Frameworks */,
 				FB5EC8A018C290A100AAA8AE /* CoreData.framework in Frameworks */,
@@ -148,6 +154,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		832AFB741908B34F00C0E583 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				83B450591908770E004E0CD1 /* SlidingViewController.h */,
+				83B4505A1908770E004E0CD1 /* SlidingViewController.m */,
+				832AFB6F1908B0D600C0E583 /* ScheduleViewController.h */,
+				832AFB701908B0D600C0E583 /* ScheduleViewController.m */,
+				8BD137B718CB97CD0089FD4D /* TimerViewController.h */,
+				8BD137B818CB97CD0089FD4D /* TimerViewController.m */,
+			);
+			name = Timer;
+			sourceTree = "<group>";
+		};
 		83B4505119087696004E0CD1 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +208,7 @@
 		FB5EC89818C290A100AAA8AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				832AFB721908B1AB00C0E583 /* QuartzCore.framework */,
 				83E0BC7418DCDF9A00ACBEA7 /* CoreLocation.framework */,
 				FB5EC89918C290A100AAA8AE /* Foundation.framework */,
 				FB5EC89B18C290A100AAA8AE /* CoreGraphics.framework */,
@@ -202,6 +222,7 @@
 		FB5EC8A118C290A100AAA8AE /* CanIMakeIt */ = {
 			isa = PBXGroup;
 			children = (
+				832AFB741908B34F00C0E583 /* Timer */,
 				83B4505119087696004E0CD1 /* Vendor */,
 				8B70DB4118FF8795000C6CCE /* SettingsViewController.h */,
 				8B70DB4218FF8795000C6CCE /* SettingsViewController.m */,
@@ -232,8 +253,6 @@
 				FB5EC8A218C290A100AAA8AE /* Supporting Files */,
 				8BD137B418CB8FBC0089FD4D /* WelcomeViewController.h */,
 				8BD137B518CB8FBC0089FD4D /* WelcomeViewController.m */,
-				8BD137B718CB97CD0089FD4D /* TimerViewController.h */,
-				8BD137B818CB97CD0089FD4D /* TimerViewController.m */,
 				8BD137BA18CBCEB30089FD4D /* DataHelper.h */,
 				8BD137BB18CBCEB30089FD4D /* DataHelper.m */,
 				8B74541418D149E100EB308E /* Utility.h */,
@@ -244,8 +263,6 @@
 				8B6268ED19033A9900A91D75 /* CanIMakeItTabController.m */,
 				8B6268EF1903492700A91D75 /* AdvisoryModel.h */,
 				8B6268F01903492700A91D75 /* AdvisoryModel.m */,
-				83B450591908770E004E0CD1 /* SlidingViewController.h */,
-				83B4505A1908770E004E0CD1 /* SlidingViewController.m */,
 			);
 			path = CanIMakeIt;
 			sourceTree = "<group>";
@@ -379,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83B4505819087696004E0CD1 /* UIImage+ImageWithUIView.m in Sources */,
+				832AFB711908B0D600C0E583 /* ScheduleViewController.m in Sources */,
 				8BD137BC18CBCEB30089FD4D /* DataHelper.m in Sources */,
 				8B7451C418D4CDBA002ED7A0 /* StopModel.m in Sources */,
 				83B4505719087696004E0CD1 /* ECSlidingViewController.m in Sources */,

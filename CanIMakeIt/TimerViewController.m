@@ -11,6 +11,9 @@
 #import "DataHelper.h"
 #import "Utility.h"
 #import <CoreLocation/CoreLocation.h>
+#import <QuartzCore/QuartzCore.h>
+#import "ECSlidingViewController.h"
+#import "ScheduleViewController.h"
 
 @interface TimerViewController ()
 
@@ -137,6 +140,24 @@
     _ProgressToStation.progress = 0.0;
     [self performSelectorOnMainThread:@selector(ToStation) withObject:nil waitUntilDone:NO];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Add a shadow to the top view so it looks like it is on top of the others
+    self.view.layer.shadowOpacity = 0.75f;
+    self.view.layer.shadowRadius = 10.0f;
+    self.view.layer.shadowColor = [[UIColor blackColor] CGColor];
+    
+    // Tell it which view should be created under left
+    if (![self.slidingViewController.underLeftViewController isKindOfClass:[ScheduleViewController class]]) {
+        self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleView"];
+    }
+    
+    // Add the pan gesture to allow sliding
+    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
 }
 
 - (void)ToStation

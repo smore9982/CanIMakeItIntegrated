@@ -1,18 +1,19 @@
 //
-//  SlidingViewController.m
+//  ScheduleViewController.m
 //  CanIMakeIt
 //
 //  Created by Chris on 2014/4/23.
 //  Copyright (c) 2014年 Dakshayani Padman. All rights reserved.
 //
 
-#import "SlidingViewController.h"
+#import "ScheduleViewController.h"
+#import "ECSlidingViewController.h"
 
-@interface SlidingViewController ()
+@interface ScheduleViewController ()
 
 @end
 
-@implementation SlidingViewController
+@implementation ScheduleViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,7 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TimerView"];
+    [self.slidingViewController setAnchorRightRevealAmount:150.0f];
+    self.slidingViewController.underLeftWidthLayout = ECFullWidth;
     // Do any additional setup after loading the view.
 }
 
