@@ -157,6 +157,7 @@
 		832AFB741908B34F00C0E583 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
+				83B4505219087696004E0CD1 /* ECSlidingViewController */,
 				83B450591908770E004E0CD1 /* SlidingViewController.h */,
 				83B4505A1908770E004E0CD1 /* SlidingViewController.m */,
 				832AFB6F1908B0D600C0E583 /* ScheduleViewController.h */,
@@ -167,14 +168,6 @@
 			name = Timer;
 			sourceTree = "<group>";
 		};
-		83B4505119087696004E0CD1 /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				83B4505219087696004E0CD1 /* ECSlidingViewController */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
 		83B4505219087696004E0CD1 /* ECSlidingViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,7 +176,8 @@
 				83B4505519087696004E0CD1 /* UIImage+ImageWithUIView.h */,
 				83B4505619087696004E0CD1 /* UIImage+ImageWithUIView.m */,
 			);
-			path = ECSlidingViewController;
+			name = ECSlidingViewController;
+			path = Vendor/ECSlidingViewController;
 			sourceTree = "<group>";
 		};
 		FB5EC88D18C290A100AAA8AE = {
@@ -223,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				832AFB741908B34F00C0E583 /* Timer */,
-				83B4505119087696004E0CD1 /* Vendor */,
 				8B70DB4118FF8795000C6CCE /* SettingsViewController.h */,
 				8B70DB4218FF8795000C6CCE /* SettingsViewController.m */,
 				8B70DB3E18FF8773000C6CCE /* AdvisoryViewController.h */,
