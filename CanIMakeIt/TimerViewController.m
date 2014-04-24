@@ -152,8 +152,8 @@
     self.view.layer.shadowColor = [[UIColor blackColor] CGColor];
     
     // Tell it which view should be created under left
-    if (![self.slidingViewController.underLeftViewController isKindOfClass:[ScheduleViewController class]]) {
-        self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleView"];
+    if (![self.slidingViewController.underRightViewController isKindOfClass:[ScheduleViewController class]]) {
+        self.slidingViewController.underRightViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleView"];
     }
     
     // Add the pan gesture to allow sliding
