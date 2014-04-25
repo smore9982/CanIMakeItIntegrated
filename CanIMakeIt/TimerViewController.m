@@ -215,7 +215,7 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    self.dataHelper = [[DataHelper alloc] init];
+    /*self.dataHelper = [[DataHelper alloc] init];
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"HH:mm:ss"];
@@ -230,18 +230,18 @@
     [outputFormatter setDateFormat:@"mm:ss"];
     NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
     [outputFormatter setDateFormat:@"ss"];
-    NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
+    NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];*/
     
     NSString *lat = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
     _currentLat = lat;
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     _currentLongt = longt;
     _distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000 * 0.000621371;
-    double time = _distance / 0.00086;
-    double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
-    double suggesttime = nexttraintime - time;
+    //double time = _distance / 0.00086;
+    //double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
+    //double suggesttime = nexttraintime - time;
     
-    while (suggesttime < 0) {
+    /*while (suggesttime < 0) {
         suggesttime = suggesttime + 24 * 3600;
     }
     
@@ -249,7 +249,7 @@
     int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
     int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
     _DTS = [NSString stringWithFormat:@"%.02f miles", _distance];
-    _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];
+    _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];*/
 }
 
 - (IBAction)Stop:(id)sender {
@@ -573,8 +573,27 @@
              int suggesthour = suggesttime / 3600;
              int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
              int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
+             NSString *AMPM;
+             
+             if (suggesthour == 0) {
+                 AMPM = @"AM";
+                 suggesthour = 12;
+             }
+             else if (suggesthour < 12){
+                 AMPM = @"AM";
+             }
+             else if (suggesthour == 12){
+                 AMPM = @"PM";
+             }
+             else if (suggesthour < 24){
+                 suggesthour = suggesthour - 12;
+                 AMPM = @"PM";
+             }
+             
              _DTS = [NSString stringWithFormat:@"%.02f miles", _distance];
-             _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];
+             _DepartTime = [NSString stringWithFormat:@"%02d:%02d %@", suggesthour, suggestmin, AMPM];
+             
+             
              _Recommended.text = @"Recommended departure time:";
              _distanceToStop.text = _DTS;
              _distanceToStop.textColor = [UIColor lightGrayColor];
