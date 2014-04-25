@@ -10,4 +10,7 @@
 
 @interface ScheduleViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UILabel *Date;
+@property (strong, nonatomic) IBOutlet UITextView *TimeV;
+
 @end
