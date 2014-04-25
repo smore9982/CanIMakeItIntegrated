@@ -237,7 +237,7 @@
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     _currentLongt = longt;
     _distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000 * 0.000621371;
-    double time = _distance / 2.235;
+    double time = _distance / 0.00086;
     double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
     double suggesttime = nexttraintime - time;
     
@@ -562,7 +562,7 @@
              NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
              [outputFormatter setDateFormat:@"ss"];
              NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
-             double time = _distance / 2.235;
+             double time = _distance / 0.00086;
              double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
              double suggesttime = nexttraintime - time;
              
