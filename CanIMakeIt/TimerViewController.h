@@ -29,5 +29,6 @@
 -(IBAction)showActionSheet:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *DepartureTime;
 @property (strong, nonatomic) IBOutlet UILabel *Recommended;
+- (IBAction)Schedule:(id)sender;
 
 @end

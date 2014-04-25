@@ -506,7 +506,7 @@
 }
 
 -(IBAction)showActionSheet:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Record", @"Distance", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Record", @"Recommended Time", nil];
     [actionSheet showInView:self.view];
 }
 
@@ -587,5 +587,8 @@
          }
              break;
      }
+}
+- (IBAction)Schedule:(id)sender {
+    [self.slidingViewController anchorTopViewTo:ECLeft];
 }
 @end
