@@ -332,7 +332,11 @@
         
     }
     else if (_counter > walktime * 1.5){
-        self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];;
+        self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+        _A.titleLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+        _B.titleLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+        _C.titleLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+        _D.titleLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
     }
     else if (_counter == walktime * 1.5){
         if (_notification)
@@ -344,6 +348,10 @@
     }
     else if (_counter <= walktime * 1.5 && _counter > walktime){
         self.view.backgroundColor = [UIColor yellowColor];
+        _A.titleLabel.textColor = [UIColor yellowColor];
+        _B.titleLabel.textColor = [UIColor yellowColor];
+        _C.titleLabel.textColor = [UIColor yellowColor];
+        _D.titleLabel.textColor = [UIColor yellowColor];
     }
     else if (_counter == walktime){
         if (_notification)
@@ -356,6 +364,10 @@
     }
     else if (_counter <= walktime){
         self.view.backgroundColor = [UIColor redColor];
+        _A.titleLabel.textColor = [UIColor redColor];
+        _B.titleLabel.textColor = [UIColor redColor];
+        _C.titleLabel.textColor = [UIColor redColor];
+        _D.titleLabel.textColor = [UIColor redColor];
     }
     
 }

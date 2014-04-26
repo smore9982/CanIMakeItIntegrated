@@ -30,5 +30,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *DepartureTime;
 @property (strong, nonatomic) IBOutlet UILabel *Recommended;
 - (IBAction)Schedule:(id)sender;
-
+@property (strong, nonatomic) IBOutlet UIButton *A;
+@property (strong, nonatomic) IBOutlet UIButton *B;
+@property (strong, nonatomic) IBOutlet UIButton *C;
+@property (strong, nonatomic) IBOutlet UIButton *D;
 @end
