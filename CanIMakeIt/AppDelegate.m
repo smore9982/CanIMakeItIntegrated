@@ -69,7 +69,9 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateAdvisory" object:nil userInfo:nil];
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -108,11 +110,7 @@
         int advisoryCount = [[advisoryCountDict valueForKey:@"advisoryCount"]intValue];
         NSString* countStr = [NSString stringWithFormat: @"%d", (int)advisoryCount];
         [dataHelper saveUserData:@"advisoryCount" withValue:countStr];
-        
-        UITabBarController* navigationController = (UITabBarController*) self.window.rootViewController;
-        if ([navigationController isKindOfClass:[UITabBarController class]]){
-            [(CanIMakeItTabController*) navigationController updateAdvisoryCount:completionHandler];
-        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateCount" object:nil userInfo:nil];
     }];
     
     [task resume];

@@ -23,13 +23,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	NSLog(@"Loading advisory");
+	[self registerForNotifications];
     self.dataHelper = [[DataHelper alloc]init];
     [self.dataHelper getAdvisories:^(NSMutableDictionary* advisoryDict){
         self.advisoryDict = advisoryDict;
         self.advisoryKeys = [self.advisoryDict allKeys];
         [self.advisoryTable reloadData];
     }];
+}
+
+- (void) viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,6 +102,33 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+}
+
+- (void)registerForNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(getNewAdvisories)
+                                                 name:@"UpdateAdvisory" object:nil];
+}
+
+-(void)unregisterForNotifications
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UpdateAdvisory" object:nil];
+}
+
+- (void) getNewAdvisories{
+    [self.dataHelper getAdvisories:^(NSMutableDictionary* advisoryDict){
+        self.advisoryDict = advisoryDict;
+        self.advisoryKeys = [self.advisoryDict allKeys];
+        [self.advisoryTable reloadData];
+    }];
+    
+    DataHelper* dataHelper = [[DataHelper alloc] init];
+    int count = [dataHelper getAdvisoryCountFromLocalDB];
+    if(count > 0){
+        UITabBar* tabBar = [[self tabBarController] tabBar];
+        [[[tabBar items] objectAtIndex:1] setBadgeValue:[NSString stringWithFormat:@"%d",count]];
+    }
 }
 
 @end

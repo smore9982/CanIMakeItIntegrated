@@ -654,6 +654,9 @@
             }else if ([njtTrips count] > 0){
                 [advisoryDict setValue:njtTrips forKey:@"NJT"];
             }
+            
+            NSString* countStr = [NSString stringWithFormat: @"%d", (int)[advisoryArray count]];
+            [self saveUserData:@"advisoryCount" withValue:countStr];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             completionBlock(advisoryDict);

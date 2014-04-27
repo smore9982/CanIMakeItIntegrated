@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CanIMakeItTabController : UITabBarController
-- (void) updateAdvisoryCount: (void (^) (UIBackgroundFetchResult)) completionHandler;
+- (void) updateAdvisoryCount;
 @end
