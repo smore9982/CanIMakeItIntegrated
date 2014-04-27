@@ -11,6 +11,9 @@
 #import "DataHelper.h"
 #import "Utility.h"
 #import <CoreLocation/CoreLocation.h>
+#import <QuartzCore/QuartzCore.h>
+#import "ECSlidingViewController.h"
+#import "ScheduleViewController.h"
 
 @interface TimerViewController ()
 
@@ -139,6 +142,24 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Add a shadow to the top view so it looks like it is on top of the others
+    self.view.layer.shadowOpacity = 0.75f;
+    self.view.layer.shadowRadius = 10.0f;
+    self.view.layer.shadowColor = [[UIColor blackColor] CGColor];
+    
+    // Tell it which view should be created under left
+    if (![self.slidingViewController.underRightViewController isKindOfClass:[ScheduleViewController class]]) {
+        self.slidingViewController.underRightViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleView"];
+    }
+    
+    // Add the pan gesture to allow sliding
+    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+}
+
 - (void)ToStation
 {
     while (_case1) {
@@ -194,7 +215,7 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    self.dataHelper = [[DataHelper alloc] init];
+    /*self.dataHelper = [[DataHelper alloc] init];
     TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"HH:mm:ss"];
@@ -209,18 +230,18 @@
     [outputFormatter setDateFormat:@"mm:ss"];
     NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
     [outputFormatter setDateFormat:@"ss"];
-    NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
+    NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];*/
     
     NSString *lat = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
     _currentLat = lat;
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     _currentLongt = longt;
     _distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000 * 0.000621371;
-    double time = _distance / 2.235;
-    double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
-    double suggesttime = nexttraintime - time;
+    //double time = _distance / 0.00086;
+    //double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
+    //double suggesttime = nexttraintime - time;
     
-    while (suggesttime < 0) {
+    /*while (suggesttime < 0) {
         suggesttime = suggesttime + 24 * 3600;
     }
     
@@ -228,7 +249,7 @@
     int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
     int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
     _DTS = [NSString stringWithFormat:@"%.02f miles", _distance];
-    _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];
+    _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];*/
 }
 
 - (IBAction)Stop:(id)sender {
@@ -311,7 +332,11 @@
         
     }
     else if (_counter > walktime * 1.5){
-        self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];;
+        self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+        _A.titleLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+        _B.titleLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+        _C.titleLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+        _D.titleLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
     }
     else if (_counter == walktime * 1.5){
         if (_notification)
@@ -323,6 +348,10 @@
     }
     else if (_counter <= walktime * 1.5 && _counter > walktime){
         self.view.backgroundColor = [UIColor yellowColor];
+        _A.titleLabel.textColor = [UIColor yellowColor];
+        _B.titleLabel.textColor = [UIColor yellowColor];
+        _C.titleLabel.textColor = [UIColor yellowColor];
+        _D.titleLabel.textColor = [UIColor yellowColor];
     }
     else if (_counter == walktime){
         if (_notification)
@@ -335,6 +364,10 @@
     }
     else if (_counter <= walktime){
         self.view.backgroundColor = [UIColor redColor];
+        _A.titleLabel.textColor = [UIColor redColor];
+        _B.titleLabel.textColor = [UIColor redColor];
+        _C.titleLabel.textColor = [UIColor redColor];
+        _D.titleLabel.textColor = [UIColor redColor];
     }
     
 }
@@ -485,7 +518,7 @@
 }
 
 -(IBAction)showActionSheet:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Record", @"Distance", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Record", @"Recommended Time", nil];
     [actionSheet showInView:self.view];
 }
 
@@ -541,7 +574,7 @@
              NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
              [outputFormatter setDateFormat:@"ss"];
              NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
-             double time = _distance / 2.235;
+             double time = _distance / 0.00086;
              double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
              double suggesttime = nexttraintime - time;
              
@@ -551,9 +584,28 @@
              
              int suggesthour = suggesttime / 3600;
              int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
-             int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
+             //int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
+             NSString *AMPM;
+             
+             if (suggesthour == 0) {
+                 AMPM = @"AM";
+                 suggesthour = 12;
+             }
+             else if (suggesthour < 12){
+                 AMPM = @"AM";
+             }
+             else if (suggesthour == 12){
+                 AMPM = @"PM";
+             }
+             else if (suggesthour < 24){
+                 suggesthour = suggesthour - 12;
+                 AMPM = @"PM";
+             }
+             
              _DTS = [NSString stringWithFormat:@"%.02f miles", _distance];
-             _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];
+             _DepartTime = [NSString stringWithFormat:@"%02d:%02d %@", suggesthour, suggestmin, AMPM];
+             
+             
              _Recommended.text = @"Recommended departure time:";
              _distanceToStop.text = _DTS;
              _distanceToStop.textColor = [UIColor lightGrayColor];
@@ -566,5 +618,8 @@
          }
              break;
      }
+}
+- (IBAction)Schedule:(id)sender {
+    [self.slidingViewController anchorTopViewTo:ECLeft];
 }
 @end
