@@ -326,6 +326,13 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Dakshayani Padman";
 				TargetAttributes = {
+					FB5EC89518C290A100AAA8AE = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					FB5EC8B518C290A100AAA8AE = {
 						TestTargetID = FB5EC89518C290A100AAA8AE;
 					};

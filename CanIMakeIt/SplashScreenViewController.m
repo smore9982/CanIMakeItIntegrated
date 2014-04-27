@@ -30,7 +30,6 @@
         //Load Agencies then load stops
         [self.dataHelper loadAgencies:^(NSString* str){
             [self.dataHelper loadStops:^(NSString* str){
-                
                 [self.dataHelper setFirstLaunch:true];
                 [self performSegueWithIdentifier:@"SplashToWelcomeSegue" sender:self];
                 return;
@@ -68,8 +67,6 @@
         
     }
     return;
-    
-    
 }
 
 -(BOOL) isTimerRunning{

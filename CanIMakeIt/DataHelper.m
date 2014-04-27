@@ -51,7 +51,8 @@
     NSManagedObject* value = nil;
     for(int i=0; i<array.count;i++){
         value = [array objectAtIndex:i];
-        return [value valueForKey:@"value"];
+        NSString* valueStr = [value valueForKey:@"value"];
+        return valueStr;
     }
     return nil;
 }
@@ -100,6 +101,7 @@
         NSManagedObject* managedObject = [array objectAtIndex:0];
         [managedObject setValue:key forKey:@"key"];
         [managedObject setValue:value forKey:@"value"];
+        [managedObjectContext save:&error];
         return true;
     }else{
         NSLog(@"Did not find value. Insert");
@@ -573,8 +575,40 @@
     return;
 }
 
-- (int) getAdvisoryCount{
-    return 10;
+- (void) getAdvisoryCount: (void (^)(int))completionBlock{
+    NSString* hostName = @"http://ec2-54-85-36-246.compute-1.amazonaws.com:8080/CanIMakeWebService/";
+    NSString* stopIdStr = [self getDepartureStops];
+    NSString* urlStr = [NSString stringWithFormat:@"%@/GetAdvisories?requestType=%@&stopIds=%@",hostName,@"count",stopIdStr];
+    
+
+    NSURL *url= [NSURL URLWithString:urlStr];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    
+    //Send an asyncronous request to get data from url.
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSInteger advisoryCount = 0;
+        if(connectionError != nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(advisoryCount);
+            });
+        }else{
+            //Do json desrialization on data
+            NSError* error;
+            NSDictionary* advisoryCountDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            advisoryCount = [[advisoryCountDict valueForKey:@"advisoryCount"]intValue];
+            NSString* countStr = [NSString stringWithFormat: @"%d", (int)advisoryCount];
+            [self saveUserData:@"advisoryCount" withValue:countStr];
+            
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(advisoryCount);
+        });
+    }];
+}
+
+- (int) getAdvisoryCountFromLocalDB {
+    NSString* advisoryStr = [self getUserData:@"advisoryCount"];
+    return [advisoryStr intValue];
 }
 
 - (NSMutableDictionary *) getAdvisories{
@@ -614,6 +648,28 @@
     
     [advisoryDict setValue:njtTrips forKey:@"NJT"];
     return advisoryDict;
+}
+
+- (NSString*) getDepartureStops{
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSError* error;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Trips"];
+    NSArray* array = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if(array==nil || [array count] <=0)
+        return nil;
+    
+    NSString* stopIdStr = @"";
+    for(int i=0; i< [array count]; i++){
+        NSManagedObject* tripData = [array objectAtIndex:i];
+        NSString* stopName = [tripData valueForKey:@"fromStation"];
+        StopModel* model = [self getStopModelWithName:stopName];
+        stopIdStr = [stopIdStr stringByAppendingString:model.stopId];
+        if( i + 1  < [array count]){
+            stopIdStr = [stopIdStr stringByAppendingString:@","];
+        }
+    }
+    return stopIdStr;
 }
 
 @end

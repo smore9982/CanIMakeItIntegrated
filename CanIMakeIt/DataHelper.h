@@ -38,7 +38,9 @@
 - (NSString *) getTripRealTimes:(NSString*) tripId;
 -(void) saveTripRealTime: (NSInteger) realTimeinSec withTripId: (NSString *)tripId;
 
-- (int) getAdvisoryCount;
+- (void) getAdvisoryCount: (void (^)(int))completionBlock;
+- (int) getAdvisoryCountFromLocalDB;
 - (NSMutableDictionary *) getAdvisories;
+- (NSString*) getDepartureStops;
 
 @end

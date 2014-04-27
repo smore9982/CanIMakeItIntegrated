@@ -28,14 +28,29 @@
 {
     [super viewDidLoad];
     DataHelper* dataHelper = [[DataHelper alloc] init];
-    int count = [dataHelper getAdvisoryCount];
-    [[[[self tabBar] items] objectAtIndex:1] setBadgeValue:[NSString stringWithFormat:@"%d",count]];
+    int count = [dataHelper getAdvisoryCountFromLocalDB];
+    if(count > 0){
+        [[[[self tabBar] items] objectAtIndex:1] setBadgeValue:[NSString stringWithFormat:@"%d",count]];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    DataHelper* dataHelper = [[DataHelper alloc] init];
+    int count = [dataHelper getAdvisoryCountFromLocalDB];
+    if(count > 0){
+        [[[[self tabBar] items] objectAtIndex:1] setBadgeValue:[NSString stringWithFormat:@"%d",count]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) updateAdvisoryCount: (void (^) (UIBackgroundFetchResult)) completionHandler{
+    
 }
 
 @end

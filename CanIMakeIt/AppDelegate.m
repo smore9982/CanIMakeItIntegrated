@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "DataHelper.h"
+#import "CanIMakeItTabController.h"
 
 @implementation AppDelegate
 
@@ -31,6 +32,8 @@
     //Set Section Header Text color
     [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setTextColor:[UIColor orangeColor]];
     [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:14.0]];
+    
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     return YES;
 }
@@ -80,10 +83,39 @@
     [self saveContext];
 }
 
-- (void)application:(UIApplication *)application
-didReceiveLocalNotification:(UILocalNotification *)notification
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     NSLog(@"receive notification");
+}
+
+- (void) application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    NSString* hostName = @"http://ec2-54-85-36-246.compute-1.amazonaws.com:8080/CanIMakeWebService/";
+    DataHelper* dataHelper = [[DataHelper alloc]init];
+    
+    NSString* stopIdStr = [dataHelper getDepartureStops];
+    NSString* urlStr = [NSString stringWithFormat:@"%@/GetAdvisories?requestType=%@&stopIds=%@",hostName,@"count",stopIdStr];
+    
+    NSURLSessionConfiguration* sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+    
+    NSURL* url = [[NSURL alloc] initWithString:urlStr];
+    NSURLSessionDataTask* task = [session dataTaskWithURL:url completionHandler:^(NSData* data, NSURLResponse* response, NSError* error){
+        if(error){
+            NSLog(@"ADVISORYCOUNT Error getting count");
+        }
+        
+        NSDictionary* advisoryCountDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        int advisoryCount = [[advisoryCountDict valueForKey:@"advisoryCount"]intValue];
+        NSString* countStr = [NSString stringWithFormat: @"%d", (int)advisoryCount];
+        [dataHelper saveUserData:@"advisoryCount" withValue:countStr];
+        
+        UITabBarController* navigationController = (UITabBarController*) self.window.rootViewController;
+        if ([navigationController isKindOfClass:[UITabBarController class]]){
+            [(CanIMakeItTabController*) navigationController updateAdvisoryCount:completionHandler];
+        }
+    }];
+    
+    [task resume];
 }
 
 - (void)saveContext
