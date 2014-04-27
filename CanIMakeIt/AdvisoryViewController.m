@@ -25,8 +25,11 @@
     [super viewDidLoad];
 	NSLog(@"Loading advisory");
     self.dataHelper = [[DataHelper alloc]init];
-    self.advisoryDict = [self.dataHelper getAdvisories];
-    self.advisoryKeys = [self.advisoryDict allKeys];
+    [self.dataHelper getAdvisories:^(NSMutableDictionary* advisoryDict){
+        self.advisoryDict = advisoryDict;
+        self.advisoryKeys = [self.advisoryDict allKeys];
+        [self.advisoryTable reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning

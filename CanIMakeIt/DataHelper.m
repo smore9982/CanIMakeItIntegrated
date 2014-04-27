@@ -611,43 +611,54 @@
     return [advisoryStr intValue];
 }
 
-- (NSMutableDictionary *) getAdvisories{
-    NSMutableDictionary* advisoryDict = [[NSMutableDictionary alloc]init];
-    
-    AdvisoryModel* model = [[AdvisoryModel alloc]init];
-    model.advisoryLine = @"LIRR";
-    model.advisoryText = @"THIS IS SOME TEST TEXT FOR ADVISORIES 1. huuawdhoiaw aidaj pdwopd  hiqpd pq qiopwp oqwq qwi jpqwejq  qoepoqwei qp qow   qoe p   oqei poqwie qwe qep qo";
-    
-    AdvisoryModel* model1 = [[AdvisoryModel alloc]init];
-    model1.advisoryLine = @"LIRR";
-    model1.advisoryText = @"THIS IS SOME TEST TEXT FOR ADVISORIES 2";
-    
-    NSMutableArray* lirrTrips = [[NSMutableArray alloc]init];
-    [lirrTrips addObject:model];
-    [lirrTrips addObject:model1];
+- (void) getAdvisories: (void (^)(NSMutableDictionary*))completionBlock {
+    NSString* hostName = @"http://ec2-54-85-36-246.compute-1.amazonaws.com:8080/CanIMakeWebService/";
+    NSString* stopIdStr = [self getDepartureStops];
+    NSString* urlStr = [NSString stringWithFormat:@"%@/GetAdvisories?requestType=%@&stopIds=%@",hostName,@"advisories",stopIdStr];
     
     
-    AdvisoryModel* model2 = [[AdvisoryModel alloc]init];
-    model2.advisoryLine = @"NJT";
-    model2.advisoryText = @"THIS IS SOME TEST TEXT FOR ADVISORIES 3";
+    NSURL *url= [NSURL URLWithString:urlStr];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
     
-    AdvisoryModel* model3 = [[AdvisoryModel alloc]init];
-    model3.advisoryLine = @"NJT";
-    model3.advisoryText = @"THIS IS SOME TEST TEXT FOR ADVISORIES 4";
-    
-    AdvisoryModel* model4 = [[AdvisoryModel alloc]init];
-    model4.advisoryLine = @"NJT";
-    model4.advisoryText = @"THIS IS SOME TEST TEXT FOR ADVISORIES 5";
-    
-    NSMutableArray* njtTrips = [[NSMutableArray alloc]init];
-    [njtTrips addObject:model2];
-    [njtTrips addObject:model3];
-    [njtTrips addObject:model4];
-    
-    [advisoryDict setValue:lirrTrips forKey:@"LIRR"];
-    
-    [advisoryDict setValue:njtTrips forKey:@"NJT"];
-    return advisoryDict;
+    //Send an asyncronous request to get data from url.
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSMutableDictionary* advisoryDict = [[NSMutableDictionary alloc] init];
+        if(connectionError != nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }else{
+            //Do json desrialization on data
+            NSError* error;
+            NSArray* advisoryArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            NSMutableArray* njtTrips = [[NSMutableArray alloc]init];
+            NSMutableArray* lirrTrips = [[NSMutableArray alloc]init];
+            
+            NSMutableDictionary* jsonDict = [[NSMutableDictionary alloc] init];
+            for(int i=0; i< [advisoryArray count]; i++){
+                NSDictionary* jsonDict = [advisoryArray objectAtIndex:i];
+                NSString* advisoryText = [jsonDict valueForKey:@"advisoryText"];
+                NSString* advisoryAgencyId = [jsonDict valueForKey:@"advisoryAgencyId"];
+                AdvisoryModel* advisoryModel = [[AdvisoryModel alloc]init];
+                advisoryModel.advisoryText = advisoryText;
+                advisoryModel.advisoryLine = advisoryAgencyId;
+                
+                if([advisoryAgencyId isEqualToString:@"LI"]){
+                    [lirrTrips addObject:advisoryModel];
+                } else if ( [advisoryAgencyId isEqualToString:@"NJT"]){
+                    [njtTrips addObject:advisoryModel];
+                }
+            }
+            if([lirrTrips count] > 0){
+                [advisoryDict setValue:lirrTrips forKey:@"LIRR"];
+            }else if ([njtTrips count] > 0){
+                [advisoryDict setValue:njtTrips forKey:@"NJT"];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(advisoryDict);
+        });
+    }];
 }
 
 - (NSString*) getDepartureStops{

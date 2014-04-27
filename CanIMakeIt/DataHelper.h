@@ -40,7 +40,7 @@
 
 - (void) getAdvisoryCount: (void (^)(int))completionBlock;
 - (int) getAdvisoryCountFromLocalDB;
-- (NSMutableDictionary *) getAdvisories;
+- (void) getAdvisories: (void (^)(NSMutableDictionary*))completionBlock;
 - (NSString*) getDepartureStops;
 
 @end
