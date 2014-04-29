@@ -36,6 +36,7 @@
 @property int record1;
 @property int record2;
 @property NSString* DepartTime;
+@property BOOL isRecording;
 
 @end
 
@@ -200,7 +201,7 @@
             _recording = true;
             [_RecordTimer invalidate];
             _RecordTimer = nil;
-            
+            _isRecording = false;
         }
 
 }
@@ -518,7 +519,7 @@
 }
 
 -(IBAction)showActionSheet:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Record", @"Recommended Time", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Record",@"Stop Record", @"Recommended Time", nil];
     [actionSheet showInView:self.view];
 }
 
@@ -554,9 +555,54 @@
                                                    cancelButtonTitle:@"OK"
                                                    otherButtonTitles:nil];
              [alert show];
+             _isRecording = true;
          }
              break;
          case 1:
+         {
+             if (!_isRecording) {
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Did not start timer"
+                                                                 message:@"Click record first"
+                                                                delegate:nil
+                                                       cancelButtonTitle:@"OK"
+                                                       otherButtonTitles:nil];
+                 [alert show];
+                 
+             }else{
+                 _isRecording = false;
+                 NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+                 [outputFormatter setDateFormat:@"HH:mm:ss"];
+                 NSDate * today1 = [NSDate date];
+                 NSString *currenthour = [outputFormatter stringFromDate:today1];
+                 [outputFormatter setDateFormat:@"mm:ss"];
+                 NSString *currentmin = [outputFormatter stringFromDate:today1];
+                 [outputFormatter setDateFormat:@"ss"];
+                 NSString *currentsec = [outputFormatter stringFromDate:today1];
+                 double RecordTo = [currenthour doubleValue] * 3600 + [currentmin doubleValue] * 60 + [currentsec doubleValue];
+                 _record2 = RecordTo;
+                 [_dataHelper saveTripRealTime:(_record2 - _record1) withTripId:_defulttripID];
+                 _recording = true;
+                 [_RecordTimer invalidate];
+                 _RecordTimer = nil;
+                 
+                 int seconds = (_record2 - _record1) % 60;
+                 int minutes = ((_record2 - _record1) / 60) % 60;
+                 int hours = (_record2 - _record1) / 3600;
+                 
+                 NSString* timeRecorded = [NSString stringWithFormat:@"%d hours,%d minutes, and %d seconds",hours,minutes,seconds];
+                 NSString* msg = [NSString stringWithFormat:@"You reached the station in %@",timeRecorded];
+                 
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Time Stored"
+                                                    message:msg
+                                                    delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+
+                 [alert show];
+             }
+         }
+             break;
+         case 2:
          {
              self.dataHelper = [[DataHelper alloc] init];
              TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
