@@ -630,7 +630,6 @@
              
              int suggesthour = suggesttime / 3600;
              int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
-             //int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
              NSString *AMPM;
              
              if (suggesthour == 0) {

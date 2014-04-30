@@ -42,17 +42,62 @@
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     
     NSDate* today = [NSDate date];
+    [outputFormatter setDateFormat:@"HH:mm:ss"];
+    NSString *CurrentTime = [outputFormatter stringFromDate:today];
     [outputFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *CurrentDate = [outputFormatter stringFromDate:today];
     NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
     NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
     [outputFormatter setDateFormat:@"MM-dd"];
     CurrentDate = [outputFormatter stringFromDate:today];
+    int tripid = 0;
+    
+    for (int j  = 0; j < [tripTimes count]; j++) {
+        if ([CurrentTime compare:[tripTimes objectAtIndex: j]] == NSOrderedAscending){
+            tripid = j;
+            break;
+        }
+        else if ([CurrentTime compare:[tripTimes objectAtIndex:([tripTimes count] - 1)]] == NSOrderedDescending){
+            today = [today dateByAddingTimeInterval:60*60*24];
+            CurrentDate = [outputFormatter stringFromDate:today];
+            date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
+            tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
+            tripid = 0;
+            break;
+        }
+    }
     
     NSMutableString *a = [NSMutableString string];
-    for (int i = 0; i < [tripTimes count]; i++){
-    [a appendString:[tripTimes objectAtIndex: i]];
-    [a appendString:@"\n"];
+    for (int i = tripid; i < [tripTimes count]; i++){
+        NSString* nextTrain = [tripTimes objectAtIndex: i];
+        [outputFormatter setDateFormat:@"HH:mm:ss"];
+        NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
+        NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
+        [outputFormatter setDateFormat:@"mm:ss"];
+        NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
+        [outputFormatter setDateFormat:@"ss"];
+        NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
+        double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
+        int suggesthour = nexttraintime / 3600;
+        int suggestmin = (nexttraintime - (suggesthour * 3600)) / 60;
+        NSString *AMPM;
+        if (suggesthour == 0) {
+            AMPM = @"AM";
+            suggesthour = 12;
+        }
+        else if (suggesthour < 12){
+            AMPM = @"AM";
+        }
+        else if (suggesthour == 12){
+            AMPM = @"PM";
+        }
+        else if (suggesthour < 24){
+            suggesthour = suggesthour - 12;
+            AMPM = @"PM";
+        }
+        NSString *TIME = [NSString stringWithFormat:@"%02d:%02d %@", suggesthour, suggestmin, AMPM];
+        [a appendString:TIME];
+        [a appendString:@"\n"];
     }
     
     _Date.text = [NSString stringWithFormat:@"%@ Schedule", CurrentDate];
