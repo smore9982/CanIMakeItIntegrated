@@ -29,11 +29,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanIMakeIt/TripDetailViewController.m"
-            timestampString = "419972107.37189"
+            timestampString = "420667624.138405"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "-setDefaultTripButton:"
             landmarkType = "5">
          </BreakpointContent>
@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanIMakeIt/TripDetailViewController.m"
-            timestampString = "419971544.218572"
+            timestampString = "420667624.138405"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>

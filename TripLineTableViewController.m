@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:0.226394 green:0.696649 blue:1.0 alpha:1.0];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -83,7 +83,7 @@
     
     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
     cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0];
-    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.textColor = [UIColor blackColor];
 
     return cell;
 }
@@ -139,7 +139,8 @@
     {
         NSString *selectedAgency = [self.agencyArray objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
     
-        MyTripViewController *destController = segue.destinationViewController;
+        UINavigationController *navController = segue.destinationViewController;
+        MyTripViewController *destController = (MyTripViewController *) navController.topViewController;
         destController.agencyName = selectedAgency;
         destController.agencyId = [self.agencyModel allKeysForObject:selectedAgency][0];
     }

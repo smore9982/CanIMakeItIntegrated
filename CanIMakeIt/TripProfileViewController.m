@@ -37,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:0.226394 green:0.696649 blue:1.0 alpha:1.0];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -172,7 +172,8 @@
         //Retrieve each trip for each cell
         self.contactdb = [trip objectAtIndex:indexPath.row];
         
-        [cell.textLabel setText:[NSString stringWithFormat:@"%@-%@", [self.contactdb valueForKey:@"fromStation"], [self.contactdb valueForKey:@"toStation"]]];
+        NSString *cellText = [NSString stringWithFormat:@"%@-%@", [self.contactdb valueForKey:@"fromStation"], [self.contactdb valueForKey:@"toStation"]];
+        [cell.textLabel setText:[cellText lowercaseString]];
         
         
         //Below code checks for the default trip id, and sets the checkmark appropriately.
@@ -187,45 +188,47 @@
     
         //Set font size, color and type
         cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0];
-        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.textLabel.textColor = [UIColor blackColor];
     
         if(![retrievedObjectUrlString compare:savedDefaultTripID])
         {
             cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:19.0];
-            cell.textLabel.textColor = [UIColor greenColor];
+            cell.textLabel.textColor = [UIColor brownColor];
         }
     }
     
     return cell;
 }
 
+
 -(void) tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     
+    
     TripDetailViewController *destViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"TripDetailViewController"];
     
-
     NSArray *trip = self.agencySplitModel[self.allAgencyNames[indexPath.section]];
     
     NSManagedObject *selectedDevice = [trip objectAtIndex:indexPath.row];
     destViewController.contactdb = selectedDevice;
     
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:destViewController];
     
-    [self presentViewController:destViewController animated:YES completion:nil];
+    navController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navController animated:YES completion:nil];
+    
 }
 
 
 //#pragma mark - Navigation
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
     if ([segue.identifier isEqualToString:@"ToTimerSegue"])
     {
         
         NSArray *trip = self.agencySplitModel[self.allAgencyNames[[[self.tableView indexPathForSelectedRow] section]]];
-        
         //NSLog(@"section - %d, row - %d", [[self.tableView indexPathForSelectedRow] section], [[self.tableView indexPathForSelectedRow] row]);
-    
+        
         if([trip count] > 0 )
         {
             
@@ -241,6 +244,7 @@
             
         }
     }
+    
 }
 
 

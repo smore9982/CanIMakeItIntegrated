@@ -56,8 +56,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+    
 	// Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithRed:0.226394 green:0.696649 blue:1.0 alpha:1.0];
+
     
     //Get all agency information
     self.dataHelp = [[DataHelper alloc] init];
@@ -70,9 +72,9 @@
     
     if(self.contactdb)
     {
-        [self.fromStationLabel setText:[self.contactdb valueForKey:@"fromStation"]];
-        [self.toStationLabel setText:[self.contactdb valueForKey:@"toStation"]];
-        [self.transferStationLabel setText:[self.contactdb valueForKey:@"transferStation"]];
+        [self.fromStationLabel setText:[[self.contactdb valueForKey:@"fromStation"] lowercaseString]];
+        [self.toStationLabel setText:[[self.contactdb valueForKey:@"toStation"] lowercaseString]];
+        [self.transferStationLabel setText:[[self.contactdb valueForKey:@"transferStation"] lowercaseString]];
         
         NSString *tripMin = [Utility convertSecondsToTripTimeStr:[self.contactdb valueForKey:@"tripTime"]];
         [self.tripTimeLabel setText:tripMin];
@@ -84,6 +86,7 @@
         //Set Agency label
         self.agencyId = [self.contactdb valueForKey:@"agencyId"];
         self.agencyLabel.text = [NSString stringWithFormat:@"* %@", self.agencyModel[self.agencyId]];
+        self.agencyLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14.0];
         
         //Show Average Recorded Time to Departure Station
         NSManagedObjectID *tripObject = [self.contactdb objectID];
@@ -186,7 +189,9 @@
 {
     if ([[segue identifier] isEqualToString:@"updateTrips"])
     {
-        MyTripViewController *destViewController = segue.destinationViewController;
+        UINavigationController *navController = segue.destinationViewController;
+        
+        MyTripViewController *destViewController = (MyTripViewController *) navController.topViewController;
         destViewController.contactdb = self.contactdb;
     }
 }

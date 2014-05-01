@@ -22,7 +22,6 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *progressIcon;
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveTripButton;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 
 @property NSString *agencyName;
 @property NSString *agencyId;
