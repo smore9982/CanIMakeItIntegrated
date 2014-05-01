@@ -23,6 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	[self registerForNotifications];
     self.dataHelper = [[DataHelper alloc]init];
     [self.dataHelper getAdvisories:^(NSMutableDictionary* advisoryDict){
@@ -71,6 +72,7 @@
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0];
+        cell.backgroundColor = [UIColor colorWithRed: 0.750212 green: 1.000000 blue: 0.623615 alpha:1.0];
     }
     
     NSString* key = [self.advisoryKeys objectAtIndex:indexPath.section];
@@ -78,6 +80,7 @@
     AdvisoryModel* model = [advisoryArray objectAtIndex:indexPath.row];
     NSString* text =model.advisoryText;
     cell.textLabel.text = text;
+    
     return cell;
 }
 
