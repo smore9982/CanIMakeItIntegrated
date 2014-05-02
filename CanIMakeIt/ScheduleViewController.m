@@ -161,7 +161,7 @@
                             range:TimeBeforeRange];
         
     // now time attributes
-    UIColor *redColor = [UIColor redColor];
+    UIColor *redColor = [UIColor colorWithRed:0.745 green:0.149 blue:0.145 alpha:1];
     NSRange TimeNowRange = [text rangeOfString:TimeNow];
     [attributedText setAttributes:@{NSForegroundColorAttributeName:redColor,
                                     NSFontAttributeName:Font}
