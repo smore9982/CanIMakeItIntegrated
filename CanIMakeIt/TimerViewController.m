@@ -184,7 +184,7 @@
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
-        // .0621371 mi = 1000 meters.
+        // .621371 mi = 1000 meters.
         if (_distance < 0.621371) {
             NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
             [outputFormatter setDateFormat:@"HH:mm:ss"];
@@ -343,7 +343,7 @@
         if (_notification)
         {
             _notification.repeatInterval = 0;
-            _notification.alertBody = @"You should leave now!!";
+            _notification.alertBody = @"You should get ready to leave soon.";
             [_app presentLocalNotificationNow:_notification];
         }
     }
@@ -358,7 +358,7 @@
         if (_notification)
         {
             _notification.repeatInterval = 0;
-            _notification.alertBody = @"You should hurry up!!";
+            _notification.alertBody = @"You should leave now.";
             [_app presentLocalNotificationNow:_notification];
         }
         
