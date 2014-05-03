@@ -342,8 +342,9 @@
     else if (_counter == walktime * 1.5){
         if (_notification)
         {
+            _notification.soundName =  UILocalNotificationDefaultSoundName;
             _notification.repeatInterval = 0;
-            _notification.alertBody = @"You should get ready to leave soon.";
+            _notification.alertBody = @"You should get ready to leave.";
             [_app presentLocalNotificationNow:_notification];
         }
     }
@@ -357,6 +358,7 @@
     else if (_counter == walktime){
         if (_notification)
         {
+            _notification.soundName =  UILocalNotificationDefaultSoundName;
             _notification.repeatInterval = 0;
             _notification.alertBody = @"You should leave now.";
             [_app presentLocalNotificationNow:_notification];
