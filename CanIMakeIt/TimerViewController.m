@@ -622,6 +622,8 @@
              NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
              [outputFormatter setDateFormat:@"ss"];
              NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];
+             
+             //.00086 mile per second = 3.1 miles per hour /(3600) Average walking speed.
              double time = _distance / 0.00086;
              double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
              double suggesttime = nexttraintime - time;
