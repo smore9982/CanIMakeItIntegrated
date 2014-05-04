@@ -532,6 +532,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Welcome" id="sMO-4a-hVo">
                         <barButtonItem key="rightBarButtonItem" title="Start" id="CwA-UE-70o">
@@ -568,7 +569,7 @@
         <!--Navigation Controller-->
         <scene sceneID="WB8-tC-ySj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MVt-cq-Q0y" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="MVt-cq-Q0y" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LaS-go-ucN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -595,6 +596,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <segue destination="MVt-cq-Q0y" kind="modal" identifier="SplashToWelcomeSegue" modalTransitionStyle="crossDissolve" id="HIk-0s-d3Q"/>
@@ -627,7 +629,7 @@
         <!--Navigation Controller-->
         <scene sceneID="sHA-gY-DNR">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M0c-i7-0ug" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="M0c-i7-0ug" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EaB-Kz-Jyj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -707,7 +709,7 @@
         <!--CanI Make It Tab Controller-->
         <scene sceneID="mOW-jY-o4P">
             <objects>
-                <tabBarController storyboardIdentifier="CanIMakeItTabControllerId" automaticallyAdjustsScrollViewInsets="NO" id="iB5-mu-DGo" customClass="CanIMakeItTabController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="CanIMakeItTabControllerId" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="iB5-mu-DGo" customClass="CanIMakeItTabController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="fLu-Cy-eul"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -912,15 +914,15 @@
         <image name="Transport-Train-icon-1.png" width="24" height="24"/>
         <image name="alert-icon.png" width="24" height="24"/>
     </resources>
-    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.2263937228" green="0.69664917989999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3oD-Vf-5fP"/>
-        <segue reference="xtc-AN-PFk"/>
         <segue reference="cRg-KP-wgE"/>
+        <segue reference="SMD-8l-sXf"/>
+        <segue reference="0MI-JX-Kt9"/>
     </inferredMetricsTieBreakers>
 </document>
