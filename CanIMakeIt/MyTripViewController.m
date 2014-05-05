@@ -19,7 +19,9 @@
 @property (strong, nonatomic) NSArray *pickMeridiem;
 @property (strong, nonatomic) NSArray *tripHour;
 @property DataHelper *stopDataHelper;
-
+@property BOOL textFieldTouch1;
+@property BOOL textFieldTouch2;
+@property BOOL textFieldTouch3;
 
 @property (nonatomic, retain) UITableView *stationTableViewOne;
 @property (nonatomic, retain) UITableView *stationTableViewTwo;
@@ -92,9 +94,7 @@
     {
         //ON ADD MODE
         //Get Agency Id for a selected agency name from dictionary
-        NSLog(@"agency - %@", self.agencyName);
         self.agencyId = [self.agencyModel allKeysForObject:self.agencyName][0];
-        NSLog(@"match - %@", self.agencyId);
     }
     
     //Display Agency Name
@@ -155,6 +155,12 @@
     self.tripTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Approx. Time to Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     self.startTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Time to Start Timer" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
+    //Sets the Boolean values to false for textfields (To Toggle between table displays)
+    self.textFieldTouch1 = false;
+    self.textFieldTouch2 = false;
+    self.textFieldTouch3 = false;
+    
+    
     //Hide ProgressIcon and Picker View
     [self.progressIcon setHidden:YES];
     [self.currentPicker setHidden:YES];
@@ -174,29 +180,60 @@
     
     if(self.currentTextField.tag == 1)
     {
+        self.textFieldTouch1 = !self.textFieldTouch1;
         [self.currentTextField resignFirstResponder];
-        self.currentTextField.placeholder = nil;
         self.currentTextField.text = nil;
-        [self.view addSubview:self.stationTableViewOne];
+        if (self.textFieldTouch1)
+        {
+            self.currentTextField.placeholder = nil;
+            [self.view addSubview:self.stationTableViewOne];
+            [self.stationTableViewOne reloadData];
+        }
+        else
+        {
+            self.currentTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Departure Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+            [self.stationTableViewOne removeFromSuperview];
+        }
         
-        [self.stationTableViewOne reloadData];
     }
     else if(self.currentTextField.tag == 2)
     {
+        self.textFieldTouch2 = !self.textFieldTouch2;
         [self.currentTextField resignFirstResponder];
-        self.currentTextField.placeholder = nil;
         self.currentTextField.text = nil;
-        [self.view addSubview:self.stationTableViewTwo];
-        [self.stationTableViewTwo reloadData];
+        if (self.textFieldTouch2)
+        {
+            self.currentTextField.placeholder = nil;
+            [self.view addSubview:self.stationTableViewTwo];
+            [self.stationTableViewTwo reloadData];
+        }
+        else
+        {
+            self.currentTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Destination Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+            [self.stationTableViewTwo removeFromSuperview];
+        }
+        
     }
     else if(self.currentTextField.tag == 3)
     {
+        self.textFieldTouch3 = !self.textFieldTouch3;
         [self.currentTextField resignFirstResponder];
-        self.currentTextField.placeholder = nil;
         self.currentTextField.text = nil;
-        [self.view addSubview:self.transferStationTable];
-        [self.transferStationTable reloadData];
-
+        if (self.textFieldTouch3)
+        {
+            
+            self.currentTextField.placeholder = nil;
+            [self.view addSubview:self.transferStationTable];
+            [self.transferStationTable reloadData];
+        }
+        else
+        {
+            self.currentTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Transfer Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+            [self.transferStationTable removeFromSuperview];
+            
+            
+        }
+        
     }
     else
     {
@@ -278,17 +315,20 @@
     if(tableView.tag == 1)
     {
         [self.fromStation setText:cell.textLabel.text];
+        self.textFieldTouch1 = false;
         [self.stationTableViewOne removeFromSuperview];
     }
     else if(tableView.tag == 2)
     {
         [self.toStation setText:cell.textLabel.text];
+        self.textFieldTouch2 = false;
         [self.stationTableViewTwo removeFromSuperview];
 
     }
     else if(tableView.tag == 3)
     {
         [self.transferStation setText:cell.textLabel.text];
+        self.textFieldTouch3 = false;
         [self.transferStationTable removeFromSuperview];
     }
     
@@ -407,7 +447,29 @@
             
         if(![self.currentPicker isHidden])
             [self.currentPicker setHidden:YES];
+        
+        if (self.fromStation.placeholder == nil)
+        {
+            self.fromStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Departure Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+            self.textFieldTouch1 = false;
+        }
+        else if (self.toStation.placeholder == nil)
+        {
+            self.toStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Destination Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+            self.textFieldTouch2 = false;
+        }
+        else if (self.transferStation.placeholder == nil)
+        {
+            self.transferStation.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Transfer Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+            self.textFieldTouch3 = false;
+        }
+        else if (self.tripTime.placeholder == nil)
+            self.tripTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Approx. Time to Station" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+        else if (self.startTime.placeholder == nil)
+            self.startTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Time to Start Timer" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+        
     }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -478,7 +540,6 @@
         //Load the departure times for the departure and destination station
         StopModel *fromStationInfo = [self.stopDataHelper getStopModelWithName:self.fromStation.text];
         StopModel *toStationInfo = [self.stopDataHelper getStopModelWithName:self.toStation.text];
-        NSLog(@"transfer - %@", self.transferStation.text);
         StopModel *transferStationInfo = [self.stopDataHelper getStopModelWithName:self.transferStation.text];
         
         [self.stopDataHelper saveTripDepartureTimesWithDepartureId:fromStationInfo.stopId DestionstionID:toStationInfo.stopId TransferID :transferStationInfo.stopId
@@ -505,7 +566,6 @@
             else
             {
                 NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Trips" inManagedObjectContext:context];
-                NSLog(@"NEw add agency - %@", self.agencyId);
                 [newDevice setValue:self.agencyId forKey:@"agencyId"];
                 [newDevice setValue:self.fromStation.text forKey:@"fromStation"];
                 [newDevice setValue:self.toStation.text forKey:@"toStation"];
