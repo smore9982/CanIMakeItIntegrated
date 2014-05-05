@@ -123,7 +123,7 @@
     
     
     //Creating Table View for Departure Station Names
-    self.stationTableViewOne = [[UITableView alloc] initWithFrame:CGRectMake(20, 115, 289, 320) style:UITableViewStyleGrouped];
+    self.stationTableViewOne = [[UITableView alloc] initWithFrame:CGRectMake(20, 135, 289, 320) style:UITableViewStyleGrouped];
     self.stationTableViewOne.dataSource = self;
     self.stationTableViewOne.delegate = self;
     self.stationTableViewOne.tag = 1;
@@ -131,7 +131,7 @@
     self.stationTableViewOne.backgroundColor = [UIColor lightGrayColor];
     
     //Creating Table View for Destination Station Names
-    self.stationTableViewTwo = [[UITableView alloc] initWithFrame:CGRectMake(20, 155, 289, 320) style:UITableViewStyleGrouped];
+    self.stationTableViewTwo = [[UITableView alloc] initWithFrame:CGRectMake(20, 170, 289, 320) style:UITableViewStyleGrouped];
     self.stationTableViewTwo.dataSource = self;
     self.stationTableViewTwo.delegate = self;
     self.stationTableViewTwo.tag = 2;
@@ -140,7 +140,7 @@
     
     
     //Create Table View for Transfer Stations
-    self.transferStationTable = [[UITableView alloc] initWithFrame:CGRectMake(20, 190, 289, 320) style:UITableViewStyleGrouped];
+    self.transferStationTable = [[UITableView alloc] initWithFrame:CGRectMake(20, 200, 289, 320) style:UITableViewStyleGrouped];
     self.transferStationTable.dataSource = self;
     self.transferStationTable.delegate = self;
     self.transferStationTable.tag = 3;
