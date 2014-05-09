@@ -212,52 +212,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+//Get the current location from here
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    /*self.dataHelper = [[DataHelper alloc] init];
-    TripProfileModel* tripProfileModel =[self.dataHelper getDefaultProfileData];
-    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-    [outputFormatter setDateFormat:@"HH:mm:ss"];
-    [outputFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *CurrentDate = [outputFormatter stringFromDate:_today];
-    NSDate* date = [Utility stringToDateConversion:CurrentDate withFormat:@"yyyy-MM-dd"];
-    NSArray* tripTimes = [self.dataHelper getTripDepartureTimesForDepartureId:tripProfileModel.departureId DestinationID:tripProfileModel.destinationId onDate:date];
-    NSString* nextTrain = [tripTimes objectAtIndex:_tripid];
-    [outputFormatter setDateFormat:@"HH:mm:ss"];
-    NSDate *nexttrain = [outputFormatter dateFromString:nextTrain];
-    NSString *nexttrainhour = [outputFormatter stringFromDate:nexttrain];
-    [outputFormatter setDateFormat:@"mm:ss"];
-    NSString *nexttrainmin = [outputFormatter stringFromDate:nexttrain];
-    [outputFormatter setDateFormat:@"ss"];
-    NSString *nexttrainsec = [outputFormatter stringFromDate:nexttrain];*/
     
     NSString *lat = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
     _currentLat = lat;
     NSString *longt = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     _currentLongt = longt;
     _distance = sqrt(pow(fabs([_defaultStopLat doubleValue] - [_currentLat doubleValue]),2) + pow(fabs([_defaultStopLongt doubleValue] - [_currentLongt doubleValue]),2)) * 111000 * 0.000621371;
-    //double time = _distance / 0.00086;
-    //double nexttraintime = [nexttrainhour doubleValue] * 3600 + [nexttrainmin doubleValue] * 60 + [nexttrainsec doubleValue];
-    //double suggesttime = nexttraintime - time;
-    
-    /*while (suggesttime < 0) {
-        suggesttime = suggesttime + 24 * 3600;
-    }
-    
-    int suggesthour = suggesttime / 3600;
-    int suggestmin = (suggesttime - (suggesthour * 3600)) / 60;
-    int suggestsec = suggesttime - (suggesthour * 3600) - (suggestmin * 60);
-    _DTS = [NSString stringWithFormat:@"%.02f miles", _distance];
-    _DepartTime = [NSString stringWithFormat:@"%02d:%02d:%02d", suggesthour, suggestmin, suggestsec];*/
+
 }
 
-- (IBAction)Stop:(id)sender {
-    [self.stopWatchTimer invalidate];
-    self.stopWatchTimer = nil;
-}
-
+//Implement Countdown Timer
 - (void)updateTimer
 {
     [_locationManager startUpdatingLocation];
@@ -375,6 +344,7 @@
     
 }
 
+//Skip Train Button
 - (IBAction)SkipTrain:(id)sender {
 
     _case1 = true;
@@ -434,6 +404,7 @@
     self.NextTrainTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:16];
 }
 
+//Reset Button
 - (IBAction)ResetTimer:(id)sender {
     
     _case1 = true;
@@ -520,6 +491,7 @@
     }
 }
 
+//Action Sheet Menu
 -(IBAction)showActionSheet:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Record",@"Stop Record", @"Recommended Time", nil];
     [actionSheet showInView:self.view];
@@ -656,10 +628,6 @@
              
              
              _Recommended.text = @"Recommended departure time:";
-             _distanceToStop.text = _DTS;
-             _distanceToStop.textColor = [UIColor lightGrayColor];
-             _distanceToStop.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:20];
-             _distanceToStop.textAlignment = NSTextAlignmentCenter;
              _DepartureTime.text = _DepartTime;
              _DepartureTime.textColor = [UIColor lightGrayColor];
              _DepartureTime.font = [UIFont fontWithName:@"AvenirNext-Heavy" size:20];
@@ -668,6 +636,7 @@
              break;
      }
 }
+
 - (IBAction)Schedule:(id)sender {
     [self.slidingViewController anchorTopViewTo:ECLeft];
 }
